@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121.
+-->
+<Project>
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <_PublishTargetUrl>C:\Users\MehaboobKizhakepura\source\repos\PRP\PRP.Service.Api\bin\Release\net6.0\publish\</_PublishTargetUrl>
+    <History>True|2022-05-27T22:30:34.4411163Z;True|2022-05-25T20:29:18.2296881-04:00;True|2022-05-18T15:33:10.3155327-04:00;True|2022-05-13T11:40:27.7254241-04:00;True|2022-05-13T10:46:33.8577304-04:00;</History>
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="Conn">
+      <Value>Server=172.24.32.132%3bdatabase=CDLData%3bUser ID=CDL_PRP%3bPassword=Bt3chPRP!22%3bmax pool size=200%3b</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+</Project>

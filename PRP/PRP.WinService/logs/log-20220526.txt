@@ -1,0 +1,224 @@
+2022-05-26 18:14:02.103 -04:00 [INF] Service is starting...
+2022-05-26 18:14:07.148 -04:00 [INF] Email sent sucessfully.
+2022-05-26 18:14:07.149 -04:00 [INF] POD Report: Client 
+  {
+    "clientID........: "16:00:00"
+  }
+]
+2022-05-26 18:14:08.137 -04:00 [INF] Email sent sucessfully.
+2022-05-26 18:14:08.137 -04:00 [INF] EXCEPTION Report: Client 
+  {
+    "clientID........ibution HUB"
+  }
+]
+2022-05-26 18:14:08.919 -04:00 [INF] Email sent sucessfully.
+2022-05-26 18:14:08.919 -04:00 [INF] SCAN Report: Client 
+  {
+    "clientID........16T18:03:56"
+  }
+]
+2022-05-26 18:14:08.923 -04:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-05-26 18:14:08.925 -04:00 [INF] Hosting environment: Development
+2022-05-26 18:14:08.925 -04:00 [INF] Content root path: C:\Users\MehaboobKizhakepura\source\repos\PRP\PRP.WinService
+2022-05-26 18:14:15.677 -04:00 [INF] Email sent sucessfully.
+2022-05-26 18:14:15.677 -04:00 [INF] POD Report: Client 
+  {
+    "clientID........: "16:00:00"
+  }
+]
+2022-05-26 18:14:16.799 -04:00 [INF] Email sent sucessfully.
+2022-05-26 18:14:16.799 -04:00 [INF] EXCEPTION Report: Client 
+  {
+    "clientID........ibution HUB"
+  }
+]
+2022-05-26 18:14:17.484 -04:00 [INF] Email sent sucessfully.
+2022-05-26 18:14:17.484 -04:00 [INF] SCAN Report: Client 
+  {
+    "clientID........16T18:03:56"
+  }
+]
+2022-05-26 18:14:24.058 -04:00 [INF] Email sent sucessfully.
+2022-05-26 18:14:24.058 -04:00 [INF] POD Report: Client 
+  {
+    "clientID........: "16:00:00"
+  }
+]
+2022-05-26 18:14:24.968 -04:00 [INF] Email sent sucessfully.
+2022-05-26 18:14:24.968 -04:00 [INF] EXCEPTION Report: Client 
+  {
+    "clientID........ibution HUB"
+  }
+]
+2022-05-26 18:14:25.610 -04:00 [INF] Email sent sucessfully.
+2022-05-26 18:14:25.610 -04:00 [INF] SCAN Report: Client 
+  {
+    "clientID........16T18:03:56"
+  }
+]
+2022-05-26 18:14:32.059 -04:00 [INF] Email sent sucessfully.
+2022-05-26 18:14:32.059 -04:00 [INF] POD Report: Client 
+  {
+    "clientID........: "16:00:00"
+  }
+]
+2022-05-26 18:14:32.934 -04:00 [INF] Email sent sucessfully.
+2022-05-26 18:14:32.934 -04:00 [INF] EXCEPTION Report: Client 
+  {
+    "clientID........ibution HUB"
+  }
+]
+2022-05-26 18:14:33.599 -04:00 [INF] Email sent sucessfully.
+2022-05-26 18:14:33.600 -04:00 [INF] SCAN Report: Client 
+  {
+    "clientID........16T18:03:56"
+  }
+]
+2022-05-26 18:14:39.999 -04:00 [INF] Email sent sucessfully.
+2022-05-26 18:14:39.999 -04:00 [INF] POD Report: Client 
+  {
+    "clientID........: "16:00:00"
+  }
+]
+2022-05-26 18:14:40.856 -04:00 [INF] Email sent sucessfully.
+2022-05-26 18:14:40.856 -04:00 [INF] EXCEPTION Report: Client 
+  {
+    "clientID........ibution HUB"
+  }
+]
+2022-05-26 18:14:41.579 -04:00 [INF] Email sent sucessfully.
+2022-05-26 18:14:41.580 -04:00 [INF] SCAN Report: Client 
+  {
+    "clientID........16T18:03:56"
+  }
+]
+2022-05-26 18:14:47.962 -04:00 [INF] Email sent sucessfully.
+2022-05-26 18:14:47.962 -04:00 [INF] POD Report: Client 
+  {
+    "clientID........: "16:00:00"
+  }
+]
+2022-05-26 18:14:48.768 -04:00 [INF] Email sent sucessfully.
+2022-05-26 18:14:48.768 -04:00 [INF] EXCEPTION Report: Client 
+  {
+    "clientID........ibution HUB"
+  }
+]
+2022-05-26 18:14:49.378 -04:00 [INF] Email sent sucessfully.
+2022-05-26 18:14:49.378 -04:00 [INF] SCAN Report: Client 
+  {
+    "clientID........16T18:03:56"
+  }
+]
+2022-05-26 18:14:55.938 -04:00 [INF] Email sent sucessfully.
+2022-05-26 18:14:55.938 -04:00 [INF] POD Report: Client 
+  {
+    "clientID........: "16:00:00"
+  }
+]
+2022-05-26 18:14:56.765 -04:00 [INF] Email sent sucessfully.
+2022-05-26 18:14:56.765 -04:00 [INF] EXCEPTION Report: Client 
+  {
+    "clientID........ibution HUB"
+  }
+]
+2022-05-26 18:14:57.408 -04:00 [INF] Email sent sucessfully.
+2022-05-26 18:14:57.408 -04:00 [INF] SCAN Report: Client 
+  {
+    "clientID........16T18:03:56"
+  }
+]
+2022-05-26 18:15:28.828 -04:00 [INF] Service is starting...
+2022-05-26 18:15:30.792 -04:00 [INF] Email sent sucessfully.
+2022-05-26 18:15:30.792 -04:00 [INF] POD Report: Client 
+  {
+    "clientID........: "16:00:00"
+  }
+]
+2022-05-26 18:15:31.609 -04:00 [INF] Email sent sucessfully.
+2022-05-26 18:15:31.609 -04:00 [INF] EXCEPTION Report: Client 
+  {
+    "clientID........ibution HUB"
+  }
+]
+2022-05-26 18:15:32.256 -04:00 [INF] Email sent sucessfully.
+2022-05-26 18:15:32.256 -04:00 [INF] SCAN Report: Client 
+  {
+    "clientID........16T18:03:56"
+  }
+]
+2022-05-26 18:15:32.260 -04:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-05-26 18:15:32.261 -04:00 [INF] Hosting environment: Development
+2022-05-26 18:15:32.261 -04:00 [INF] Content root path: C:\Users\MehaboobKizhakepura\source\repos\PRP\PRP.WinService
+2022-05-26 18:15:38.754 -04:00 [INF] Email sent sucessfully.
+2022-05-26 18:15:38.754 -04:00 [INF] POD Report: Client 
+  {
+    "clientID........: "16:00:00"
+  }
+]
+2022-05-26 18:15:39.615 -04:00 [INF] Email sent sucessfully.
+2022-05-26 18:15:39.615 -04:00 [INF] EXCEPTION Report: Client 
+  {
+    "clientID........ibution HUB"
+  }
+]
+2022-05-26 18:15:40.266 -04:00 [INF] Email sent sucessfully.
+2022-05-26 18:15:40.266 -04:00 [INF] SCAN Report: Client 
+  {
+    "clientID........16T18:03:56"
+  }
+]
+2022-05-26 18:15:46.616 -04:00 [INF] Email sent sucessfully.
+2022-05-26 18:15:46.616 -04:00 [INF] POD Report: Client 
+  {
+    "clientID........: "16:00:00"
+  }
+]
+2022-05-26 18:15:47.564 -04:00 [INF] Email sent sucessfully.
+2022-05-26 18:15:47.564 -04:00 [INF] EXCEPTION Report: Client 
+  {
+    "clientID........ibution HUB"
+  }
+]
+2022-05-26 18:15:48.301 -04:00 [INF] Email sent sucessfully.
+2022-05-26 18:15:48.301 -04:00 [INF] SCAN Report: Client 
+  {
+    "clientID........16T18:03:56"
+  }
+]
+2022-05-26 18:15:54.618 -04:00 [INF] Email sent sucessfully.
+2022-05-26 18:15:54.618 -04:00 [INF] POD Report: Client 
+  {
+    "clientID........: "16:00:00"
+  }
+]
+2022-05-26 18:15:55.562 -04:00 [INF] Email sent sucessfully.
+2022-05-26 18:15:55.562 -04:00 [INF] EXCEPTION Report: Client 
+  {
+    "clientID........ibution HUB"
+  }
+]
+2022-05-26 18:15:56.387 -04:00 [INF] Email sent sucessfully.
+2022-05-26 18:15:56.387 -04:00 [INF] SCAN Report: Client 
+  {
+    "clientID........16T18:03:56"
+  }
+]
+2022-05-26 18:16:02.728 -04:00 [INF] Email sent sucessfully.
+2022-05-26 18:16:02.728 -04:00 [INF] POD Report: Client 
+  {
+    "clientID........: "16:00:00"
+  }
+]
+2022-05-26 18:16:04.009 -04:00 [INF] Email sent sucessfully.
+2022-05-26 18:16:04.010 -04:00 [INF] EXCEPTION Report: Client 
+  {
+    "clientID........ibution HUB"
+  }
+]
+2022-05-26 18:16:04.749 -04:00 [INF] Email sent sucessfully.
+2022-05-26 18:16:04.750 -04:00 [INF] SCAN Report: Client 
+  {
+    "clientID........16T18:03:56"
+  }
+]
