@@ -17,6 +17,10 @@ namespace PRPApi
                 config.CreateMap<ScanReportDto, ScanReport>().ReverseMap();
                 config.CreateMap<ExceptionReportDto, ExceptionReport>();
                 config.CreateMap<ExceptionReportDto, ExceptionReport>().ReverseMap();
+                config.CreateMap<PartnerDetailDto, PartnerDetail>();
+                config.CreateMap<PartnerDetailDto, PartnerDetail>().ReverseMap();
+                config.CreateMap<PartnerEmailDto, PartnerEmail>();
+                config.CreateMap<PartnerEmailDto, PartnerEmail>().ReverseMap();
             });
 
             return mappingConfig;

@@ -61,13 +61,13 @@ namespace PRP.WinService.Report
                     {
                         switch (pd.ReportName)
                         {
-                            case "POD_REPORT":
+                            case "POD":
                                 GeneratePODReport(pd);
                                 break;
-                            case "EXCEPTION_REPORT":
+                            case "EXCEPTION":
                                 GenerateExceptionReport(pd);
                                 break;
-                            case "SCAN_REPORT":
+                            case "SCAN":
                                 GenerateScanReport(pd);
                                 break;
                         }
