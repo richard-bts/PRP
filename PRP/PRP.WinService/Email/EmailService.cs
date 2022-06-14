@@ -1,6 +1,11 @@
-﻿using MailKit.Security;
+﻿using MailKit.Net.Pop3;
+using MailKit.Security;
+using Microsoft.Exchange.WebServices.Data;
 using MimeKit;
 using MimeKit.Text;
+using Newtonsoft.Json;
+using PRP.WinService.ApiServices;
+using PRP.WinService.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,13 +19,14 @@ namespace PRP.WinService.Email
     public class EmailService : IEmailService
     {
         #region Constructor And Member Variables
+        private readonly IPRPService _PRPService;
         public string? EmailIDs { get; set; }
         public string? FileAttach { get; set; }
         public string? SMTPHost { get; set; }
 
-        public EmailService()
+        public EmailService(IPRPService PRPService)
         {
-
+            _PRPService = PRPService;
         }
         #endregion
 
@@ -35,18 +41,41 @@ namespace PRP.WinService.Email
 
             using (var client = new MailKit.Net.Smtp.SmtpClient())
             {
-                //client.ServerCertificateValidationCallback += new System.Net.Security.RemoteCertificateValidationCallback(ValidateCertificate);
+                client.ServerCertificateValidationCallback += new System.Net.Security.RemoteCertificateValidationCallback(ValidateCertificate);
                 client.SslProtocols = System.Security.Authentication.SslProtocols.Tls12;
                
                 client.Connect(configuration.GetSection("EmailSettings:Server").Value, 465, SecureSocketOptions.Auto);
                 
                 client.Authenticate(configuration.GetSection("EmailSettings:User").Value, configuration.GetSection("EmailSettings:Password").Value);
 
+
                 string testUser = configuration.GetSection("EmailSettings:TestUser").Value;
                 string testUserEmailID = configuration.GetSection("EmailSettings:TestUserEmailID").Value;
                 var mimeMessage = new MimeMessage();
                 mimeMessage.Subject = $"PRP - {reportTitle} ({clientID})";
                 mimeMessage.From.Add(new MailboxAddress(mimeMessage.Subject, testUserEmailID));
+
+
+                List<PartnerEmailDto>? PartnerEmailList = new();
+
+                var response = _PRPService.GetPartnerEmails(2);
+
+                string? content = String.Empty;
+
+                if (response != null && response.Result != null && response.Result.Result != null)
+                    content = Convert.ToString(response.Result.Result);
+
+                if (response != null && response.Result != null && !string.IsNullOrEmpty(content))
+                {
+                    PartnerEmailList = JsonConvert.DeserializeObject<List<PartnerEmailDto>>(content);
+                }
+
+                if (PartnerEmailList != null)
+                {
+                    foreach (PartnerEmailDto email in PartnerEmailList)
+                        mimeMessage.To.Add(new MailboxAddress(email.Email, email.Email));
+                }
+
                 mimeMessage.To.Add(new MailboxAddress(testUser, testUserEmailID));
                 mimeMessage.Cc.Add(new MailboxAddress(testUser, testUserEmailID));
                 mimeMessage.Bcc.Add(new MailboxAddress(testUser, testUserEmailID));
@@ -61,7 +90,7 @@ namespace PRP.WinService.Email
 
                 try
                 {
-                    client.Send(mimeMessage);
+                    //client.Send(mimeMessage);
                 }
                 catch(Exception ex)
                 {
@@ -72,6 +101,34 @@ namespace PRP.WinService.Email
 
                 mimeMessage.To.Clear();
                 mimeMessage.Cc.Clear();
+
+                List<MimeMessage?> emails = new List<MimeMessage?>();
+
+                using (var emailPopClient = new Pop3Client() )
+                {
+                    emailPopClient.Connect(configuration.GetSection("EmailSettings:Server").Value, 995, true);
+                    emailPopClient.AuthenticationMechanisms.Remove("XOATH2");
+                    emailPopClient.Authenticate(configuration.GetSection("EmailSettings:User").Value, configuration.GetSection("EmailSettings:Password").Value);
+
+                    for (int nCount= 0; nCount<emailPopClient.Count;nCount++)
+                    {
+                        var message = emailPopClient.GetMessage(nCount);
+                        
+                        if (message.Attachments.Count() >0)
+                        {
+                            foreach(MimePart attachment in message.Attachments)
+                            {
+                                Console.WriteLine(attachment.FileName);
+                            }
+                        }
+
+                        //var emailMessage = new MimeMessage
+                        //{
+                        //    Body = new TextPart(TextFormat.Html) { Text = message.HtmlBody },
+                        //    Subject = message.Subject,
+                        //};
+                    }
+                }
 
                 client.Disconnect(true);
 

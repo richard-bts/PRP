@@ -102,35 +102,25 @@ namespace PRP.Service.Api.Repository
 
             return _mapper.Map<List<ExceptionReportDto>>(exceptionreport);
         }
-        public async Task<IEnumerable<PartnerDetailDto>> GetPartners()
+
+        public Task<IEnumerable<bool>> GetReportTypes()
         {
-            List<PartnerDetail> partners = new List<PartnerDetail>();
-
-            if (_db.Partners != null)
-                partners = await _db.Partners.FromSqlRaw("EXEC [dbo].[sp_GetPartners]").ToListAsync();
-
-            return _mapper.Map<List<PartnerDetailDto>>(partners);
-
+            throw new NotImplementedException();
         }
-        public async Task<IEnumerable<PartnerEmailDto>> GetPartnerEmails(int partnerID)
+
+        public Task<IEnumerable<bool>> AddReportType()
         {
-            var param = new SqlParameter[]
-            {
-                new SqlParameter()
-                {
-                    ParameterName="@partnerId",
-                    SqlDbType = System.Data.SqlDbType.DateTime,
-                    Direction = System.Data.ParameterDirection.Input,
-                    Value = partnerID
-                }
-            };
+            throw new NotImplementedException();
+        }
 
-            List<PartnerEmail> partneremails = new List<PartnerEmail>();
+        public Task<IEnumerable<bool>> EditReportType()
+        {
+            throw new NotImplementedException();
+        }
 
-            if (_db.PartnerEmails != null)
-                partneremails = await _db.PartnerEmails.FromSqlRaw("EXEC [dbo].[sp_GetPartnerEmails] @partnerId", param).ToListAsync();
-
-            return _mapper.Map<List<PartnerEmailDto>>(partneremails);
+        public Task<IEnumerable<bool>> RemoveReportType()
+        {
+            throw new NotImplementedException();
         }
         #endregion
 

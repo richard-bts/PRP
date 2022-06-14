@@ -39,6 +39,7 @@ try
 
     //Adding PODReport repository
     builder.Services.AddScoped<IReportRepository, ReportRepository>();
+    builder.Services.AddScoped<IPartnerRepository, PartnerRepository>();
     var app = builder.Build();
 
     //Adding Serilog's request logging streamlines
@@ -47,7 +48,7 @@ try
 
     #region APIs
 
-    app.MapGet("api/GetPODReport", async ([FromServices] IReportRepository ReportRepository, DateTime inputDate, int clientID) =>
+    app.MapGet("api/report/GetPODReport", async ([FromServices] IReportRepository ReportRepository, DateTime inputDate, int clientID) =>
     {
         ResponseDto response = new ResponseDto();
 
@@ -69,7 +70,7 @@ try
         return response;
     });
 
-    app.MapGet("api/GetScanReport", async ([FromServices] IReportRepository ReportRepository, DateTime inputDate, int clientID) =>
+    app.MapGet("api/report/GetScanReport", async ([FromServices] IReportRepository ReportRepository, DateTime inputDate, int clientID) =>
     {
         ResponseDto response = new ResponseDto();
 
@@ -92,7 +93,7 @@ try
         return response;
     });
 
-    app.MapGet("api/GetExceptionReport", async ([FromServices] IReportRepository ReportRepository, DateTime inputDate, int clientID) =>
+    app.MapGet("api/report/GetExceptionReport", async ([FromServices] IReportRepository ReportRepository, DateTime inputDate, int clientID) =>
     {
         ResponseDto response = new ResponseDto();
 
@@ -113,13 +114,93 @@ try
         return response;
     });
 
-    app.MapGet("api/GetPartners", async ([FromServices] IReportRepository ReportRepository) =>
+    app.MapGet("api/report/GetReportTypes", async ([FromServices] IReportRepository ReportRepository, DateTime inputDate, int clientID) =>
     {
         ResponseDto response = new ResponseDto();
 
         try
         {
-            response.Result = await ReportRepository.GetPartners();
+            response.Result = await ReportRepository.GetReportTypes();
+            Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"GetReportTypes api called successfully...");
+        }
+        catch (Exception ex)
+        {
+            response.IsSuccess = false;
+            response.ErrorMessages = new List<string>() { ex.ToString() };
+            Log.Logger.ForContext("Component", "PRP.Service.Api").Error("{Message}", $"GetReportTypes api call failed. " +
+                $"Error Message: {response.ErrorMessages}.");
+        }
+
+        return response;
+    });
+
+    app.MapPost("api/report/AddReportType", async ([FromServices] IReportRepository ReportRepository, DateTime inputDate, int clientID) =>
+    {
+        ResponseDto response = new ResponseDto();
+
+        try
+        {
+            response.Result = await ReportRepository.AddReportType();
+            Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"AddReportType api called successfully...");
+        }
+        catch (Exception ex)
+        {
+            response.IsSuccess = false;
+            response.ErrorMessages = new List<string>() { ex.ToString() };
+            Log.Logger.ForContext("Component", "PRP.Service.Api").Error("{Message}", $"AddReportType api call failed. " +
+                $"Error Message: {response.ErrorMessages}.");
+        }
+
+        return response;
+    });
+
+    app.MapPut("api/report/EditReportType", async ([FromServices] IReportRepository ReportRepository, DateTime inputDate, int clientID) =>
+    {
+        ResponseDto response = new ResponseDto();
+
+        try
+        {
+            response.Result = await ReportRepository.EditReportType();
+            Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"EditReportType api called successfully...");
+        }
+        catch (Exception ex)
+        {
+            response.IsSuccess = false;
+            response.ErrorMessages = new List<string>() { ex.ToString() };
+            Log.Logger.ForContext("Component", "PRP.Service.Api").Error("{Message}", $"EditReportType api call failed. " +
+                $"Error Message: {response.ErrorMessages}.");
+        }
+
+        return response;
+    });
+
+    app.MapDelete("api/report/RemoveReportType", async ([FromServices] IReportRepository ReportRepository, DateTime inputDate, int clientID) =>
+    {
+        ResponseDto response = new ResponseDto();
+
+        try
+        {
+            response.Result = await ReportRepository.EditReportType();
+            Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"RemoveReportType api called successfully...");
+        }
+        catch (Exception ex)
+        {
+            response.IsSuccess = false;
+            response.ErrorMessages = new List<string>() { ex.ToString() };
+            Log.Logger.ForContext("Component", "PRP.Service.Api").Error("{Message}", $"RemoveReportType api call failed. " +
+                $"Error Message: {response.ErrorMessages}.");
+        }
+
+        return response;
+    });
+
+    app.MapGet("api/partner/GetPartners", async ([FromServices] IPartnerRepository PartnerRepository) =>
+    {
+        ResponseDto response = new ResponseDto();
+
+        try
+        {
+            response.Result = await PartnerRepository.GetPartners();
             Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"GetPartners api called successfully...");
         }
         catch (Exception ex)
@@ -127,31 +208,154 @@ try
             response.IsSuccess = false;
             response.ErrorMessages = new List<string>() { ex.ToString() };
             Log.Logger.ForContext("Component", "PRP.Service.Api").Error("{Message}", $"GetPartners api call failed. " +
-                                    $"Error Message: {response.ErrorMessages}...");
+                                    $"Error Message: {response.ErrorMessages}");
         }
 
         return response;
+
     });
 
-    app.MapGet("api/GetPartnerEmails", async ([FromServices] IReportRepository ReportRepository, int partnerID) =>
+    app.MapPost("api/partner/AddPartner", async ([FromServices] IPartnerRepository PartnerRepository, int partnerID) =>
     {
         ResponseDto response = new ResponseDto();
 
         try
         {
-            response.Result = await ReportRepository.GetPartnerEmails(partnerID);
-            Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"GetPartnerEmails api called successfully...partnerID:{partnerID}");
+            response.Result = await PartnerRepository.AddPartner();
+            Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"AddPartner api called successfully...");
+        }
+        catch (Exception ex)
+        {
+            response.IsSuccess = false;
+            response.ErrorMessages = new List<string>() { ex.ToString() };
+            Log.Logger.ForContext("Component", "PRP.Service.Api").Error("{Message}", $"AddPartner api call failed. " +
+                                    $"Error Message: {response.ErrorMessages}");
+        }
+
+        return response;
+    });
+
+    app.MapPut("api/partner/EditPartner", async ([FromServices] IPartnerRepository PartnerRepository, int partnerID) =>
+    {
+        ResponseDto response = new ResponseDto();
+
+        try
+        {
+            response.Result = await PartnerRepository.EditPartner();
+            Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"EditPartner api called successfully...");
+        }
+        catch (Exception ex)
+        {
+            response.IsSuccess = false;
+            response.ErrorMessages = new List<string>() { ex.ToString() };
+            Log.Logger.ForContext("Component", "PRP.Service.Api").Error("{Message}", $"EditPartner api call failed. " +
+                                    $"Error Message: {response.ErrorMessages}");
+        }
+
+        return response;
+    });
+
+    app.MapDelete("api/partner/RemovePartner", async ([FromServices] IPartnerRepository PartnerRepository, int partnerID) =>
+    {
+        ResponseDto response = new ResponseDto();
+
+        try
+        {
+            response.Result = await PartnerRepository.RemovePartner();
+            Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"RemovePartner api called successfully...");
+        }
+        catch (Exception ex)
+        {
+            response.IsSuccess = false;
+            response.ErrorMessages = new List<string>() { ex.ToString() };
+            Log.Logger.ForContext("Component", "PRP.Service.Api").Error("{Message}", $"RemovePartner api call failed. " +
+                                    $"Error Message: {response.ErrorMessages}");
+        }
+
+        return response;
+    });
+
+    app.MapGet("api/partner/GetPartnerEmails", async ([FromServices] IPartnerRepository PartnerRepository, int partnerID) =>
+    {
+        ResponseDto response = new ResponseDto();
+
+        try
+        {
+            response.Result = await PartnerRepository.GetPartnerEmails(partnerID);
+            Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"GetPartnerEmails api called successfully...");
         }
         catch (Exception ex)
         {
             response.IsSuccess = false;
             response.ErrorMessages = new List<string>() { ex.ToString() };
             Log.Logger.ForContext("Component", "PRP.Service.Api").Error("{Message}", $"GetPartnerEmails api call failed. " +
-                                    $"Error Message: {response.ErrorMessages}..partnerID:{partnerID}");
+                                    $"Error Message: {response.ErrorMessages}");
         }
 
         return response;
     });
+
+    app.MapPost("api/partner/AddPartnerEmail", async ([FromServices] IPartnerRepository PartnerRepository, int partnerID) =>
+    {
+        ResponseDto response = new ResponseDto();
+
+        try
+        {
+            response.Result = await PartnerRepository.AddPartnerEmail();
+            Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"AddPartnerEmail api called successfully...");
+        }
+        catch (Exception ex)
+        {
+            response.IsSuccess = false;
+            response.ErrorMessages = new List<string>() { ex.ToString() };
+            Log.Logger.ForContext("Component", "PRP.Service.Api").Error("{Message}", $"AddPartnerEmail api call failed. " +
+                                    $"Error Message: {response.ErrorMessages}");
+        }
+
+        return response;
+    });
+
+    app.MapPut("api/partner/EditPartnerEmail", async ([FromServices] IPartnerRepository PartnerRepository, int partnerID) =>
+    {
+        ResponseDto response = new ResponseDto();
+
+        try
+        {
+            response.Result = await PartnerRepository.EditPartnerEmail();
+            Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"EditPartnerEmail api called successfully...");
+        }
+        catch (Exception ex)
+        {
+            response.IsSuccess = false;
+            response.ErrorMessages = new List<string>() { ex.ToString() };
+            Log.Logger.ForContext("Component", "PRP.Service.Api").Error("{Message}", $"EditPartnerEmail api call failed. " +
+                                    $"Error Message: {response.ErrorMessages}");
+        }
+
+        return response;
+    });
+
+    app.MapDelete("api/partner/RemovePartnerEmail", async ([FromServices] IPartnerRepository PartnerRepository, int partnerID) =>
+    {
+        ResponseDto response = new ResponseDto();
+
+        try
+        {
+            response.Result = await PartnerRepository.RemovePartnerEmail();
+            Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"RemovePartnerEmail api called successfully...");
+        }
+        catch (Exception ex)
+        {
+            response.IsSuccess = false;
+            response.ErrorMessages = new List<string>() { ex.ToString() };
+            Log.Logger.ForContext("Component", "PRP.Service.Api").Error("{Message}", $"RemovePartnerEmail api call failed. " +
+                                    $"Error Message: {response.ErrorMessages}");
+        }
+
+        return response;
+    });
+
+
 
     #endregion
 
