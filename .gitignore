@@ -3,3 +3,6 @@
 ################################################################################
 
 /PRP/PRP.Service.Api/logs
+/PRP/PRP.WinService/logs
+/PRP/.vs/PRP/FileContentIndex
+/.vs

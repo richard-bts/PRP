@@ -17,6 +17,8 @@ namespace PRP.Service.Api.DbContexts
         public DbSet<ExceptionReport>? ExceptionReport { get; set; }
         public DbSet<PartnerDetail>? Partners { get; set; }
         public DbSet<PartnerEmail>? PartnerEmails { get; set; }
+
+        public DbSet<ReportType>? ReportTypes { get; set; }
         #endregion
     }
 }

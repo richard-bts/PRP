@@ -103,24 +103,122 @@ namespace PRP.Service.Api.Repository
             return _mapper.Map<List<ExceptionReportDto>>(exceptionreport);
         }
 
-        public Task<IEnumerable<bool>> GetReportTypes()
+        public async Task<IEnumerable<ReportTypeDto>> GetReportTypes()
         {
+
+            List<ReportType> raporttype = new List<ReportType>();
+
+            if (_db.ReportTypes != null)
+                raporttype = await _db.ReportTypes.FromSqlRaw("EXEC [dbo].[sp_GetReportTypes]").ToListAsync();
+
+            return _mapper.Map<List<ReportTypeDto>>(raporttype);
+        }
+
+        public async Task<IEnumerable<ReportTypeDto>> AddReportType(string name)
+        {
+            var param = new SqlParameter[]
+           {
+                        new SqlParameter()
+                        {
+                            ParameterName="@report_name",
+                            SqlDbType = System.Data.SqlDbType.Text,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = name
+                        },
+                        new SqlParameter()
+                        {
+                            ParameterName="@date_created",
+                            SqlDbType = System.Data.SqlDbType.Date,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = DateTime.Now
+                        },
+                        new SqlParameter()
+                        {
+                            ParameterName="@date_modified",
+                            SqlDbType = System.Data.SqlDbType.Date,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = DateTime.Now
+                        }
+
+
+           };
+
+            List<ReportType> addreporttype = new List<ReportType>();
+
+            if (_db.ReportTypes != null)
+                addreporttype = await _db.ReportTypes.FromSqlRaw("EXEC [dbo].[sp_AddReportType] @report_name, @date_created, @date_modified", param).ToListAsync();
+
+            return _mapper.Map<List<ReportTypeDto>>(addreporttype);
+        }
+
+        public async Task<IEnumerable<ReportTypeDto>> EditReportType(int id, string Name)
+        {
+
+            var param = new SqlParameter[]
+         {
+                        new SqlParameter()
+                        {
+                            ParameterName="@id",
+                            SqlDbType = System.Data.SqlDbType.Int,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = id
+                        },
+                        new SqlParameter()
+                        {
+                            ParameterName="@name",
+                            SqlDbType = System.Data.SqlDbType.Text,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = Name
+                        }
+                        ,
+                        new SqlParameter()
+                        {
+                            ParameterName="@date",
+                            SqlDbType = System.Data.SqlDbType.DateTime,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = DateTime.Now
+                        }
+
+
+         };
+
+            List<ReportType> editreporttype = new List<ReportType>();
+
+            if (_db.ReportTypes != null)
+                editreporttype = await _db.ReportTypes.FromSqlRaw("EXEC [dbo].[sp_EditReportType] @id, @name, @date", param).ToListAsync();
+
+            return _mapper.Map<List<ReportTypeDto>>(editreporttype);
+
+
+
+
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<bool>> AddReportType()
+        public async Task<bool> RemoveReportType(int id)
         {
-            throw new NotImplementedException();
-        }
+            var param = new SqlParameter[]
+           {
+                        new SqlParameter()
+                        {
+                            ParameterName="@id",
+                            SqlDbType = System.Data.SqlDbType.Int,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = id
+                        }
 
-        public Task<IEnumerable<bool>> EditReportType()
-        {
-            throw new NotImplementedException();
-        }
 
-        public Task<IEnumerable<bool>> RemoveReportType()
-        {
-            throw new NotImplementedException();
+           };
+
+            List<ReportType> removereporttype = new List<ReportType>();
+
+            if (_db.ReportTypes != null)
+                removereporttype = await _db.ReportTypes.FromSqlRaw("EXEC [dbo].[sp_RemoveReportType] @id", param).ToListAsync();
+            if (removereporttype.Count > 0)
+                return true;
+            else
+                return false;
+            
         }
         #endregion
 

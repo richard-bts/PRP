@@ -21,6 +21,8 @@ namespace PRPApi
                 config.CreateMap<PartnerDetailDto, PartnerDetail>().ReverseMap();
                 config.CreateMap<PartnerEmailDto, PartnerEmail>();
                 config.CreateMap<PartnerEmailDto, PartnerEmail>().ReverseMap();
+                config.CreateMap<ReportTypeDto, ReportType>();
+                config.CreateMap<ReportTypeDto, ReportType>().ReverseMap();
             });
 
             return mappingConfig;

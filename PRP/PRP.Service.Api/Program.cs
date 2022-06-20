@@ -114,7 +114,7 @@ try
         return response;
     });
 
-    app.MapGet("api/report/GetReportTypes", async ([FromServices] IReportRepository ReportRepository, DateTime inputDate, int clientID) =>
+    app.MapGet("api/report/GetReportTypes", async ([FromServices] IReportRepository ReportRepository) =>
     {
         ResponseDto response = new ResponseDto();
 
@@ -134,13 +134,13 @@ try
         return response;
     });
 
-    app.MapPost("api/report/AddReportType", async ([FromServices] IReportRepository ReportRepository, DateTime inputDate, int clientID) =>
+    app.MapPost("api/report/AddReportType", async ([FromServices] IReportRepository ReportRepository, string name) =>
     {
         ResponseDto response = new ResponseDto();
 
         try
         {
-            response.Result = await ReportRepository.AddReportType();
+            response.Result = await ReportRepository.AddReportType(name);
             Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"AddReportType api called successfully...");
         }
         catch (Exception ex)
@@ -154,13 +154,13 @@ try
         return response;
     });
 
-    app.MapPut("api/report/EditReportType", async ([FromServices] IReportRepository ReportRepository, DateTime inputDate, int clientID) =>
+    app.MapPut("api/report/EditReportType", async ([FromServices] IReportRepository ReportRepository, int id , string report_name) =>
     {
         ResponseDto response = new ResponseDto();
 
         try
         {
-            response.Result = await ReportRepository.EditReportType();
+            response.Result = await ReportRepository.EditReportType(id, report_name);
             Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"EditReportType api called successfully...");
         }
         catch (Exception ex)
@@ -174,13 +174,13 @@ try
         return response;
     });
 
-    app.MapDelete("api/report/RemoveReportType", async ([FromServices] IReportRepository ReportRepository, DateTime inputDate, int clientID) =>
+    app.MapDelete("api/report/RemoveReportType", async ([FromServices] IReportRepository ReportRepository, int idReportType) =>
     {
         ResponseDto response = new ResponseDto();
 
         try
         {
-            response.Result = await ReportRepository.EditReportType();
+            response.Result = await ReportRepository.RemoveReportType(idReportType);
             Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"RemoveReportType api called successfully...");
         }
         catch (Exception ex)

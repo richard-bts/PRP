@@ -19,8 +19,9 @@ namespace PRP.Service.Api.Tests
 {
     public class ReportTest
     {
-        public string _Connection = "Server=172.24.32.132;database=CDLData;User ID=CDL_PRP;Password=Bt3chPRP!22;max pool size=200;";
-
+        //public string _Connection = "Server=172.24.32.132;database=CDLData;User ID=CDL_PRP;Password=Bt3chPRP!22;max pool size=200;";
+        public string _Connection = "Server=WORKPC\\SQLEXPRESS;database=CDLData;Integrated Security = SSPI;max pool size=200;";
+        
         private readonly ApplicationDbContext _dbContext;
         private readonly IReportRepository _reportservice;
 
@@ -55,6 +56,36 @@ namespace PRP.Service.Api.Tests
         public async void GetExceptionReport_Test()
         {
             var response = await _reportservice.GetExceptionReport(DateTime.Now, 112);
+
+            Assert.NotNull(response);
+        }
+        [Fact]
+        public async void GetReportType()
+        {
+            var response = await _reportservice.GetReportTypes();
+
+            Assert.NotNull(response);
+        }
+
+
+        [Fact]
+        public async void AddReportType_Test()
+        {
+            var response = await _reportservice.AddReportType("Test");
+
+            Assert.NotNull(response);
+        }
+        [Fact]
+        public async void EditReportType_Test()
+        {
+            var response = await _reportservice.EditReportType(12,"TEST1");
+
+            Assert.NotNull(response);
+        }
+        [Fact]
+        public async void RemoveReportType_Test()
+        {
+            var response = await _reportservice.RemoveReportType(22);
 
             Assert.NotNull(response);
         }

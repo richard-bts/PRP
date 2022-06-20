@@ -6,9 +6,9 @@ namespace PRP.Service.Api.Repository
         Task<IEnumerable<PODReportDto>> GetPODReport(DateTime inputDate, int clientID);
         Task<IEnumerable<ScanReportDto>> GetScanReport(DateTime inputDate, int clientID);
         Task<IEnumerable<ExceptionReportDto>> GetExceptionReport(DateTime inputDate, int clientID);
-        Task<IEnumerable<bool>> GetReportTypes();
-        Task<IEnumerable<bool>> AddReportType();
-        Task<IEnumerable<bool>> EditReportType();
-        Task<IEnumerable<bool>> RemoveReportType();
+        Task<IEnumerable<ReportTypeDto>> GetReportTypes();
+        Task<IEnumerable<ReportTypeDto>> AddReportType(string name);
+        Task<IEnumerable<ReportTypeDto>> EditReportType(int id, string Name);
+        Task<bool> RemoveReportType(int id);
     }
 }
