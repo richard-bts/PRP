@@ -1,20 +1,23 @@
 import { useSelector } from "react-redux";
 
 import Layout from "../../shared/components/Layouts";
-import { PlusSmIcon } from "@heroicons/react/solid";
-import { Table } from "../../components/partners/Table";
+import { tableHeadPartners } from "../../shared/data";
+import { Table } from "../../shared/components/Table";
 import { PageTitle } from "../../shared/components/PageTitle";
 import { SearchBar } from "../../components/partners/SearchBar";
+
+import { PlusSmIcon } from "@heroicons/react/solid";
 import { ButtonIcon } from "../../shared/components/ButtonIcon";
 
 const Partners = () => {
+  
   const { partners } = useSelector( state => state.partners );
-  console.log("partners", partners);
+
   return (
     <Layout
       headTitle="Partners"
     >
-      <section className="flex flex-col items-center justify-between gap-6 px-5 mt-10 mb-20 md:flex-row md:px-0">
+      <section className="flex flex-col items-center justify-between gap-6 px-5 mt-10 mb-10 md:flex-row md:px-0 md:mb-16">
         <PageTitle title="Partners" />
         
         <div className="flex md:justify-end md:gap-10">
@@ -29,8 +32,14 @@ const Partners = () => {
         </div>
       </section>
 
-      <main>
-        <Table />
+      <main className="mb-20">
+        <Table
+          tableStyles="w-full table-auto min-w-max shadow-md"
+          theadItems={ tableHeadPartners }
+          theadTrGridStyles="grid grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 items-center"
+          tbodyItems={ partners }
+          tbodyTrGridStyles="grid grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 items-center"
+        />
       </main>
     </Layout>
   )

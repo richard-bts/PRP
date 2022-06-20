@@ -2,7 +2,7 @@ import Image from "next/image";
 import Layout from "../shared/components/Layouts";
 import { HomeCardContainer } from "../components/home/HomeCardContainer";
 
-import { cardLinks } from "../shared/data/homeCardsLinks";
+import { cardLinks } from "../shared/data";
 
 export default function Home() {
   return (
@@ -17,6 +17,7 @@ export default function Home() {
               layout="fill"
               alt="Box image"
               title="Box image"
+              priority="true"
             />
           </div>
 

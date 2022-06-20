@@ -13,7 +13,7 @@ const Layout = ({ children, headTitle }) => {
 
       <Header />
 
-      <div className="container">
+      <div className="container px-4">
         {children}
       </div>
     </>
