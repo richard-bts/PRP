@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.table-partner-item:nth-child(even) {
+  background-color: rgba(75, 85, 99, 0.15);
+}
+
+.table-partner-item .reports span {
+  background-color: #343434;
+}
+
+.table-partner-item .reports span.api {
+  background-color: #3C8DB9;
+}
+
+.table-partner-item .reports span.scan.audit {
+  background-color: #9C7A97;
+}
+
+.table-partner-item .reports span.exception {
+  background-color: #EE964B;
+}
+
+@media screen and (min-width: 1280px) {
+  .home__hero-image {
+    height: 528px;
+    width: 528px;
+  }
+}
