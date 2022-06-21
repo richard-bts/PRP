@@ -215,13 +215,13 @@ try
 
     });
 
-    app.MapPost("api/partner/AddPartner", async ([FromServices] IPartnerRepository PartnerRepository, int partnerID) =>
+    app.MapPost("api/partner/AddPartner", async ([FromServices] IPartnerRepository PartnerRepository, PartnerDetailDto partner) =>
     {
         ResponseDto response = new ResponseDto();
 
         try
         {
-            response.Result = await PartnerRepository.AddPartner();
+            response.Result = await PartnerRepository.AddPartner(partner);
             Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"AddPartner api called successfully...");
         }
         catch (Exception ex)
@@ -235,13 +235,13 @@ try
         return response;
     });
 
-    app.MapPut("api/partner/EditPartner", async ([FromServices] IPartnerRepository PartnerRepository, int partnerID) =>
+    app.MapPut("api/partner/EditPartner", async ([FromServices] IPartnerRepository PartnerRepository, PartnerDetailDto partner) =>
     {
         ResponseDto response = new ResponseDto();
 
         try
         {
-            response.Result = await PartnerRepository.EditPartner();
+            response.Result = await PartnerRepository.EditPartner(partner);
             Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"EditPartner api called successfully...");
         }
         catch (Exception ex)
@@ -261,7 +261,7 @@ try
 
         try
         {
-            response.Result = await PartnerRepository.RemovePartner();
+            response.Result = await PartnerRepository.RemovePartner(partnerID);
             Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"RemovePartner api called successfully...");
         }
         catch (Exception ex)
@@ -295,13 +295,13 @@ try
         return response;
     });
 
-    app.MapPost("api/partner/AddPartnerEmail", async ([FromServices] IPartnerRepository PartnerRepository, int partnerID) =>
+    app.MapPost("api/partner/AddPartnerEmail", async ([FromServices] IPartnerRepository PartnerRepository, PartnerEmailDto partner) =>
     {
         ResponseDto response = new ResponseDto();
 
         try
         {
-            response.Result = await PartnerRepository.AddPartnerEmail();
+            response.Result = await PartnerRepository.AddPartnerEmail(partner);
             Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"AddPartnerEmail api called successfully...");
         }
         catch (Exception ex)
@@ -315,13 +315,13 @@ try
         return response;
     });
 
-    app.MapPut("api/partner/EditPartnerEmail", async ([FromServices] IPartnerRepository PartnerRepository, int partnerID) =>
+    app.MapPut("api/partner/EditPartnerEmail", async ([FromServices] IPartnerRepository PartnerRepository, PartnerEmailDto partner) =>
     {
         ResponseDto response = new ResponseDto();
 
         try
         {
-            response.Result = await PartnerRepository.EditPartnerEmail();
+            response.Result = await PartnerRepository.EditPartnerEmail(partner);
             Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"EditPartnerEmail api called successfully...");
         }
         catch (Exception ex)
@@ -341,7 +341,7 @@ try
 
         try
         {
-            response.Result = await PartnerRepository.RemovePartnerEmail();
+            response.Result = await PartnerRepository.RemovePartnerEmail(partnerID);
             Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"RemovePartnerEmail api called successfully...");
         }
         catch (Exception ex)
@@ -354,9 +354,6 @@ try
 
         return response;
     });
-
-
-
     #endregion
 
     #region Development env settings and app run
