@@ -1,12 +1,7 @@
 import { SearchIcon } from '@heroicons/react/solid';
 import { ButtonIcon } from '../../shared/components/ButtonIcon';
 
-export const SearchBar = () => {
-
-  const handleSearch = () => {
-    console.log("Searching partner...");
-  };
-
+export const SearchBar = ({ setSearchText, searchText, handleSearch }) => {
   return (
     <div className="flex justify-center">
       <div className="xl:w-96">
@@ -17,6 +12,8 @@ export const SearchBar = () => {
             placeholder="Search partners"
             aria-label="Search"
             aria-describedby="button-addon2"
+            value={ searchText }
+            onChange={ e => setSearchText(e.target.value) }
           />
           <ButtonIcon
             onClick={ handleSearch }

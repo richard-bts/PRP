@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import sidebarReducer from './sidebar/sidebarSlice';
-import partnertsReducer from './partners/partnertsSlice';
+import sidebar from './sidebar/sidebarSlice';
+import partners from './partners/partnersSlice';
 
 export const store = configureStore({
   reducer: {
-    sidebar: sidebarReducer,
-    partners: partnertsReducer,
+    sidebar,
+    partners
   },
 })

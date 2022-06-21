@@ -8,7 +8,7 @@ export const ButtonIcon = ({ children, onClick, btnColors, btnStyles, btnLabel, 
       className={`btn px-4 py-2.5 shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-300 ease-in-out flex items-center ${ btnStyles || btnDefaultStyles } ${ btnColors || btnDefaultColors }`}
       type="button"
       id="button-addon2"
-      onClick={ onClick || (() => {}) }
+      onClick={ () => onClick() || (() => {}) }
     >
       { children }
 

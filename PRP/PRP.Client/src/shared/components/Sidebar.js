@@ -1,14 +1,12 @@
-import { useSelector, useDispatch } from 'react-redux';
-
 import { BurgerIcon } from './BurgerIcon';
 import { Links } from './Links';
 
 import { navLinks } from '../data';
-import { hideSidebar, showSidebar } from '../../store';
+import { hideSidebar, showSidebar, useAppDispatch, useAppSelector } from '../../store';
 
 const Sidebar = () => {
-  const { isOpen } = useSelector(state => state.sidebar);
-  const dispatch = useDispatch();
+  const { isOpen } = useAppSelector( state => state.sidebar);
+  const dispatch = useAppDispatch();
   const genericHamburgerLine = `h-1 w-6 my-1 rounded-full bg-black transition ease transform duration-300`;
 
   const handleIsOpen = () => {

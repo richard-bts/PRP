@@ -41,6 +41,25 @@ a {
   background-color: #EE964B;
 }
 
+.pagination-item {
+  display: none;
+}
+
+.pagination .current-page,
+.pagination .next-page {
+  display: block;
+}
+
+@media screen and (min-width: 768px) {
+  .pagination-item {
+    display: block;
+  }
+
+  .pagination-item.hidden {
+    display: none;
+  }
+}
+
 @media screen and (min-width: 1280px) {
   .home__hero-image {
     height: 528px;
