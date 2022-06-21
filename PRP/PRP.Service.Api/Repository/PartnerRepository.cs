@@ -28,7 +28,15 @@ namespace PRP.Service.Api.Repository
                 partners = await _db.Partners.FromSqlRaw("EXEC [dbo].[sp_GetPartners]").ToListAsync();
 
             return _mapper.Map<List<PartnerDetailDto>>(partners);
+        }
+        public async Task<PartnerDetailDto> GetPartner(int partnerID)
+        {
+            PartnerDetail? partner = null;
 
+            if (_db.Partners != null)
+                partner = await _db.Partners.FromSqlRaw("EXEC [dbo].[sp_GetPartners]").FirstOrDefaultAsync();
+
+            return _mapper.Map<PartnerDetailDto>(partner);
         }
         public async Task<IEnumerable<PartnerEmailDto>> GetPartnerEmails(int partnerID)
         {
@@ -50,29 +58,233 @@ namespace PRP.Service.Api.Repository
 
             return _mapper.Map<List<PartnerEmailDto>>(partneremails);
         }
-        public Task<IEnumerable<bool>> AddPartner()
+        public async Task<PartnerDetailDto> AddPartner(PartnerDetailDto partner)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (partner != null)
+                {
+                    List<SqlParameter> param = new()
+                    {
+                        new SqlParameter()
+                        {
+                            ParameterName="@clientId",
+                            SqlDbType = System.Data.SqlDbType.Int,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = partner.ClientId
+                        },
+                        new SqlParameter()
+                        {
+                            ParameterName="@partnerId",
+                            SqlDbType = System.Data.SqlDbType.Int,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = partner.PartnerId
+                        },
+                        new SqlParameter()
+                        {
+                            ParameterName="@partnerName",
+                            SqlDbType = System.Data.SqlDbType.NVarChar,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = partner.PartnerName
+                        },
+                        new SqlParameter()
+                        {
+                            ParameterName="@reportName",
+                            SqlDbType = System.Data.SqlDbType.NVarChar,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = partner.ReportName
+                        }
+                    };
+                    if (_db.Partners != null)
+                        await _db.Database.ExecuteSqlRawAsync("EXEC [dbo].[sp_AddPartner] @clientId, @partnerId, @partnerName, @reportName", param.ToArray());
+                }
+            }
+            catch (Exception)
+            {
+            }
+            return partner;
         }
-        public Task<IEnumerable<bool>> AddPartnerEmail()
+
+        public async Task<PartnerEmailDto> AddPartnerEmail(PartnerEmailDto partneremail)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (partneremail != null)
+                {
+                    DateTime createdDate = DateTime.Now;
+                    var param = new SqlParameter[]
+                    {
+                        new SqlParameter()
+                        {
+                            ParameterName="@partnerId",
+                            SqlDbType = System.Data.SqlDbType.Int,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = partneremail.PartnerId
+                        },
+                        new SqlParameter()
+                        {
+                            ParameterName="@email",
+                            SqlDbType = System.Data.SqlDbType.NVarChar,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = partneremail.Email
+                        },
+                        new SqlParameter()
+                        {
+                            ParameterName="@date_created",
+                            SqlDbType = System.Data.SqlDbType.DateTime,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = createdDate
+                        }
+                    };
+                    if (_db.PartnerEmails != null)
+                    {
+                        await _db.Database.ExecuteSqlRawAsync("EXEC [dbo].[sp_AddPartnerEmail] @partnerId, @email, @date_created", param);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+            }
+            return partneremail;
         }
-        public Task<IEnumerable<bool>> EditPartner()
+
+        public async Task<PartnerDetailDto> EditPartner(PartnerDetailDto partner)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (partner != null)
+                {
+                    var param = new SqlParameter[]
+                    {
+                        new SqlParameter()
+                        {
+                            ParameterName="@Id",
+                            SqlDbType = System.Data.SqlDbType.Int,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = partner.Id
+                        },
+                        new SqlParameter()
+                        {
+                            ParameterName="@clientId",
+                            SqlDbType = System.Data.SqlDbType.Int,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = partner.ClientId
+                        },
+                        new SqlParameter()
+                        {
+                            ParameterName="@partnerId",
+                            SqlDbType = System.Data.SqlDbType.Int,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = partner.PartnerId
+                        },
+                        new SqlParameter()
+                        {
+                            ParameterName="@partnerName",
+                            SqlDbType = System.Data.SqlDbType.NVarChar,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = partner.PartnerName
+                        },
+                        new SqlParameter()
+                        {
+                            ParameterName="@reportName",
+                            SqlDbType = System.Data.SqlDbType.NVarChar,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = partner.ReportName
+                        }
+                    };
+                    await _db.Database.ExecuteSqlRawAsync("EXEC [dbo].[sp_EditPartner] @Id, @clientId, @partnerId, @partnerName, @reportName", param);
+                }
+            }
+            catch (Exception)
+            {
+            }
+            return partner;
         }
-        public Task<IEnumerable<bool>> EditPartnerEmail()
+
+        public async Task<PartnerEmailDto> EditPartnerEmail(PartnerEmailDto partneremail)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (partneremail != null)
+                {
+                    var param = new SqlParameter[]
+                    {
+                        new SqlParameter()
+                        {
+                            ParameterName="@Id",
+                            SqlDbType = System.Data.SqlDbType.Int,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = partneremail.Id
+                        },
+                        new SqlParameter()
+                        {
+                            ParameterName="@partnerId",
+                            SqlDbType = System.Data.SqlDbType.Int,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = partneremail.PartnerId
+                        },
+                        new SqlParameter()
+                        {
+                            ParameterName="@email",
+                            SqlDbType = System.Data.SqlDbType.NVarChar,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = partneremail.Email
+                        }
+                    };
+                    await _db.Database.ExecuteSqlRawAsync("EXEC [dbo].[sp_EditPartnerEmail] @Id, @partnerId, @email", param);
+                }
+            }
+            catch (Exception)
+            {
+            }
+            return partneremail;
         }
-        public Task<IEnumerable<bool>> RemovePartner()
+        public Task<bool> RemovePartner(int id)
         {
-            throw new NotImplementedException();
+            bool response = false;
+            try
+            {
+                var param = new SqlParameter[]
+                {
+                    new SqlParameter()
+                    {
+                        ParameterName="@partnerId",
+                        SqlDbType = System.Data.SqlDbType.Int,
+                        Direction = System.Data.ParameterDirection.Input,
+                        Value = id
+                    }
+                };
+                _db.Database.ExecuteSqlRaw("EXEC [dbo].[sp_RemovePartnerDetails] @partnerId", param);
+                response = true;
+            }
+            catch (Exception)
+            {
+            }
+            return Task.FromResult(response);
         }
-        public Task<IEnumerable<bool>> RemovePartnerEmail()
+
+        public Task<bool> RemovePartnerEmail(int id)
         {
-            throw new NotImplementedException();
+            bool response = false;
+            try
+            {
+                var param = new SqlParameter[]
+                {
+                    new SqlParameter()
+                    {
+                        ParameterName="@partnerId",
+                        SqlDbType = System.Data.SqlDbType.Int,
+                        Direction = System.Data.ParameterDirection.Input,
+                        Value = id
+                    }
+                };
+                _db.Database.ExecuteSqlRaw("EXEC [dbo].[sp_RemovePartnerEmails] @partnerId", param);
+                response = true;
+            }
+            catch (Exception)
+            {
+            }
+            return Task.FromResult(response);
         }
         #endregion
     }
