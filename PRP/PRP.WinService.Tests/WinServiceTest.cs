@@ -18,7 +18,7 @@ namespace PRP.WinService.Tests
         public WinServiceTest()
         {
           _prpService = new PRPService();
-          _emailService = new EmailService();
+          _emailService = new EmailService(_prpService);
 
           var loggerFactory = LoggerFactory.Create(
                        builder => builder
