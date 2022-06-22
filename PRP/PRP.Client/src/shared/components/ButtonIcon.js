@@ -1,6 +1,8 @@
-const btnDefaultColors = "bg-indigo-500 hover:bg-indigo-600 focus:bg-indigo-600 active:bg-indigo-600";
-const labelDefaultColors = "text-white";
-const btnDefaultStyles = "rounded-tr rounded-br";
+import PropTypes from 'prop-types';
+
+const btnDefaultColors = 'bg-indigo-500 hover:bg-indigo-600 focus:bg-indigo-600 active:bg-indigo-600';
+const labelDefaultColors = 'text-white';
+const btnDefaultStyles = 'rounded-tr rounded-br';
 
 export const ButtonIcon = ({ children, onClick, btnColors, btnStyles, btnLabel, labelStyles, labelColors }) => {
   return (
@@ -14,5 +16,15 @@ export const ButtonIcon = ({ children, onClick, btnColors, btnStyles, btnLabel, 
 
       { btnLabel && <span className={`ml-3 font-medium tracking-wide ${ labelColors || labelDefaultColors } ${ labelStyles || '' }`}>{ btnLabel }</span> }
     </button>
-  )
-}
+  );
+};
+
+ButtonIcon.propTypes = {
+  children: PropTypes.node.isRequired,
+  onClick: PropTypes.func,
+  btnColors: PropTypes.string,
+  btnStyles: PropTypes.string,
+  btnLabel: PropTypes.string,
+  labelStyles: PropTypes.string,
+  labelColors: PropTypes.string
+};

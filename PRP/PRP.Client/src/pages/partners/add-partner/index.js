@@ -1,4 +1,4 @@
-import Layout from "../../../shared/components/Layouts";
+import { Layout } from '../../../shared/components';
 
 const AddPartner = () => {
   return (
@@ -7,7 +7,7 @@ const AddPartner = () => {
     >
       <div>Hi from AddPartner</div>
     </Layout>
-  )
-}
+  );
+};
 
-export default AddPartner
+export default AddPartner;

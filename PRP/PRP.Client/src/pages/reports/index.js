@@ -1,4 +1,4 @@
-import Layout from "../../shared/components/Layouts";
+import { Layout } from '../../shared/components';
 
 const Reports = () => {
   return (
@@ -7,7 +7,7 @@ const Reports = () => {
     >
       <div>Hi from Reports</div>
     </Layout>
-  )
-}
+  );
+};
 
-export default Reports
+export default Reports;

@@ -1,5 +1,6 @@
+import PropTypes from 'prop-types';
 import { SearchIcon } from '@heroicons/react/solid';
-import { ButtonIcon } from '../../shared/components/ButtonIcon';
+import { ButtonIcon } from '../../shared/components';
 
 export const SearchBar = ({ setSearchText, searchText, handleSearch }) => {
   return (
@@ -24,5 +25,11 @@ export const SearchBar = ({ setSearchText, searchText, handleSearch }) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
+
+SearchBar.propTypes = {
+  setSearchText: PropTypes.func.isRequired,
+  searchText: PropTypes.string.isRequired,
+  handleSearch: PropTypes.func.isRequired
+};

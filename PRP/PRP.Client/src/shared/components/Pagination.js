@@ -1,4 +1,5 @@
-import { ChevronDoubleLeftIcon, ChevronDoubleRightIcon } from "@heroicons/react/solid";
+import PropTypes from 'prop-types';
+import { ChevronDoubleLeftIcon, ChevronDoubleRightIcon } from '@heroicons/react/solid';
 
 export const Pagination = ({ partnersPerPage, totalPartners, handleChangePage, currentPage }) => {
 
@@ -37,5 +38,12 @@ export const Pagination = ({ partnersPerPage, totalPartners, handleChangePage, c
         <ChevronDoubleRightIcon className="w-4 h-4 text-gray-500" />
       </button>
     </div>
-  )
+  );
+};
+
+Pagination.propTypes = {
+  partnersPerPage: PropTypes.number.isRequired,
+  totalPartners: PropTypes.number.isRequired,
+  handleChangePage: PropTypes.func.isRequired,
+  currentPage: PropTypes.number.isRequired
 };

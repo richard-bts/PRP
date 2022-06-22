@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 export const BurgerIcon = ({ handleIsOpen, isOpen, genericHamburgerLine }) => {
   return (
     <button
@@ -21,5 +23,11 @@ export const BurgerIcon = ({ handleIsOpen, isOpen, genericHamburgerLine }) => {
           }`}
       />
     </button>
-  )
-}
+  );
+};
+
+BurgerIcon.propTypes = {
+  handleIsOpen: PropTypes.func.isRequired,
+  isOpen: PropTypes.bool.isRequired,
+  genericHamburgerLine: PropTypes.string.isRequired
+};

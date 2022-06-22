@@ -1,8 +1,7 @@
-import Image from "next/image";
-import Layout from "../shared/components/Layouts";
-import { HomeCardContainer } from "../components/home/HomeCardContainer";
-
-import { cardLinks } from "../shared/data";
+import Image from 'next/image';
+import { cardLinks } from '../shared/data';
+import { Layout } from '../shared/components';
+import { HomeCardContainer } from '../components/home';
 
 export default function Home() {
   return (
@@ -27,5 +26,5 @@ export default function Home() {
         </section>
       </main>
     </Layout>
-  )
-}
+  );
+};

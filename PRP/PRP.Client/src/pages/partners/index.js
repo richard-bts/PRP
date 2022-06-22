@@ -1,13 +1,8 @@
-import Layout from "../../shared/components/Layouts";
-import { tableHeadPartners } from "../../shared/data";
-import { Table } from "../../shared/components/Table";
-import { PageTitle } from "../../shared/components/PageTitle";
-import { SearchBar } from "../../components/partners/SearchBar";
-import { Pagination } from "../../shared/components/Pagination";
-
-import { PlusSmIcon } from "@heroicons/react/solid";
-import { ButtonIcon } from "../../shared/components/ButtonIcon";
-import { useFilter } from "../../shared/hooks/useFilter";
+import { PlusSmIcon } from '@heroicons/react/solid';
+import { tableHeadPartners } from '../../shared/data';
+import { SearchBar } from '../../components/partners';
+import { useFilter } from '../../shared/hooks/useFilter';
+import { Layout, Table, PageTitle, Pagination, ButtonIcon } from '../../shared/components';
 
 const Partners = () => {
 
@@ -40,9 +35,9 @@ const Partners = () => {
         <Table
           tableStyles="w-full table-auto min-w-max shadow-md"
           theadItems={ tableHeadPartners }
-          theadTrGridStyles="grid grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 items-center"
+          theadTrGridStyles="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 items-center"
           tbodyItems={ currentPartners }
-          tbodyTrGridStyles="grid grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 items-center"
+          tbodyTrGridStyles="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 items-center"
         />
 
         <Pagination
@@ -53,7 +48,7 @@ const Partners = () => {
         />
       </main>
     </Layout>
-  )
-}
+  );
+};
 
 export default Partners;

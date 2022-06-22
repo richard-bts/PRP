@@ -10,7 +10,7 @@ export const tableHeadPartners = [
   },
   {
     label: "Active",
-    stylesClasses: "px-5 py-2	text-center"
+    stylesClasses: "px-5 py-2	text-center hidden sm:block"
   },
   {
     label: "Report Types",

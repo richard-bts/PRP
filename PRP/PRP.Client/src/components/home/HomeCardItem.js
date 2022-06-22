@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 export const HomeCardItem = ({ title, description }) => {
   return (
     <div className="flex flex-col justify-between max-w-md px-8 py-4 bg-white rounded-lg shadow-lg w-72 h-60">
@@ -12,5 +14,10 @@ export const HomeCardItem = ({ title, description }) => {
       </div>
 
     </div>
-  )
+  );
+};
+
+HomeCardItem.propTypes = {
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired
 };

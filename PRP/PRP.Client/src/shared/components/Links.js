@@ -1,4 +1,5 @@
-import ActiveLink from "./ActiveLink"
+import PropTypes from 'prop-types';
+import { ActiveLink } from './';
 
 export const Links = ({ navItems, classStyles }) => {
   return (
@@ -14,5 +15,14 @@ export const Links = ({ navItems, classStyles }) => {
         ))
       }
     </>
-  )
-}
+  );
+};
+
+Links.propTypes = {
+  navItems: PropTypes.arrayOf(PropTypes.shape(
+    {
+      to: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired 
+    }
+  )).isRequired,
+};
