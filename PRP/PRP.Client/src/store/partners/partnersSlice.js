@@ -1,7 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  partners: [],
+  partners: [
+    {
+      id: 1,
+      name: 'Partner Demo',
+      email: 'partnerdemo@email.cdl',
+      isActive: false,
+      typesReport: ["API"]
+    }
+  ],
   activePartner: {}
 };
 

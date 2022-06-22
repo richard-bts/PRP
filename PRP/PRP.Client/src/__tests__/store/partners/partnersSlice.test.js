@@ -1,21 +1,21 @@
 import { addPartner, editPartner, partnersSlice, removePartner, setActivePartner } from "../../../store";
-import { initialState, initialStateActivePartner, initialStatePartners, partnerDemo } from "../../fixtures/partnersFixtures";
+import { initialStatePartner, initialStateActivePartner, initialStatePartners, partnerDemo } from "../../fixtures/partnersFixtures";
 
 describe('Test on authSlice', () => {
 
   test('should show an initialState of partners and its called partners', () => {
   
-    const state = partnersSlice.reducer(initialState, {});
+    const state = partnersSlice.reducer(initialStatePartner, {});
 
     expect(partnersSlice.name).toBe('partners');
-    expect(state).toEqual(initialState); 
+    expect(state).toEqual(initialStatePartner); 
   
   });
 
   test('should add a partner to the state', () => {
 
-    const state = partnersSlice.reducer(initialState, addPartner(partnerDemo));
-    
+    const state = partnersSlice.reducer(initialStatePartner, addPartner(partnerDemo));
+
     expect(state).toEqual(initialStatePartners); 
 
   });
@@ -47,7 +47,7 @@ describe('Test on authSlice', () => {
   
     const toRemovePartner = partnersSlice.reducer(initialStatePartners, removePartner(partnerDemo.id));
   
-    expect(initialState).toEqual(toRemovePartner);
+    expect(initialStatePartner).toEqual(toRemovePartner);
   
   });
 

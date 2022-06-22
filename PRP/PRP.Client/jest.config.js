@@ -17,9 +17,11 @@ module.exports = {
     '^.+\\.(png|jpg|jpeg|gif|webp|avif|ico|bmp|svg)$': `<rootDir>/__mocks__/fileMock.js`,
 
     // Handle module aliases
-    '^@/components/(.*)$': '<rootDir>/src/pages/components/$1',
+    '^@/components/(.*)$': '<rootDir>/src/components/$1',
 
-    '^@/pages/(.*)$': '<rootDir>/src/pages/$1'
+    '^@/pages/(.*)$': '<rootDir>/src/pages/$1',
+    '^@/shared/components/(.*)$': '<rootDir>/src/shared/components/$1',
+    '^@/shared/hooks/(.*)$': '<rootDir>/src/shared/hooks/$1',
   },
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   testPathIgnorePatterns: ['<rootDir>/node_modules/', '<rootDir>/.next/'],
