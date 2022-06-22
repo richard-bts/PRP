@@ -19,8 +19,8 @@ namespace PRP.Service.Api.Tests
 {
     public class ReportTest
     {
-        //public string _Connection = "Server=172.24.32.132;database=CDLData;User ID=CDL_PRP;Password=Bt3chPRP!22;max pool size=200;";
-        public string _Connection = "Server=WORKPC\\SQLEXPRESS;database=CDLData;Integrated Security = SSPI;max pool size=200;";
+        public string _Connection = "Server=172.24.32.132;database=CDLData;User ID=CDL_PRP;Password=Bt3chPRP!22;max pool size=200;";
+        //public string _Connection = "Server=WORKPC\\SQLEXPRESS;database=CDLData;Integrated Security = SSPI;max pool size=200;";
         
         private readonly ApplicationDbContext _dbContext;
         private readonly IReportRepository _reportservice;
@@ -71,21 +71,33 @@ namespace PRP.Service.Api.Tests
         [Fact]
         public async void AddReportType_Test()
         {
-            var response = await _reportservice.AddReportType("Test");
+            var response = await _reportservice.AddReportType(new ReportTypeDto
+            {
+                report_type_id = 0,
+                report_name ="Unit Test",
+                date_created = DateTime.Now,
+                date_modified = DateTime.Now              
+            }); 
 
             Assert.NotNull(response);
         }
         [Fact]
         public async void EditReportType_Test()
         {
-            var response = await _reportservice.EditReportType(12,"TEST1");
+            var response = await _reportservice.EditReportType(new ReportTypeDto
+            {
+                report_type_id = 6,
+                report_name = "Unit edit",
+                date_created = DateTime.Now.AddHours(1),
+                date_modified = DateTime.Now
+            });
 
             Assert.NotNull(response);
         }
         [Fact]
         public async void RemoveReportType_Test()
         {
-            var response = await _reportservice.RemoveReportType(22);
+            var response = await _reportservice.RemoveReportType(6);
 
             Assert.NotNull(response);
         }

@@ -134,13 +134,13 @@ try
         return response;
     });
 
-    app.MapPost("api/report/AddReportType", async ([FromServices] IReportRepository ReportRepository, string name) =>
+    app.MapPost("api/report/AddReportType", async ([FromServices] IReportRepository ReportRepository, ReportTypeDto RaportType) =>
     {
         ResponseDto response = new ResponseDto();
 
         try
         {
-            response.Result = await ReportRepository.AddReportType(name);
+            response.Result = await ReportRepository.AddReportType(RaportType);
             Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"AddReportType api called successfully...");
         }
         catch (Exception ex)
@@ -154,13 +154,13 @@ try
         return response;
     });
 
-    app.MapPut("api/report/EditReportType", async ([FromServices] IReportRepository ReportRepository, int id , string report_name) =>
+    app.MapPut("api/report/EditReportType", async ([FromServices] IReportRepository ReportRepository, ReportTypeDto RaportType) =>
     {
         ResponseDto response = new ResponseDto();
 
         try
         {
-            response.Result = await ReportRepository.EditReportType(id, report_name);
+            response.Result = await ReportRepository.EditReportType(RaportType);
             Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"EditReportType api called successfully...");
         }
         catch (Exception ex)
