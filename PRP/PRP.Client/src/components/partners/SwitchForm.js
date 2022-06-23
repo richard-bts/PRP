@@ -6,6 +6,7 @@ export const SwitchForm = ({ switchEnabled, setSwitchEnabled, isTypeReport, type
     <div>
       <Switch
         checked={switchEnabled}
+        name={isTypeReport ? typeReport : 'isActive'}
         onChange={e => isTypeReport ? handleTypeReport(e, typeReport) : setSwitchEnabled(e) }
         className={`${switchEnabled ? 'bg-indigo-600' : 'bg-gray-200'
           } relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-300 ${ isTypeReport ? 'my-2' : '' }`}
@@ -17,7 +18,7 @@ export const SwitchForm = ({ switchEnabled, setSwitchEnabled, isTypeReport, type
         />
       </Switch>
       { isTypeReport ? 
-        <span className="ml-3 text-lg font-semibold text-center uppercase">{ typeReport }</span>
+        <span className="ml-3 text-lg font-semibold text-center uppercase">{ typeReport.replace('_', ' ') }</span>
         :
         <span className="ml-3 text-lg font-semibold text-center uppercase">{ switchEnabled ? 'YES' : 'NO' }</span>
       }

@@ -10,7 +10,7 @@ export const ButtonIcon = ({ children, onClick, btnColors, btnStyles, btnLabel, 
       className={`btn px-4 py-2.5 shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-300 ease-in-out flex items-center ${ btnStyles || btnDefaultStyles } ${ btnColors || btnDefaultColors }`}
       type="button"
       id="button-addon2"
-      onClick={ () => onClick() || (() => {}) }
+      onClick={ () => onClick() }
     >
       { children }
 
@@ -21,7 +21,7 @@ export const ButtonIcon = ({ children, onClick, btnColors, btnStyles, btnLabel, 
 
 ButtonIcon.propTypes = {
   children: PropTypes.node.isRequired,
-  onClick: PropTypes.func,
+  onClick: PropTypes.func.isRequired,
   btnColors: PropTypes.string,
   btnStyles: PropTypes.string,
   btnLabel: PropTypes.string,

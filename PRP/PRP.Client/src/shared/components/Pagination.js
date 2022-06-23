@@ -25,7 +25,7 @@ export const Pagination = ({ partnersPerPage, totalPartners, handleChangePage, c
         pageNumbers.map( number => (
           <button
             key={ number }
-            className={`${ currentPage === number ? 'current-page cursor-default bg-indigo-600 text-white' : currentPage === (number - 1) ? 'bg-white next-page' : 'bg-white' } ${ (number > (currentPage + 1)) || (number < (currentPage - 1)) ? 'hidden' : ''  } px-4 py-2 rounded shadow-md pagination-item`}
+            className={`${ currentPage === number ? 'current-page cursor-default bg-indigo-600 text-white' : currentPage === (number - 1) ? 'bg-white next-page' : 'bg-white' } ${ (number > (currentPage + 2)) || (number < (currentPage - 2)) ? 'hidden' : ''  } px-4 py-2 rounded shadow-md pagination-item`}
             onClick={ () => handleChangePage(number) }
           >{ number }</button>
         ))
