@@ -24,10 +24,21 @@ try
     .WriteTo.Console()
     .ReadFrom.Configuration(ctx.Configuration));
 
+
+    builder.Services.AddCors(options =>
+    {
+        options.AddPolicy("corsapp",
+            policy =>
+            {
+                policy.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
+            });
+    });
+
     // Add services to the container.
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
+
 
     //Configure DB
     builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionString_CDLPRP")));
@@ -37,7 +48,7 @@ try
     builder.Services.AddSingleton(mapper);
     builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-    //Adding PODReport repository
+    //Adding ReportRepository,PartnerRepository repositories
     builder.Services.AddScoped<IReportRepository, ReportRepository>();
     builder.Services.AddScoped<IPartnerRepository, PartnerRepository>();
     var app = builder.Build();
@@ -364,6 +375,7 @@ try
         app.UseSwaggerUI();
     }
 
+    app.UseCors("corsapp");
     app.Run();
 
     #endregion
