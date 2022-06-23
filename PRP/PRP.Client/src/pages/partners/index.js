@@ -33,7 +33,7 @@ const Partners = () => {
 
       <main className="mb-20">
         <Table
-          tableStyles="w-full table-auto min-w-max shadow-md"
+          tableStyles="w-full table-auto min-w-full max-w-fit shadow-md"
           theadItems={ tableHeadPartners }
           theadTrGridStyles="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 items-center"
           tbodyItems={ currentPartners }

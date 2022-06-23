@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 export const BurgerIcon = ({ handleIsOpen, isOpen, genericHamburgerLine }) => {
   return (
     <button
-      className={`fixed z-50 flex flex-col items-center justify-center w-12 h-12 bg-white shadow-md border-2 border-black transition-opacity duration-300 rounded group right-5 top-5 md:hidden hover:opacity-100 ${ isOpen ? '' : 'sidebar opacity-50' } `}
+      className={`fixed z-30 flex flex-col items-center justify-center w-12 h-12 bg-white shadow-md border-2 border-black transition-opacity duration-300 rounded group right-5 top-5 md:hidden hover:opacity-100 ${ isOpen ? '' : 'sidebar opacity-50' } `}
       onClick={ handleIsOpen }
     >
       <div

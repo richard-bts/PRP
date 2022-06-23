@@ -9,7 +9,7 @@ export const useFilter = () => {
 
   const partnersLength = partnerFiltered.length || partners.length;
   const myPartners = partnerFiltered.length ? partnerFiltered : partners;
-  const partnersPerPage = 2;
+  const partnersPerPage = 8;
 
   // Get current partners.
   const indexOfLastPost = currentPage * partnersPerPage;

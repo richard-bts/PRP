@@ -50,6 +50,10 @@ a {
   display: block;
 }
 
+.form-partner {
+  width: 100vw;
+}
+
 @media screen and (min-width: 768px) {
   .pagination-item {
     display: block;

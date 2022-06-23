@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { TableHead } from './';
+import { Form } from '../../components/partners/Form';
 import { TableBody as TableBodyPartners } from '../../components/partners';
 
 export const Table = (
@@ -17,21 +18,24 @@ export const Table = (
 ) => {
 
   return (
-    <table className={ tableStyles }>
-      <TableHead
-        theadItems={ theadItems }
-        theadTrGridStyles={ theadTrGridStyles }
-        theadTrColors={ theadTrColors }
-        theadTrStyles={ theadTrStyles }
-      />
+    <>
+      <table className={ tableStyles }>
+        <TableHead
+          theadItems={ theadItems }
+          theadTrGridStyles={ theadTrGridStyles }
+          theadTrColors={ theadTrColors }
+          theadTrStyles={ theadTrStyles }
+        />
 
-      <TableBodyPartners
-        tbodyItems={ tbodyItems }
-        tbodyTrGridStyles={ tbodyTrGridStyles }
-        tbodyTrColors={ tbodyTrColors }
-        tbodyTrStyles={ tbodyTrStyles }
-      />
-    </table>
+        <TableBodyPartners
+          tbodyItems={ tbodyItems }
+          tbodyTrGridStyles={ tbodyTrGridStyles }
+          tbodyTrColors={ tbodyTrColors }
+          tbodyTrStyles={ tbodyTrStyles }
+        />
+      </table>
+      <Form />
+    </>
   );
 };
 
