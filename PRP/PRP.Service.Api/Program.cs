@@ -205,6 +205,27 @@ try
         return response;
     });
 
+    app.MapGet("api/partner/GetPartner", async ([FromServices] IPartnerRepository PartnerRepository,int partnerId) =>
+    {
+        ResponseDto response = new ResponseDto();
+
+        try
+        {
+            response.Result = await PartnerRepository.GetPartner(partnerId);
+            Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"GetPartner api called successfully...");
+        }
+        catch (Exception ex)
+        {
+            response.IsSuccess = false;
+            response.ErrorMessages = new List<string>() { ex.ToString() };
+            Log.Logger.ForContext("Component", "PRP.Service.Api").Error("{Message}", $"GetPartner api call failed. " +
+                                    $"Error Message: {response.ErrorMessages}");
+        }
+
+        return response;
+
+    });
+
     app.MapGet("api/partner/GetPartners", async ([FromServices] IPartnerRepository PartnerRepository) =>
     {
         ResponseDto response = new ResponseDto();

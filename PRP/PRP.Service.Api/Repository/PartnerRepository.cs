@@ -226,13 +226,19 @@ namespace PRP.Service.Api.Repository
                     Value = partnerID
                 }
             };
-
             List<PartnerEmail> partneremails = new List<PartnerEmail>();
-
             if (_db.PartnerEmails != null)
-                partneremails = await _db.PartnerEmails.FromSqlRaw("EXEC [dbo].[sp_GetPartnerEmails] @partnerId", param).ToListAsync();
-
-            return _mapper.Map<List<PartnerEmailDto>>(partneremails);
+            {
+                try
+                {
+                    partneremails = await _db.PartnerEmails.FromSqlRaw("EXEC [dbo].[sp_GetPartnerEmails] @partnerId", param).ToListAsync();
+                    return _mapper.Map<List<PartnerEmailDto>>(partneremails);
+                }
+                catch (Exception)
+                {
+                }
+            }
+            return null;                
         }
         public async Task<IEnumerable<PartnerEmailDto>> AddPartnerEmail(PartnerEmailDto partneremail)
         {
@@ -259,7 +265,7 @@ namespace PRP.Service.Api.Repository
                     };
                     if (_db.PartnerEmails != null)
                     {
-                        await _db.Database.ExecuteSqlRawAsync("EXEC [dbo].[sp_AddPartnerEmail] @partnerId, @email, @date_created", param);
+                        await _db.Database.ExecuteSqlRawAsync("EXEC [dbo].[sp_AddPartnerEmail] @partnerId, @email", param);
                         return await GetPartnerEmails(partneremail.PartnerId);
                     }
                 }
@@ -300,12 +306,13 @@ namespace PRP.Service.Api.Repository
                         }
                     };
                     await _db.Database.ExecuteSqlRawAsync("EXEC [dbo].[sp_EditPartnerEmail] @Id, @partnerId, @email", param);
+                    return partneremail;
                 }
             }
             catch (Exception)
             {
             }
-            return partneremail;
+            return null;
         }
         public Task<bool> RemovePartnerEmail(int id)
         {
