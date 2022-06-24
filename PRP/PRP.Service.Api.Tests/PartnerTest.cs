@@ -46,13 +46,13 @@ namespace PRP.Service.Api.Tests
         [Fact]
         public async void AddPartner_Test()
         {
-            var response = await _partnerService.AddPartner(new PartnerDetailDto
+            var response = await _partnerService.AddPartner(new AddPartnerDto
             {
-                Id = 0,
                 ClientId = 101,
                 PartnerId = 102,
                 PartnerName = "New Partner",
-                ReportName = null
+                ReportName = "POD",
+                reportTime = DateTime.Now
             });
 
             Assert.NotNull(response);
@@ -67,7 +67,9 @@ namespace PRP.Service.Api.Tests
                 ClientId = 101,
                 PartnerId = 102,
                 PartnerName = "New Partner Name",
-                ReportName = "Scan Report"
+                ReportName = "Scan Report",
+                ReportTime = DateTime.Now,
+                active = 1
             });
 
             Assert.NotNull(response);
