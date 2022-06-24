@@ -4,7 +4,16 @@ import { PencilAltIcon, TrashIcon } from '@heroicons/react/solid';
 const trColorsDefault = 'text-gray-600 bg-white';
 const trStylesDefault = 'text-sm leading-normal md:h-12';
 
-export const TableBody = ({ tbodyItems, tbodyTrStyles, tbodyTrColors, tbodyTrGridStyles, handleEditPartner, handleRemovePartner }) => {
+export const TableBody = ({ tbodyItems, tbodyTrStyles, tbodyTrColors, tbodyTrGridStyles, setPartnerToRemove, handleEditPartner, handleOpenPopup }) => {
+
+  const handleRemovePartner = (id, name) => {
+    setPartnerToRemove({
+      id,
+      name
+    });
+    handleOpenPopup();
+  }
+
   return (
     <tbody>
       {
@@ -42,7 +51,7 @@ export const TableBody = ({ tbodyItems, tbodyTrStyles, tbodyTrColors, tbodyTrGri
               <TrashIcon
                 className="w-6 h-6 text-gray-700 transition-colors duration-300 cursor-pointer hover:text-red-600"
                 title="Watch"
-                onClick={ () => handleRemovePartner(id) }
+                onClick={ () => handleRemovePartner(id, name) }
               />
             </td> 
           </tr>
@@ -68,7 +77,8 @@ TableBody.propTypes = {
     }
     )).isRequired,
   handleEditPartner: PropTypes.func.isRequired,
-  handleRemovePartner: PropTypes.func.isRequired,
+  setPartnerToRemove: PropTypes.func.isRequired,
+  handleOpenPopup: PropTypes.func.isRequired,
   tbodyTrGridStyles: PropTypes.string,
   tbodyTrStyles: PropTypes.string,
   tbodyTrColors: PropTypes.string

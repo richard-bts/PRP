@@ -1,20 +1,35 @@
-import PropTypes from 'prop-types';
 import { useId, useState } from "react";
 import { initialPartnerState } from "../../../shared/data";
-import { addPartner, editPartner, useAppDispatch, useAppSelector } from "../../../store";
+import { addPartner, setActivePartner, useAppDispatch, useAppSelector } from "../../../store";
 
-export const useForm = (handleCloseForm) => {
+const errorFormInitialState = {
+  name: {
+    error: false,
+    errorMessage: ''
+  },
+  email: {
+    error: false,
+    errorMessage: ''
+  }
+}
+
+export const useForm = () => {
 
   const dispatch = useAppDispatch();
   const { activePartner } = useAppSelector( state => state.partners );
   const { id, name, email, isActive, typesReport } = activePartner || initialPartnerState;
   const [isActivePartner, setIsActivePartner] = useState(isActive);
   const [reportTypes, setReportTypes] = useState(typesReport);
+  const [errorForm, setErrorForm] = useState(errorFormInitialState);
+  
   const [formData, setFormData] = useState({
     id: id || useId(),
     name,
     email,
   });
+
+  const regexEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  const regexName = /^[A-zÀ-ÿ ]*$/;
 
   const handleTypeReport = (value, typeName) => {
     setReportTypes( prev => (
@@ -30,20 +45,61 @@ export const useForm = (handleCloseForm) => {
 
   const handleFormChange = (e) => {
     const { name, value } = e.target;
+    if( name === 'name' && !value.match(regexName) ) {
+      setErrorForm({
+        ...errorForm,
+        name: {
+          error: true,
+          errorMessage: 'Name must contain only letters'
+        }
+      });    
+      return;
+    }
+    setErrorForm({ ...errorForm, [name]: { error: false, errorMessage: '' } });
     setFormData({ ...formData, [name]: value });
   }
 
-  const handleSubmitForm = (e) => {
-    e.preventDefault();
+  const handleSubmitForm = () => {
     const { id, name, email } = formData;
+    if ((!name.length || name.length < 3) ) {
+      setErrorForm({
+        ...errorForm,
+        name: {
+          error: true,
+          errorMessage: 'Name must be at least 3 characters'
+        }
+      });
+      return;
+    }
+    if ((!email.length || email.length < 3) ) {
+      setErrorForm({
+        ...errorForm,
+        email: {
+          error: true,
+          errorMessage: 'Email must be at least 3 characters'
+        }
+      });
+      return;
+    }
+    
+    if (!email.match(regexEmail) ) {
+      setErrorForm({
+        ...errorForm,
+        email: {
+          error: true,
+          errorMessage: 'Email must be valid'
+        }
+      });
+      return;
+    }
+    if(errorForm.email.error || errorForm.name.error) {
+      return;
+    }
+    setErrorForm(errorFormInitialState);
     const partner = { id, name, email, isActive: isActivePartner, typesReport: reportTypes };
     setFormData(initialPartnerState);
     setIsActivePartner(false);
-    handleCloseForm(null);
-    if(activePartner) {
-      dispatch(editPartner(partner));
-      return;
-    }
+    setActivePartner();
     dispatch(addPartner(partner));
   }
 
@@ -55,11 +111,7 @@ export const useForm = (handleCloseForm) => {
     handleSubmitForm,
     isActivePartner,
     setIsActivePartner,
-    reportTypes
+    reportTypes,
+    errorForm
   };
 };
-
-useForm.propTypes = {
-  handleCloseForm: PropTypes.func.isRequired
-}
-

@@ -3,25 +3,23 @@ import { tableHeadPartners } from '../../shared/data';
 import { SearchBar } from '../../components/partners';
 import { useFilter } from '../../shared/hooks/useFilter';
 import { Layout, Table, PageTitle, Pagination, ButtonIcon } from '../../shared/components';
-import { removePartner, setActivePartner, setOpenForm, useAppDispatch } from '../../store';
+import { removePartner, setActivePartner, setOpenForm, useAppDispatch, useAppSelector } from '../../store';
+import getStore from '../../store/store';
+import { getPartners } from '../../store/partners/thunks';
 
 const Partners = () => {
-
+  const { newPartners } = useAppSelector( state => state.partners );
   const { currentPage, searchText, setSearchText, partnersLength, currentPartners, handleSearch, handleChangePage, partnersPerPage } =  useFilter();
   const dispatch = useAppDispatch();
   
-  const handleCloseForm = (partner) => {
+  const handleCloseForm = () => {
     dispatch(setOpenForm(false));
-    dispatch(setActivePartner(partner));
+    dispatch(setActivePartner(null));
   }
 
   const handleEditPartner = (partner) => {
     dispatch(setActivePartner(partner));
     dispatch(setOpenForm(true));
-  }
-
-  const handleRemovePartner = (partnerId) => {
-    dispatch(removePartner(partnerId));
   }
 
   return (
@@ -57,7 +55,6 @@ const Partners = () => {
           tbodyTrGridStyles="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 items-center"
           handleCloseForm={ handleCloseForm }
           handleEditPartner={ handleEditPartner }
-          handleRemovePartner={ handleRemovePartner }
         />
 
         <Pagination
@@ -70,5 +67,15 @@ const Partners = () => {
     </Layout>
   );
 };
+
+export const getServerSideProps = async() => {
+  const store = getStore();
+  await store.dispatch(getPartners());
+  return {
+    props: {
+      initialState: store.getState(),
+    },
+  };
+}
 
 export default Partners;
