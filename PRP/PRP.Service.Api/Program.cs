@@ -226,7 +226,7 @@ try
 
     });
 
-    app.MapPost("api/partner/AddPartner", async ([FromServices] IPartnerRepository PartnerRepository, PartnerDetailDto partner) =>
+    app.MapPost("api/partner/AddPartner", async ([FromServices] IPartnerRepository PartnerRepository, AddPartnerDto partner) =>
     {
         ResponseDto response = new ResponseDto();
 

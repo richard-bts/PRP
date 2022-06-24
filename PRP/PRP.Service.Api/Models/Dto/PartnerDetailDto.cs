@@ -8,5 +8,6 @@
         public string? PartnerName { get; set; }
         public string? ReportName { get; set; }
         public DateTime? ReportTime { get; set; }
+        public byte? active { get; set; }
     }
 }
