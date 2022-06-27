@@ -90,7 +90,7 @@ namespace PRP.WinService.Email
 
                 try
                 {
-                    //client.Send(mimeMessage);
+                    client.Send(mimeMessage);
                 }
                 catch(Exception ex)
                 {

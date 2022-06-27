@@ -114,9 +114,9 @@ namespace PRP.Service.Api.Repository
             return _mapper.Map<List<ReportTypeDto>>(raporttype);
         }
 
-        public async Task<ReportTypeDto> AddReportType(ReportTypeDto raport)
+        public async Task<ReportTypeDto> AddReportType(ReportTypeDto report)
         {
-            if (raport != null)
+            if (report != null)
             {
                 var param = new SqlParameter[]
                {
@@ -125,39 +125,26 @@ namespace PRP.Service.Api.Repository
                             ParameterName="@report_name",
                             SqlDbType = System.Data.SqlDbType.Text,
                             Direction = System.Data.ParameterDirection.Input,
-                            Value = raport.report_name
-                        },
-                        new SqlParameter()
-                        {
-                            ParameterName="@date_created",
-                            SqlDbType = System.Data.SqlDbType.Date,
-                            Direction = System.Data.ParameterDirection.Input,
-                            Value = DateTime.Now
-                        },
-                        new SqlParameter()
-                        {
-                            ParameterName="@date_modified",
-                            SqlDbType = System.Data.SqlDbType.Date,
-                            Direction = System.Data.ParameterDirection.Input,
-                            Value = DateTime.Now
+                            Value = report.report_name
                         }
 
 
                };
 
-                List<ReportType> addreporttype = new List<ReportType>();
+                
 
                 if (_db.ReportTypes != null)
-                    addreporttype = await _db.ReportTypes.FromSqlRaw("EXEC [dbo].[sp_AddReportType] @report_name, @date_created, @date_modified", param).ToListAsync();
+                  await _db.ReportTypes.FromSqlRaw("EXEC [dbo].[sp_AddReportType] @report_name", param).ToListAsync();
+
             }
-            return raport;
+            return report;
         }
 
-        public async Task<ReportTypeDto> EditReportType(ReportTypeDto raport)
+        public async Task<ReportTypeDto> EditReportType(ReportTypeDto report)
         {
             try
             {
-                if (raport != null)
+                if (report != null)
                 {
                     var param = new SqlParameter[]
                  {
@@ -166,33 +153,27 @@ namespace PRP.Service.Api.Repository
                                 ParameterName="@id",
                                 SqlDbType = System.Data.SqlDbType.Int,
                                 Direction = System.Data.ParameterDirection.Input,
-                                Value = raport.report_type_id
+                                Value = report.report_type_id
                             },
                             new SqlParameter()
                             {
                                 ParameterName="@name",
                                 SqlDbType = System.Data.SqlDbType.Text,
                                 Direction = System.Data.ParameterDirection.Input,
-                                Value = raport.report_name
+                                Value = report.report_name
                             }
-                            ,
-                            new SqlParameter()
-                            {
-                                ParameterName="@date",
-                                SqlDbType = System.Data.SqlDbType.DateTime,
-                                Direction = System.Data.ParameterDirection.Input,
-                                Value = raport.date_modified
-                            }
+                            
+                            
 
 
                  };
-                    await _db.ReportTypes.FromSqlRaw("EXEC [dbo].[sp_EditReportType] @id, @name, @date", param).ToListAsync();
+                    await _db.ReportTypes.FromSqlRaw("EXEC [dbo].[sp_EditReportType] @id, @name", param).ToListAsync();
                 }
             }
             catch (Exception)
             {
             }
-            return raport;
+            return report;
 
 
 

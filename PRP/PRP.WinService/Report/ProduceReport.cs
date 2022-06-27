@@ -35,6 +35,53 @@ namespace PRP.WinService.Report
         #endregion
 
         #region Public Methods
+
+
+        public bool GenerateAllReportsFor(PartnerDetailDto PartnersList)
+        {
+            try
+            {
+
+                //List<PartnerDetailDto>? PartnersList = new ();
+
+                //var response = _PRPService.GetPartners();
+
+                //string? content = String.Empty;
+
+                //if (response != null && response.Result != null && response.Result.Result != null)
+                //    content = Convert.ToString(response.Result.Result);
+
+                //if (response != null && response.Result != null && !string.IsNullOrEmpty(content))
+                //{
+                //    PartnersList = JsonConvert.DeserializeObject<List<PartnerDetailDto>>(content);
+                //}
+
+                if (PartnersList != null)
+                {
+                    CleanUpTempDir();
+                    //foreach (PartnerDetailDto pd in PartnersList)
+                    //{
+                    switch (PartnersList.ReportName)
+                    {
+                        case "POD":
+                            GeneratePODReport(PartnersList);
+                            break;
+                        case "EXCEPTION":
+                            GenerateExceptionReport(PartnersList);
+                            break;
+                        case "SCAN":
+                            GenerateScanReport(PartnersList);
+                            break;
+                    }
+                    //}
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            return true;
+        }
         public bool GenerateAllReports()
         {
             try

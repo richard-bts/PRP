@@ -10,6 +10,7 @@ namespace PRP.WinService.Report
     public interface IProduceReport
     {
         public bool GenerateAllReports();
+        public bool GenerateAllReportsFor(PartnerDetailDto pd);
         public bool GeneratePODReport(PartnerDetailDto pd);
         public bool GenerateScanReport(PartnerDetailDto pd);
         public bool GenerateExceptionReport(PartnerDetailDto pd);
