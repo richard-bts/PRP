@@ -1,14 +1,14 @@
 import PropTypes from 'prop-types';
 import { FormInputError } from './FormInputError';
 
-export const FormInput = ({ inputName, value, handleFormChange, errorMessage, error }) => {
+export const FormInput = ({ inputType, inputName, placeholder, value, handleFormChange, errorMessage, error }) => {
   return (
     <div className="flex flex-col py-3">
       <label className="pb-2 font-semibold text-gray-700 first-letter:uppercase">{ inputName }</label>
       <input
-        type="text"
+        type={ inputType }
         className="p-2 bg-gray-100 rounded-lg shadow outline-none focus:bg-gray-200"
-        placeholder="example@mail.xyz"
+        placeholder={ placeholder }
         name={ inputName }
         value={value}
         onChange={ handleFormChange }

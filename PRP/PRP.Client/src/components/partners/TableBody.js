@@ -4,6 +4,25 @@ import { PencilAltIcon, TrashIcon } from '@heroicons/react/solid';
 const trColorsDefault = 'text-gray-600 bg-white';
 const trStylesDefault = 'text-sm leading-normal md:h-12';
 
+const typesReport = [
+  {
+    status: true,
+    type: 'POD'
+  },
+  {
+    status: false,
+    type: 'SCAN AUDIT'
+  },
+  {
+    status: true,
+    type: 'EXCEPTION'
+  },
+  {
+    status: false,
+    type: 'CLEAR'
+  }
+]
+
 export const TableBody = ({ tbodyItems, tbodyTrStyles, tbodyTrColors, tbodyTrGridStyles, setPartnerToRemove, handleEditPartner, handleOpenPopup }) => {
 
   const handleRemovePartner = (id, name) => {
@@ -17,25 +36,25 @@ export const TableBody = ({ tbodyItems, tbodyTrStyles, tbodyTrColors, tbodyTrGri
   return (
     <tbody>
       {
-        tbodyItems.map(({ id, name, email, isActive, typesReport }) => (
+        tbodyItems.map(({ id, partnerName, email= "partneremail@partner.cdl", active }) => (
           <tr
             key={ id }
             className={`border-b border-gray-200 h-14 md:h-16 table-partner-item ${ tbodyTrStyles || trStylesDefault } ${ tbodyTrColors || trColorsDefault } ${ tbodyTrGridStyles || '' }`}
           >
             <td 
-              onDoubleClick={ () => handleEditPartner({ id, name, email, isActive, typesReport }) }
+              onDoubleClick={ () => handleEditPartner({ id, partnerName, email, active, typesReport }) }
               className="px-6 py-3 font-semibold text-left cursor-pointer whitespace-nowrap"
-            >{ name }</td> 
+            >{ partnerName }</td> 
             <td 
-              onDoubleClick={ () => handleEditPartner({ id, name, email, isActive, typesReport }) }
+              onDoubleClick={ () => handleEditPartner({ id, partnerName, email, active, typesReport }) }
               className="hidden px-6 py-3 text-left cursor-pointer whitespace-nowrap xl:block"
             >{ email }</td> 
             <td 
-              onDoubleClick={ () => handleEditPartner({ id, name, email, isActive, typesReport }) }
+              onDoubleClick={ () => handleEditPartner({ id, partnerName, email, active, typesReport }) }
               className="hidden px-6 py-3 font-medium text-center cursor-pointer sm:block"
-            >{ isActive ? 'Yes' : 'No'}</td> 
+            >{ active ? 'Yes' : 'No'}</td> 
             <td 
-              onDoubleClick={ () => handleEditPartner({ id, name, email, isActive, typesReport }) }
+              onDoubleClick={ () => handleEditPartner({ id, partnerName, email, active, typesReport }) }
               className="justify-center hidden grid-flow-col gap-2 px-6 py-3 text-center cursor-pointer lg:grid justify-items-center reports"
             >
               { typesReport?.map( ({ type, status }) => (
@@ -46,12 +65,12 @@ export const TableBody = ({ tbodyItems, tbodyTrStyles, tbodyTrColors, tbodyTrGri
               <PencilAltIcon
                 className="w-6 h-6 text-gray-700 transition-colors duration-300 cursor-pointer hover:text-cyan-600"
                 title="Edit"
-                onClick={ () => handleEditPartner({ id, name, email, isActive, typesReport }) }
+                onClick={ () => handleEditPartner({ id, partnerName, email, active, typesReport }) }
               />
               <TrashIcon
                 className="w-6 h-6 text-gray-700 transition-colors duration-300 cursor-pointer hover:text-red-600"
                 title="Watch"
-                onClick={ () => handleRemovePartner(id, name) }
+                onClick={ () => handleRemovePartner(id, partnerName) }
               />
             </td> 
           </tr>
@@ -64,10 +83,10 @@ export const TableBody = ({ tbodyItems, tbodyTrStyles, tbodyTrColors, tbodyTrGri
 TableBody.propTypes = {
   tbodyItems: PropTypes.arrayOf(PropTypes.shape(
     {
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
+      partnerName: PropTypes.string.isRequired,
       email: PropTypes.string.isRequired,
-      isActive: PropTypes.bool.isRequired,
+      active: PropTypes.number.isRequired,
       typesReport: PropTypes.arrayOf(PropTypes.shape(
         {
           status: PropTypes.bool, 

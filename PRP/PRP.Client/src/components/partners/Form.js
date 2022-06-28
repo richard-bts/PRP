@@ -32,7 +32,9 @@ export const Form = ({ handleCloseForm }) => {
           <h2 className="mb-6 text-2xl font-semibold text-center uppercase">Partner data</h2>
 
           <FormInput
+            inputType="text"
             inputName="name"
+            placeholder="Partner name"
             value={name}
             handleFormChange={handleFormChange}
             errorMessage={errorForm.name.errorMessage}
@@ -40,7 +42,9 @@ export const Form = ({ handleCloseForm }) => {
           />
 
           <FormInput
+            inputType="email"
             inputName="email"
+            placeholder="partner@email.xyz"
             value={email}
             handleFormChange={handleFormChange}
             errorMessage={errorForm.email.errorMessage}
@@ -50,7 +54,7 @@ export const Form = ({ handleCloseForm }) => {
           <div className="flex flex-col gap-3 py-3">
             <label className="font-semibold text-gray-700">Is the partner active?</label>
             <SwitchForm
-              switchEnabled={isActivePartner}
+              switchEnabled={!!isActivePartner}
               setSwitchEnabled={setIsActivePartner}
             />
           </div>

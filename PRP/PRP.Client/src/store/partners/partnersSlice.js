@@ -2,63 +2,13 @@ import { createSlice } from '@reduxjs/toolkit';
 import { getPartners } from './thunks';
 
 const initialState = {
-  activePartner: null,
-  isLoading: false,
-  error: false,
-  openForm: false,
   activedSort: false,
+  error: false,
+  isLoading: false,
   namedSort: false,
-  newPartners: [],
-  partners: [
-    {
-      id: '1',
-      name: 'Partner 1',
-      email: 'random@email.cdl',
-      isActive: false,
-      typesReport: [
-        {
-          status: true,
-          type: 'POD'
-        },
-        {
-          status: false,
-          type: 'SCAN AUDIT'
-        },
-        {
-          status: true,
-          type: 'EXCEPTION'
-        },
-        {
-          status: false,
-          type: 'CLEAR'
-        }
-      ]
-    },
-    {
-      id: '2',
-      name: 'Partner 2',
-      email: 'partnerdemo@email.cdl',
-      isActive: true,
-      typesReport: [
-        {
-          status: true,
-          type: 'POD'
-        },
-        {
-          status: false,
-          type: 'SCAN AUDIT'
-        },
-        {
-          status: true,
-          type: 'EXCEPTION'
-        },
-        {
-          status: false,
-          type: 'CLEAR'
-        }
-      ]
-    }
-  ] 
+  openForm: false,
+  partnersPerPage: 5,
+  partners: []
 };
 
 export const partnersSlice = createSlice({
@@ -91,6 +41,9 @@ export const partnersSlice = createSlice({
     },
     setOpenForm: (state, action) => {
       state.openForm = action.payload;
+    },
+    setPartnersPerPage: (state, action) => {
+      state.partnersPerPage = action.payload;
     },
     sortByName: (state) => {
       state.namedSort = !state.namedSort;
@@ -144,7 +97,7 @@ export const partnersSlice = createSlice({
       })
       .addCase(getPartners.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.newPartners = action.payload;
+        state.partners = action.payload;
       })
       .addCase(getPartners.rejected, (state) => {
         state.isLoading = false;
@@ -153,6 +106,6 @@ export const partnersSlice = createSlice({
   },
 });
 
-export const { setLoading, addPartner, removePartner, setActivePartner, filterPartners, setOpenForm, sortByName, sortByActive } = partnersSlice.actions;
+export const { setLoading, addPartner, removePartner, setPartnersPerPage, setActivePartner, filterPartners, setOpenForm, sortByName, sortByActive } = partnersSlice.actions;
 
 export default partnersSlice.reducer;

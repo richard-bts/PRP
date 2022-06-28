@@ -22,16 +22,16 @@ export const TableHead = ({ theadItems, theadTrStyles, theadTrColors, theadTrGri
             >
               { label }
               { label === "Name" && !namedSort ?
-                <ChevronDownIcon className="absolute right-0 w-6 h-6 mr-2 top-2/4 -translate-y-2/4" />
+                <ChevronDownIcon className="absolute right-0 z-10 w-6 h-6 mr-2 top-2/4 -translate-y-2/4" />
                 :
                 label === "Name" && namedSort ?
-                <ChevronUpIcon className="absolute right-0 w-6 h-6 mr-2 top-2/4 -translate-y-2/4" /> : null
+                <ChevronUpIcon className="absolute right-0 z-10 w-6 h-6 mr-2 top-2/4 -translate-y-2/4" /> : null
               }
               { label === "Active" && !activedSort ?
-                <ChevronDownIcon className="absolute right-0 w-6 h-6 mr-2 top-2/4 -translate-y-2/4" />
+                <ChevronDownIcon className="absolute right-0 z-10 w-6 h-6 mr-2 top-2/4 -translate-y-2/4" />
                 :
                 label === "Active" && activedSort ?
-                <ChevronUpIcon className="absolute right-0 w-6 h-6 mr-2 top-2/4 -translate-y-2/4" /> : null
+                <ChevronUpIcon className="absolute right-0 z-10 w-6 h-6 mr-2 top-2/4 -translate-y-2/4" /> : null
               }
             </th>
           ))

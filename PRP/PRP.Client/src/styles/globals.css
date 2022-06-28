@@ -33,7 +33,7 @@ a {
   background-color: #3C8DB9;
 }
 
-.table-partner-item .reports span.scan.audit {
+.table-partner-item .reports span.scan {
   background-color: #9C7A97;
 }
 
@@ -52,6 +52,17 @@ a {
 
 .w-100vw {
   width: 100vw;
+}
+
+.list-per-page::-webkit-scrollbar {
+  border-radius: 5px;
+  width: 8px;
+  background: #d7d7d7;
+}
+
+.list-per-page::-webkit-scrollbar-thumb {
+  background: #4f46e5;
+  border-radius: 4px;
 }
 
 @media screen and (min-width: 768px) {

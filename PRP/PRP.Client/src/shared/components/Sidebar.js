@@ -19,7 +19,7 @@ export const Sidebar = () => {
   } 
 
   return (
-    <section className={`fixed z-10 w-screen h-screen md:hidden transition-colors duration-300 ${ isOpen ? 'bg-slate-200/50 ml-0' : '-ml-96' }`} onClick={ handleCloseSidebar }>
+    <section className={`fixed z-30 w-screen h-screen md:hidden transition-colors duration-300 ${ isOpen ? 'bg-slate-200/50 ml-0' : '-ml-96' }`} onClick={ handleCloseSidebar }>
       <aside
         className={`sidebar fixed top-0 left-0 z-20 flex flex-col w-60 h-full py-8 bg-white shadow-lg gap-7 transition-all duration-300 md:hidden ${ isOpen ? 'ml-0' : '-ml-96' }`}
       >

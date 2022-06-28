@@ -21,3 +21,5 @@ export const initialPartnerState = {
     }
   ]
 };
+
+export const partnersPerPage = [5, 10, 15, 20, 30, 40, 50];

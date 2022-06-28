@@ -1,21 +1,22 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useState } from 'react';
+import { useAppSelector } from "../../store";
 
-export const useFilter = () => {
+export const useFilter = (parners) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchText, setSearchText] = useState('');
   const [partnerFiltered, setPartnerFiltered] = useState([]);
-  const { partners } = useSelector( state => state.partners );
+  const { partners, partnersPerPage } = useAppSelector( state => state.partners );
 
   const partnersLength = partnerFiltered.length || partners.length;
   const myPartners = partnerFiltered.length ? partnerFiltered : partners;
-  const partnersPerPage = 8;
 
   // Get current partners.
   const indexOfLastPost = currentPage * partnersPerPage;
   const indexOfFirstPost = indexOfLastPost - partnersPerPage;
   const currentPartners = myPartners.slice(indexOfFirstPost, indexOfLastPost);
 
+  console.log("indexOfLastPost", indexOfLastPost);
+  
   const handleChangePage = (number) => {
     setCurrentPage(number);
   }

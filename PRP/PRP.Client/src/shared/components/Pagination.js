@@ -12,6 +12,10 @@ export const Pagination = ({ partnersPerPage, totalPartners, handleChangePage, c
     pageNumbers.push(i+1);
   };
 
+  if(!nextAvailable && !prevAvailable) {
+    return null;
+  }
+
   return (
     <div className="grid justify-center grid-flow-col gap-3 mt-10 justify-items-center pagination">
         <button

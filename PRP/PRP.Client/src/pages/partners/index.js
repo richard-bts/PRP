@@ -1,14 +1,15 @@
+import getStore from '../../store/store';
 import { PlusSmIcon } from '@heroicons/react/solid';
 import { tableHeadPartners } from '../../shared/data';
 import { SearchBar } from '../../components/partners';
 import { useFilter } from '../../shared/hooks/useFilter';
-import { Layout, Table, PageTitle, Pagination, ButtonIcon } from '../../shared/components';
-import { removePartner, setActivePartner, setOpenForm, useAppDispatch, useAppSelector } from '../../store';
-import getStore from '../../store/store';
 import { getPartners } from '../../store/partners/thunks';
+import { setActivePartner, setOpenForm, useAppDispatch } from '../../store';
+import { SelectPartnersPerPage } from '../../components/partners/SelectPartnersPerPage';
+import { Layout, Table, PageTitle, Pagination, ButtonIcon } from '../../shared/components';
+import { useEffect } from 'react';
 
 const Partners = () => {
-  const { newPartners } = useAppSelector( state => state.partners );
   const { currentPage, searchText, setSearchText, partnersLength, currentPartners, handleSearch, handleChangePage, partnersPerPage } =  useFilter();
   const dispatch = useAppDispatch();
   
@@ -29,16 +30,17 @@ const Partners = () => {
       <section className="flex flex-col items-center justify-between gap-6 px-5 mt-10 mb-10 lg:flex-row md:px-0 md:mb-16">
         <PageTitle title="Partners page" />
         
-        <div className="flex md:justify-end md:gap-10">
+        <div className="flex flex-col gap-4 md:flex-row md:justify-end md:gap-10">
           <SearchBar
             handleSearch={ handleSearch }
             setSearchText={ setSearchText }
             searchText={ searchText }
           />
+          <SelectPartnersPerPage />
           <ButtonIcon
             btnLabel="Add partner"
-            labelStyles="hidden md:inline-block"
-            btnStyles="rounded-full md:rounded md:static md:bottom-0 md:right-0 fixed bottom-4 right-4 h-14 w-14 md:h-auto md:w-auto"
+            labelStyles="hidden xl:inline-block"
+            btnStyles="rounded-full xl:rounded xl:static xl:bottom-0 xl:right-0 fixed bottom-4 right-4 h-14 w-14 xl:h-auto xl:w-auto"
             onClick={ () => dispatch(setOpenForm(true))}
           >
             <PlusSmIcon className="text-white w-7 h-7 md:w-6 md:h-6" />
