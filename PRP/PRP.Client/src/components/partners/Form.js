@@ -8,7 +8,7 @@ import { FormConfirm } from './FormConfirm';
 
 export const Form = ({ handleCloseForm }) => {
 
-  const { name, email, handleTypeReport, handleFormChange, handleSubmitForm, isActivePartner, setIsActivePartner, reportTypes, errorForm } = useForm(handleCloseForm);
+  const { name, email, handleTypeReport, handleFormChange, handleSubmitForm, isActivePartner, setIsActivePartner, reportName, errorForm } = useForm(handleCloseForm);
   let [isOpen, setIsOpen] = useState(false);
 
   const submitForm = (e) => {
@@ -21,7 +21,7 @@ export const Form = ({ handleCloseForm }) => {
       <div className="fixed top-0 left-0 z-40 flex flex-row flex-wrap min-h-screen bg-slate-200/50 md:p-12 w-100vw">
         <form
           className="absolute w-11/12 p-5 m-0 bg-white shadow md:w-3/5 lg:w-1/3 md:rounded-lg h-max top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4"
-          onSubmit={ (e) => submitForm(e) }
+          onSubmit={ (e) => addPartner(e) }
         >
 
           <XIcon
@@ -62,7 +62,7 @@ export const Form = ({ handleCloseForm }) => {
           <div className="flex flex-col py-3">
             <label className="pb-2 font-semibold text-gray-700">Partner Types Report</label>
             {
-              reportTypes.map(({ status, type }) => (
+              reportName.map(({ status, type }) => (
                 <SwitchForm
                   key={type}
                   switchEnabled={status}

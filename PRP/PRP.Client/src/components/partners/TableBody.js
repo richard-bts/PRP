@@ -4,25 +4,6 @@ import { PencilAltIcon, TrashIcon } from '@heroicons/react/solid';
 const trColorsDefault = 'text-gray-600 bg-white';
 const trStylesDefault = 'text-sm leading-normal md:h-12';
 
-const typesReport = [
-  {
-    status: true,
-    type: 'POD'
-  },
-  {
-    status: false,
-    type: 'SCAN AUDIT'
-  },
-  {
-    status: true,
-    type: 'EXCEPTION'
-  },
-  {
-    status: false,
-    type: 'CLEAR'
-  }
-]
-
 export const TableBody = ({ tbodyItems, tbodyTrStyles, tbodyTrColors, tbodyTrGridStyles, setPartnerToRemove, handleEditPartner, handleOpenPopup }) => {
 
   const handleRemovePartner = (id, name) => {
@@ -36,29 +17,38 @@ export const TableBody = ({ tbodyItems, tbodyTrStyles, tbodyTrColors, tbodyTrGri
   return (
     <tbody>
       {
-        tbodyItems.map(({ id, partnerName, email= "partneremail@partner.cdl", active }) => (
+        tbodyItems.map(({ id, partnerId, partnerName, email= "partneremail@partner.cdl", active, reportName }) => (
           <tr
             key={ id }
             className={`border-b border-gray-200 h-14 md:h-16 table-partner-item ${ tbodyTrStyles || trStylesDefault } ${ tbodyTrColors || trColorsDefault } ${ tbodyTrGridStyles || '' }`}
           >
             <td 
-              onDoubleClick={ () => handleEditPartner({ id, partnerName, email, active, typesReport }) }
+              onDoubleClick={ () => handleEditPartner({ id, partnerName, email, active, reportName }) }
               className="px-6 py-3 font-semibold text-left cursor-pointer whitespace-nowrap"
             >{ partnerName }</td> 
             <td 
-              onDoubleClick={ () => handleEditPartner({ id, partnerName, email, active, typesReport }) }
+              onDoubleClick={ () => handleEditPartner({ id, partnerName, email, active, reportName }) }
               className="hidden px-6 py-3 text-left cursor-pointer whitespace-nowrap xl:block"
             >{ email }</td> 
             <td 
-              onDoubleClick={ () => handleEditPartner({ id, partnerName, email, active, typesReport }) }
+              onDoubleClick={ () => handleEditPartner({ id, partnerName, email, active, reportName }) }
               className="hidden px-6 py-3 font-medium text-center cursor-pointer sm:block"
             >{ active ? 'Yes' : 'No'}</td> 
             <td 
-              onDoubleClick={ () => handleEditPartner({ id, partnerName, email, active, typesReport }) }
+              onDoubleClick={ () => handleEditPartner({ id, partnerName, email, active, reportName }) }
               className="justify-center hidden grid-flow-col gap-2 px-6 py-3 text-center cursor-pointer lg:grid justify-items-center reports"
             >
-              { typesReport?.map( ({ type, status }) => (
-                <span key={ type } className={`${ type.length > 0 ? 'text-xs text-white' : '' } ${ type.toLowerCase() } ${ status ? '' : 'hidden' } px-3 py-1 uppercase rounded-full whitespace-nowrap`}>{ type }</span> )) 
+              { reportName.includes('POD') &&
+                <span className={`text-xs text-white ${ reportName.toLowerCase() } px-3 py-1 uppercase rounded-full whitespace-nowrap`}>POD</span> 
+              }
+              { reportName.includes('EXCEPTION') &&
+                <span className={`text-xs text-white ${ reportName.toLowerCase() } px-3 py-1 uppercase rounded-full whitespace-nowrap`}>EXCEPTION</span> 
+              }
+              { reportName.includes('SCAN') &&
+                <span className={`text-xs text-white ${ reportName.toLowerCase() } px-3 py-1 uppercase rounded-full whitespace-nowrap`}>SCAN REPORT</span> 
+              }
+              { reportName.includes('CLEAR') &&
+                <span className={`text-xs text-white ${ reportName.toLowerCase() } px-3 py-1 uppercase rounded-full whitespace-nowrap`}>CLEAR</span> 
               }
             </td> 
             <td className="grid justify-center grid-flow-col gap-5 px-6 py-3 text-center justify-items-center">
@@ -70,7 +60,7 @@ export const TableBody = ({ tbodyItems, tbodyTrStyles, tbodyTrColors, tbodyTrGri
               <TrashIcon
                 className="w-6 h-6 text-gray-700 transition-colors duration-300 cursor-pointer hover:text-red-600"
                 title="Watch"
-                onClick={ () => handleRemovePartner(id, partnerName) }
+                onClick={ () => handleRemovePartner(partnerId, partnerName) }
               />
             </td> 
           </tr>

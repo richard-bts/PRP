@@ -7,7 +7,7 @@ export const SwitchForm = ({ switchEnabled, setSwitchEnabled, isTypeReport, type
       <Switch
         checked={switchEnabled}
         name={isTypeReport ? typeReport : 'isActive'}
-        onChange={e => isTypeReport ? handleTypeReport(e, typeReport) : setSwitchEnabled(e) }
+        onChange={e => isTypeReport ? handleTypeReport(typeReport) : setSwitchEnabled(e) }
         className={`${switchEnabled ? 'bg-indigo-600' : 'bg-gray-200'
           } relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-300 ${ isTypeReport ? 'my-2' : '' }`}
       >

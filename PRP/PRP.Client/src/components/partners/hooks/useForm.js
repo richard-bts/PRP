@@ -17,9 +17,9 @@ export const useForm = () => {
 
   const dispatch = useAppDispatch();
   const { activePartner } = useAppSelector( state => state.partners );
-  const { id, partnerName, email, active: isActive, typesReport } = activePartner || initialPartnerState;
+  const { id, partnerName, email, active: isActive, reportName } = activePartner || initialPartnerState;
   const [isActivePartner, setIsActivePartner] = useState(isActive);
-  const [reportTypes, setReportTypes] = useState(typesReport);
+  const [reportTypes, setReportTypes] = useState(reportName);
   const [errorForm, setErrorForm] = useState(errorFormInitialState);
   
   const [formData, setFormData] = useState({
@@ -29,7 +29,7 @@ export const useForm = () => {
   });
 
   console.log(formData);
-  console.log({ id, partnerName, email, isActive, typesReport });
+  console.log({ id, partnerName, email, isActive, reportName });
 
   const regexEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   const regexName = /^[A-zÀ-ÿ ]*$/;
@@ -99,7 +99,7 @@ export const useForm = () => {
       return;
     }
     setErrorForm(errorFormInitialState);
-    const partner = { id, name, email, isActive: isActivePartner, typesReport: reportTypes };
+    const partner = { id, name, email, isActive: isActivePartner, reportName: reportTypes };
     setFormData(initialPartnerState);
     setIsActivePartner(false);
     setActivePartner();

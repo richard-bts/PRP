@@ -1,8 +1,8 @@
 export const initialPartnerState = {
-  name: '',
+  partnerName: '',
   email: '',
-  isActive: false,
-  typesReport: [
+  active: 0,
+  reportName: [
     {
       status: false,
       type: 'POD'

@@ -7,7 +7,6 @@ import { getPartners } from '../../store/partners/thunks';
 import { setActivePartner, setOpenForm, useAppDispatch } from '../../store';
 import { SelectPartnersPerPage } from '../../components/partners/SelectPartnersPerPage';
 import { Layout, Table, PageTitle, Pagination, ButtonIcon } from '../../shared/components';
-import { useEffect } from 'react';
 
 const Partners = () => {
   const { currentPage, searchText, setSearchText, partnersLength, currentPartners, handleSearch, handleChangePage, partnersPerPage } =  useFilter();

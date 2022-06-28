@@ -2,9 +2,10 @@ import PropTypes from 'prop-types';
 import { TableHead } from './';
 import { Form } from '../../components/partners/Form';
 import { TableBody as TableBodyPartners } from '../../components/partners';
-import { removePartner, useAppDispatch, useAppSelector } from '../../store';
+import { useAppDispatch, useAppSelector } from '../../store';
 import { useState } from 'react';
 import { ConfirmPopup } from './ConfirmPopup';
+import { removeCurrentPartner } from '../../store/partners/thunks';
 
 export const Table = (
   {
@@ -31,7 +32,7 @@ export const Table = (
   });
 
   const handleRemovePartner = () => {
-    dispatch(removePartner(partnerToRemove.id));
+    dispatch(removeCurrentPartner(partnerToRemove.id));
     setIsOpen(false);
   }
 

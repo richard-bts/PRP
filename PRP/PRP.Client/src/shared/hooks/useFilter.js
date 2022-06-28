@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { useAppSelector } from "../../store";
 
-export const useFilter = (parners) => {
+export const useFilter = () => {
+
+  const { partners, partnersPerPage } = useAppSelector( state => state.partners );
+  const [partnerFiltered, setPartnerFiltered] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchText, setSearchText] = useState('');
-  const [partnerFiltered, setPartnerFiltered] = useState([]);
-  const { partners, partnersPerPage } = useAppSelector( state => state.partners );
 
   const partnersLength = partnerFiltered.length || partners.length;
   const myPartners = partnerFiltered.length ? partnerFiltered : partners;
@@ -14,8 +15,6 @@ export const useFilter = (parners) => {
   const indexOfLastPost = currentPage * partnersPerPage;
   const indexOfFirstPost = indexOfLastPost - partnersPerPage;
   const currentPartners = myPartners.slice(indexOfFirstPost, indexOfLastPost);
-
-  console.log("indexOfLastPost", indexOfLastPost);
   
   const handleChangePage = (number) => {
     setCurrentPage(number);
@@ -24,7 +23,7 @@ export const useFilter = (parners) => {
   const handleSearch = () => {
     setPartnerFiltered( () => {
       const filtered = partners.filter( partner => (
-        partner.name.toLowerCase().indexOf(searchText) > -1 || partner.email.toLowerCase().indexOf(searchText) > -1
+        partner.partnerName.toLowerCase().indexOf(searchText) > -1 /*|| partner.email.toLowerCase().indexOf(searchText) > -1*/
       ))
 
       return [...filtered];

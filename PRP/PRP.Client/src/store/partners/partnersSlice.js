@@ -18,17 +18,14 @@ export const partnersSlice = createSlice({
     setLoading: (state, action) => {
       state.isLoading = action.payload;
     },
-    setPartners: (state, action) => {
-      state.partners = action.payload;
-    },
     addPartner: (state, action) => {
-      const { id, name, email, isActive, typesReport } = action.payload;
-      const partner = state.partners.find(item => item.id === id);
+      const { partnerId, partnerName, email, active, reportName } = action.payload;
+      const partner = state.partners.find(item => item.id === partnerId);
       if (partner) {
-        partner.name = name;
+        partner.partnerName = partnerName;
         partner.email = email;
-        partner.isActive = isActive;
-        partner.typesReport = typesReport;
+        partner.active = active;
+        partner.reportName = reportName;
       } else {
         state.partners.push(action.payload);
       }
@@ -37,7 +34,7 @@ export const partnersSlice = createSlice({
       state.activePartner = action.payload ? action.payload : null;
     },
     removePartner: (state, action) => {
-      state.partners = state.partners.filter(partner => partner.id !== action.payload);
+      state.partners = state.partners.filter(partner => partner.partnerId !== action.payload);
     },
     setOpenForm: (state, action) => {
       state.openForm = action.payload;
@@ -50,17 +47,17 @@ export const partnersSlice = createSlice({
       state.activedSort = false;
       state.partners = [...state.partners].sort((a, b) => {
         if (!state.namedSort) {
-          if (a.name < b.name) {
+          if (a.partnerName < b.partnerName) {
             return -1;
           }
-          if (a.name > b.name) {
+          if (a.partnerName > b.partnerName) {
             return 1;
           }
         } else {	
-          if (a.name > b.name) {
+          if (a.partnerName > b.partnerName) {
             return -1;
           }
-          if (a.name < b.name) {
+          if (a.partnerName < b.partnerName) {
             return 1;
           }
         }
@@ -72,17 +69,17 @@ export const partnersSlice = createSlice({
       state.namedSort = false;
       state.partners = [...state.partners].sort((a, b) => {
         if (!state.activedSort) {
-          if (a.isActive < b.isActive) {
+          if (a.active < b.active) {
             return -1;
           }
-          if (a.isActive > b.isActive) {
+          if (a.active > b.active) {
             return 1;
           }
         } else {	
-          if (a.isActive > b.isActive) {
+          if (a.active > b.active) {
             return -1;
           }
-          if (a.isActive < b.isActive) {
+          if (a.active < b.active) {
             return 1;
           }
         }
