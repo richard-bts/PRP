@@ -59,23 +59,42 @@ namespace PRP.WinService
 
             string? content = String.Empty;
 
-            if (response != null && response.Result != null && response.Result.Result != null)
-                content = Convert.ToString(response.Result.Result);
-
-            if (response != null && response.Result != null && !string.IsNullOrEmpty(content))
-            {
-                PartnersList = JsonConvert.DeserializeObject<List<PartnerDetailDto>>(content);
-            }
+          
 
             while (!stoppingToken.IsCancellationRequested)
             {
-                foreach (var a in PartnersList)
-                    if ((a.ReportTime.Value.Hour == DateTime.Now.Hour) & (a.ReportTime.Value.Minute == DateTime.Now.Minute) & (a.ReportTime < DateTime.Now))
-                    {
-                        _produceReport.GenerateAllReportsFor(a);
+                Log.Logger.ForContext("Component", "PRP.WinService").Information("{Message}", $"Service is starting...");
+                content = String.Empty;
+                PartnersList = new();
+                response = _PRPService.GetPartners();
+                if (response != null && response.Result != null && response.Result.Result != null)
+                    content = Convert.ToString(response.Result.Result);
 
+                if (response != null && response.Result != null && !string.IsNullOrEmpty(content))
+                {
+                    PartnersList = JsonConvert.DeserializeObject<List<PartnerDetailDto>>(content);
+                }
+
+
+                bool StopPartDay = false;
+                while (!StopPartDay)
+                {
+                    foreach (var a in PartnersList)
+                        if ((a.ReportTime.Value.Hour == DateTime.Now.Hour) & (a.ReportTime.Value.Minute == DateTime.Now.Minute) & (a.ReportTime < DateTime.Now))
+                        {
+                            _produceReport.GenerateAllReportsFor(a);
+
+                        }
+                    await Task.Delay(TimeSpan.FromSeconds(30), stoppingToken);
+                    if ((DateTime.Now.Hour == 9) && (DateTime.Now.Minute == 48))
+                    {
+                        StopPartDay = true;
                     }
-                await Task.Delay(TimeSpan.FromSeconds(30), stoppingToken);
+                    if ((DateTime.Now.Hour == 23) && (DateTime.Now.Minute == 59))
+                    {
+                        StopPartDay = true;
+                    }
+                }
             }
 
 

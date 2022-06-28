@@ -14,5 +14,6 @@ namespace PRP.Service.Api.Repository
         Task<IEnumerable<PartnerEmailDto>> AddPartnerEmail(PartnerEmailDto partneremail);
         Task<PartnerEmailDto> EditPartnerEmail(PartnerEmailDto partneremail);
         Task<bool> RemovePartnerEmail(int id);
+        Task<IEnumerable<FindCompanyNameDto>> GetCompanyName(string name);
     }
 }

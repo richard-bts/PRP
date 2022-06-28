@@ -337,6 +337,28 @@ namespace PRP.Service.Api.Repository
             }
             return Task.FromResult(response);
         }
+
+        public async Task<IEnumerable<FindCompanyNameDto>> GetCompanyName(string name)
+        {
+            List<FindCompanyName> NameCampany = new List<FindCompanyName>();
+            if (_db.CampanyName != null)
+            {
+                var param = new SqlParameter[]
+                    {
+                        new SqlParameter()
+                        {
+                            ParameterName="@text",
+                            SqlDbType = System.Data.SqlDbType.NVarChar,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = name
+                        }
+                    };
+                
+                NameCampany = await _db.CampanyName.FromSqlRaw("EXEC [dbo].[sp_GetCompanyName] @text", param).ToListAsync();
+                return _mapper.Map<List<FindCompanyNameDto>>(NameCampany);
+            }
+            return null;
+        }
         #endregion
     }
 }

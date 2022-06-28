@@ -386,6 +386,34 @@ try
 
         return response;
     });
+
+
+    app.MapGet("api/report/GetCompanyName", async ([FromServices] IPartnerRepository PartnerRepository, string Name) =>
+    {
+        ResponseDto response = new ResponseDto();
+
+        try
+        {
+            response.Result = await PartnerRepository.GetCompanyName(Name);
+            Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"GetCompanyName api called successfully...");
+        }
+        catch (Exception ex)
+        {
+            response.IsSuccess = false;
+            response.ErrorMessages = new List<string>() { ex.ToString() };
+            Log.Logger.ForContext("Component", "PRP.Service.Api").Error("{Message}", $"GetCompanyName api call failed. " +
+                $"Error Message: {response.ErrorMessages}.");
+        }
+
+        return response;
+    });
+
+
+
+
+
+
+
     #endregion
 
     #region Development env settings and app run

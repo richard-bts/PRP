@@ -116,6 +116,7 @@ namespace PRP.Service.Api.Repository
 
         public async Task<ReportTypeDto> AddReportType(ReportTypeDto report)
         {
+        List<ReportType> returnAdd = new List<ReportType>();
             if (report != null)
             {
                 var param = new SqlParameter[]
@@ -131,17 +132,18 @@ namespace PRP.Service.Api.Repository
 
                };
 
+
                 
 
                 if (_db.ReportTypes != null)
-                  await _db.ReportTypes.FromSqlRaw("EXEC [dbo].[sp_AddReportType] @report_name", param).ToListAsync();
-
+                    returnAdd = await _db.ReportTypes.FromSqlRaw("EXEC [dbo].[sp_AddReportType] @report_name", param).ToListAsync();
             }
-            return report;
+            return _mapper.Map<ReportTypeDto>(returnAdd[0]);
         }
 
         public async Task<ReportTypeDto> EditReportType(ReportTypeDto report)
         {
+            List<ReportType> returnEdit = new List<ReportType>();
             try
             {
                 if (report != null)
@@ -167,13 +169,13 @@ namespace PRP.Service.Api.Repository
 
 
                  };
-                    await _db.ReportTypes.FromSqlRaw("EXEC [dbo].[sp_EditReportType] @id, @name", param).ToListAsync();
+                    returnEdit= await _db.ReportTypes.FromSqlRaw("EXEC [dbo].[sp_EditReportType] @id, @name", param).ToListAsync();
                 }
             }
             catch (Exception)
             {
             }
-            return report;
+            return _mapper.Map<ReportTypeDto>(returnEdit[0]);
 
 
 

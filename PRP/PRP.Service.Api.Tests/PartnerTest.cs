@@ -126,5 +126,12 @@ namespace PRP.Service.Api.Tests
 
             Assert.True(response);
         }
+        [Fact]
+        public async void GetCompanyName_Test()
+        {
+            var response = await _partnerService.GetCompanyName("Tes");
+
+            Assert.NotNull(response);
+        }
     }
 }
