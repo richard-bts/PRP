@@ -12,13 +12,12 @@ const partnerData = {
 }
 
 const partnerEditData = {
-  id: 2,
   clientId: 7896,
-  partnerId: 3,
-  partnerName: "Name edited",
-  reportName: "POD, EXCEPTION",
-  reportTime: "2022-06-24T15:13:33.537",
-  active: 0
+  partnerId: 90,
+  partnerName: "test partner name",
+  reportName: "POD",
+  reportTime: "1964-12-27T12:10:11.46",
+  active: 1
 }
 
 const partnerAddEmail = {
@@ -47,7 +46,7 @@ export const getOnePartner = async(partnerId) => {
 /* ADD A PARTNER */
 
 export const addNewPartner = async(data) => {
-
+  console.log('Add Partner', data);
   try {
     const response = await fetchPartner(baseURL, 'addpartner', undefined, data, 'POST');
     const body = await response.json();
@@ -64,10 +63,19 @@ export const addNewPartner = async(data) => {
 
 /* EDIT A PARTNER */
 
-export const editCurrentPartner = async(data = partnerEditData) => {
-  const response = await fetchPartner(baseURL, 'editpartner', undefined, data, 'PUT');
-  const body = await response.json();
-  console.log('Edit Partner', body);
+export const editCurrentPartner = async(data) => {
+  try {
+    const response = await fetchPartner(baseURL, 'editpartner', undefined, data, 'PUT');
+    const body = await response.json();
+    if(body.isSuccess) {
+      // dispatch(addPartner(data));
+      console.log('Edit Partner', body);
+    } else {
+      throw new Error(body.errorMessages);
+    }
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 /* REMOVE A PARTNER */

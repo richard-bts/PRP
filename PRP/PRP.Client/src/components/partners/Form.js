@@ -5,11 +5,10 @@ import { SwitchForm } from './SwitchForm';
 import { XIcon } from '@heroicons/react/solid';
 import { FormInput } from './FormInput';
 import { FormConfirm } from './FormConfirm';
-import { reportTypesTest } from '../../shared/data';
 
 export const Form = ({ handleCloseForm }) => {
 
-  const { name, email, handleTypeReport, handleFormChange, handleSubmitForm, isActivePartner, setIsActivePartner, reportName, errorForm, isValidData } = useForm(handleCloseForm);
+  const { name, email, handleTypeReport, handleFormChange, handleSubmitForm, isActivePartner, setIsActivePartner, reportName, errorForm, isValidData, reportTypes } = useForm(handleCloseForm);
   let [isOpen, setIsOpen] = useState(false);
 
   const submitForm = (e) => {
@@ -64,7 +63,7 @@ export const Form = ({ handleCloseForm }) => {
           <div className="flex flex-col py-3">
             <label className="pb-2 font-semibold text-gray-700">Partner Types Report</label>
             {
-              reportTypesTest.map(({ status, type }) => (
+              reportTypes.map(({ status, type }) => (
                 <SwitchForm
                   key={type}
                   switchEnabled={status}

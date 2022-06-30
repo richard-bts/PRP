@@ -1,8 +1,8 @@
 import dayjs from "dayjs";
 import { useState } from "react";
-import { initialPartnerState } from "../../../shared/data";
-import { setActivePartner, useAppDispatch, useAppSelector } from "../../../store";
-import { addNewPartner } from "../../../store/partners/thunks";
+import { initialPartnerState, reportTypesTest } from "../../../shared/data";
+import { setActivePartner, useAppSelector } from "../../../store";
+import { addNewPartner, editCurrentPartner } from "../../../store/partners/thunks";
 
 const errorFormInitialState = {
   partnerName: {
@@ -17,16 +17,16 @@ const errorFormInitialState = {
 
 export const useForm = () => {
 
-  const dispatch = useAppDispatch();
   const { activePartner } = useAppSelector( state => state.partners );
-  const { partnerId, partnerName, email, active, reportName } = activePartner || initialPartnerState;
+  const { clientId, partnerId, partnerName, email, active, reportName } = activePartner;
   const [isActivePartner, setIsActivePartner] = useState(active);
-  const [reportTypes, setReportTypes] = useState(reportName);
+  // const [reportTypes, setReportTypes] = useState(reportName);
+  const [reportTypes, setReportTypes] = useState(reportTypesTest);
   const [errorForm, setErrorForm] = useState(errorFormInitialState);
   const [isValidData, setIsValidData] = useState(false);
   
   const [formData, setFormData] = useState({
-    clientId: Math. floor(Math. random() * 100),
+    clientId: clientId || Math. floor(Math. random() * 100),
     partnerId: partnerId || Math. floor(Math. random() * 100),
     partnerName,
     email,
@@ -36,7 +36,6 @@ export const useForm = () => {
   const regexName = /^[A-zÀ-ÿ ]*$/;
 
   const handleTypeReport = (value, typeName) => {
-    console.log(value, typeName);
     setReportTypes( prev => (
         prev.map(item => {
           if (item.type === typeName) {
@@ -108,17 +107,22 @@ export const useForm = () => {
       return;
     }
     setErrorForm(errorFormInitialState);
+    const arrayStrings = reportTypes.map(item => item.status ? item.type : '');
     const partner = {
       clientId,
       partnerId,
       partnerName,
       email,
-      reportName: "SCAN AUDIT",
+      reportName: arrayStrings.join(''),
       reportTime: dayjs().format(),
       active: isActivePartner
     };
     setFormData(initialPartnerState);
-    addNewPartner(partner);
+    if(activePartner) {
+      editCurrentPartner(partner);
+    } else {
+      addNewPartner(partner);
+    }
     setIsActivePartner(0);
     setActivePartner();
   }

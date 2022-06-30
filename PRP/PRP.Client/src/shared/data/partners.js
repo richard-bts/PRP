@@ -9,7 +9,7 @@ export const initialPartnerState = {
     },
     {
       status: false,
-      type: 'SCAN AUDIT'
+      type: 'SCAN'
     },
     {
       status: false,
@@ -29,7 +29,7 @@ export const reportTypesTest = [
   },
   {
     status: false,
-    type: 'SCAN AUDIT'
+    type: 'SCAN'
   },
   {
     status: false,
