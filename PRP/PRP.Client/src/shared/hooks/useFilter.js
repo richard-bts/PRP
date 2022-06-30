@@ -9,7 +9,7 @@ export const useFilter = () => {
   const [searchText, setSearchText] = useState('');
 
   const partnersLength = partnerFiltered.length || partners.length;
-  const myPartners = partnerFiltered.length ? partnerFiltered : partners;
+  const myPartners = partnerFiltered.length && searchText.length ? partnerFiltered : partners;
 
   // Get current partners.
   const indexOfLastPost = currentPage * partnersPerPage;
@@ -18,19 +18,19 @@ export const useFilter = () => {
   
   const handleChangePage = (number) => {
     setCurrentPage(number);
-  }
+  };
 
-  const handleSearch = () => {
+  const handleSearch = (value) => {
+    setSearchText(value);
     setPartnerFiltered( () => {
       const filtered = partners.filter( partner => (
-        partner.partnerName.toLowerCase().indexOf(searchText) > -1 /*|| partner.email.toLowerCase().indexOf(searchText) > -1*/
-      ))
-
+        partner.partnerName.toLowerCase().indexOf(value) > -1 /*|| partner.email.toLowerCase().indexOf(searchText) > -1*/
+      ));
       return [...filtered];
     }
     );
     setCurrentPage(1);
-  }
+  };
 
   return {
     currentPage,
@@ -44,5 +44,5 @@ export const useFilter = () => {
     handleChangePage,
     handleSearch,
     partnersPerPage
-  }
+  };
 };

@@ -77,6 +77,6 @@ export const getServerSideProps = async() => {
       initialState: store.getState(),
     },
   };
-}
+};
 
 export default Partners;

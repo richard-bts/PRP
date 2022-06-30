@@ -16,7 +16,7 @@ export const SelectPartnersPerPage = () => {
     <div className="">
       <Listbox value={partnersPerPage} onChange={handleSelected}>
         <div className="relative z-20">
-          <Listbox.Button className="relative w-full py-2 pl-3 pr-10 font-medium text-center text-white bg-indigo-500 rounded shadow-md cursor-default lg:w-36 md:text-left h-11 focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-indigo-300 sm:text-sm md:text-base" title={`${partnersPerPage} per page`}>
+          <Listbox.Button className="relative w-full py-2 pl-3 pr-10 font-medium text-center text-white bg-indigo-500 rounded shadow-md cursor-pointer lg:w-36 md:text-left h-11 focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-indigo-300 sm:text-sm md:text-base" title={`${partnersPerPage} per page`}>
             <span className="block truncate">{`${partnersPerPage} per page`}</span>
             <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
               <SelectorIcon
