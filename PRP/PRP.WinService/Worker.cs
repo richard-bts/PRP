@@ -21,8 +21,10 @@ namespace PRP.WinService
             _produceReport = produceReport;
             _PRPService= PRPService;
         }
+        private readonly int midnighth = 12;
+        private readonly int min = 00;
+        private readonly int nighth = 23;
 
-       
         #endregion
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
@@ -63,7 +65,7 @@ namespace PRP.WinService
 
             while (!stoppingToken.IsCancellationRequested)
             {
-                Log.Logger.ForContext("Component", "PRP.WinService").Information("{Message}", $"Service is starting...");
+                Log.Logger.ForContext("Component", "PRP.WinService").Information("{Message}", $"Service is Pull Data ...");
                 content = String.Empty;
                 PartnersList = new();
                 response = _PRPService.GetPartners();
@@ -80,18 +82,22 @@ namespace PRP.WinService
                 while (!StopPartDay)
                 {
                     foreach (var a in PartnersList)
-                        if ((a.ReportTime.Value.Hour == DateTime.Now.Hour) & (a.ReportTime.Value.Minute == DateTime.Now.Minute) & (a.ReportTime < DateTime.Now))
+                    {
+                        if ((a.ReportTime.Value.Hour == DateTime.Now.Hour) & (a.ReportTime.Value.Minute == DateTime.Now.Minute) & (a.ReportTime.Value.Day <= DateTime.Now.Day) & (a.ReportTime.Value.Month <= DateTime.Now.Month) & (a.ReportTime.Value.Year <= DateTime.Now.Year))
                         {
                             _produceReport.GenerateAllReportsFor(a);
-
+                            Log.Logger.ForContext("Component", "PRP.WinService").Information("{Message}", $"Service is Sending email ...");
                         }
+                    }
                     await Task.Delay(TimeSpan.FromSeconds(30), stoppingToken);
-                    if ((DateTime.Now.Hour == 9) && (DateTime.Now.Minute == 48))
+                    if ((DateTime.Now.Hour == midnighth) && (DateTime.Now.Minute == min))
                     {
                         StopPartDay = true;
+                        Log.Logger.ForContext("Component", "PRP.WinService").Information("{Message}", $"Update data ...");
                     }
-                    if ((DateTime.Now.Hour == 23) && (DateTime.Now.Minute == 59))
+                    if ((DateTime.Now.Hour == nighth) && (DateTime.Now.Minute == min))
                     {
+                        Log.Logger.ForContext("Component", "PRP.WinService").Information("{Message}", $"Update data ...");
                         StopPartDay = true;
                     }
                 }

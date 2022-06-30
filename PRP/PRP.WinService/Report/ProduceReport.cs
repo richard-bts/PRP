@@ -55,10 +55,19 @@ namespace PRP.WinService.Report
                 //{
                 //    PartnersList = JsonConvert.DeserializeObject<List<PartnerDetailDto>>(content);
                 //}
+                string dir = _Configuration.GetSection("EmailSettings:FileLocation").Value;
+                if (!Directory.Exists(dir))
+                {
+                    Directory.CreateDirectory(dir);
+                }
+                else
+                {
+                    CleanUpTempDir();
+                }
 
                 if (PartnersList != null)
                 {
-                    CleanUpTempDir();
+                   
                     //foreach (PartnerDetailDto pd in PartnersList)
                     //{
                     switch (PartnersList.ReportName)
@@ -72,8 +81,8 @@ namespace PRP.WinService.Report
                         case "SCAN":
                             GenerateScanReport(PartnersList);
                             break;
+                   // }
                     }
-                    //}
                 }
             }
             catch (Exception)
@@ -82,51 +91,63 @@ namespace PRP.WinService.Report
             }
             return true;
         }
-        public bool GenerateAllReports()
-        {
-            try
-            {
+        //public bool GenerateAllReports()
+        //{
+        //    try
+        //    {
 
-                List<PartnerDetailDto>? PartnersList = new();
+        //        List<PartnerDetailDto>? PartnersList = new();
 
-                var response = _PRPService.GetPartners();
+        //        var response = _PRPService.GetPartners();
 
-                string? content = String.Empty;
+        //        string? content = String.Empty;
 
-                if (response != null && response.Result != null && response.Result.Result != null)
-                    content = Convert.ToString(response.Result.Result);
+        //        if (response != null && response.Result != null && response.Result.Result != null)
+        //            content = Convert.ToString(response.Result.Result);
 
-                if (response != null && response.Result != null && !string.IsNullOrEmpty(content))
-                {
-                    PartnersList = JsonConvert.DeserializeObject<List<PartnerDetailDto>>(content);
-                }
+        //        if (response != null && response.Result != null && !string.IsNullOrEmpty(content))
+        //        {
+        //            PartnersList = JsonConvert.DeserializeObject<List<PartnerDetailDto>>(content);
+        //        }
+        //        
 
-                if (PartnersList != null)
-                {
-                    CleanUpTempDir();
-                    foreach (PartnerDetailDto pd in PartnersList)
-                    {
-                        switch (pd.ReportName)
-                        {
-                            case "POD":
-                                GeneratePODReport(pd);
-                                break;
-                            case "EXCEPTION":
-                                GenerateExceptionReport(pd);
-                                break;
-                            case "SCAN":
-                                GenerateScanReport(pd);
-                                break;
-                        }
-                    }
-                }                
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-            return true;
-        }
+                
+        //        if (!Directory.Exists(dir))
+        //        {
+        //            Directory.CreateDirectory(dir);
+        //        }
+        //        else { 
+        //            CleanUpTempDir();
+        //        }
+ 
+
+
+        //        if (PartnersList != null)
+        //        {
+                   
+        //            foreach (PartnerDetailDto pd in PartnersList)
+        //            {
+        //                switch (pd.ReportName)
+        //                {
+        //                    case "POD":
+        //                        GeneratePODReport(pd);
+        //                        break;
+        //                    case "EXCEPTION":
+        //                        GenerateExceptionReport(pd);
+        //                        break;
+        //                    case "SCAN":
+        //                        GenerateScanReport(pd);
+        //                        break;
+        //                }
+        //            }
+        //        }                
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return false;
+        //    }
+        //    return true;
+        //}
         public bool GeneratePODReport(PartnerDetailDto pd)
         {           
             List<PODReportDto>? list = new();
@@ -241,7 +262,7 @@ namespace PRP.WinService.Report
                 string dir = _Configuration.GetSection("EmailSettings:FileLocation").Value;
 
                 string fullpath = $"{dir}{filename}";
-
+                
                 using (StreamWriter sw = new StreamWriter(fullpath))
                 {
                     string header = "OrderTrackingID,ClientRefNo,RefNo,DCoName,DContact,DStreet,DStreet2,DCity,DState,DZip,PODcompletionTime";
@@ -267,8 +288,9 @@ namespace PRP.WinService.Report
 
                 return true;
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Log.Logger.ForContext("Component", "PRP.WinService").Warning("{Message}", e);
                 throw;
             }
 
@@ -377,9 +399,9 @@ namespace PRP.WinService.Report
                     fi.Delete();
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-
+                Log.Logger.ForContext("Component", "PRP.WinService").Warning("{Message}", e);
             }
 
         }

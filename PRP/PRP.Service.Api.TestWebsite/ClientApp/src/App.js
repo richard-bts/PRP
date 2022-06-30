@@ -9,6 +9,7 @@ import { PODReport } from './components/PODReport.js';
 import { ExceptionReport } from './components/ExceptionReport.js';
 import { AddReportType } from './components/AddReportType.js';
 import { AddPartnerEmail } from './components/AddPartnerEmail.js';
+import { NameSugestion } from './components/NameSugestion.js' 
 
 import './custom.css'
 
@@ -26,6 +27,7 @@ export default class App extends Component {
             <Route path='/exception-report' component={ExceptionReport} />
             <Route path='/add-report-type' component={AddReportType} />
             <Route path='/add-partner-email' component={AddPartnerEmail} />
+            <Route path='/name-sugestion' component={NameSugestion} />
       </Layout>
     );
   }
