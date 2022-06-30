@@ -38,17 +38,20 @@ export const TableBody = ({ tbodyItems, tbodyTrStyles, tbodyTrColors, tbodyTrGri
               onDoubleClick={ () => handleEditPartner({ id, partnerName, email, active, reportName }) }
               className="justify-center hidden grid-flow-col gap-2 px-6 py-3 text-center cursor-pointer lg:grid justify-items-center reports"
             >
-              { reportName.includes('POD') &&
+              { reportName?.includes('POD') &&
                 <span className={`text-xs text-white ${ reportName.toLowerCase() } px-3 py-1 uppercase rounded-full whitespace-nowrap`}>POD</span> 
               }
-              { reportName.includes('EXCEPTION') &&
+              { reportName?.includes('EXCEPTION') &&
                 <span className={`text-xs text-white ${ reportName.toLowerCase() } px-3 py-1 uppercase rounded-full whitespace-nowrap`}>EXCEPTION</span> 
               }
-              { reportName.includes('SCAN') &&
+              { reportName?.includes('SCAN') &&
                 <span className={`text-xs text-white ${ reportName.toLowerCase() } px-3 py-1 uppercase rounded-full whitespace-nowrap`}>SCAN REPORT</span> 
               }
-              { reportName.includes('CLEAR') &&
+              { reportName?.includes('CLEAR') &&
                 <span className={`text-xs text-white ${ reportName.toLowerCase() } px-3 py-1 uppercase rounded-full whitespace-nowrap`}>CLEAR</span> 
+              }
+              { !reportName &&
+                <span className={`text-xs font-medium bg-white text-black px-3 py-1 uppercase rounded-full whitespace-nowrap`}>don't have any Report Types</span> 
               }
             </td> 
             <td className="grid justify-center grid-flow-col gap-5 px-6 py-3 text-center justify-items-center">

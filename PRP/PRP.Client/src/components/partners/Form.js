@@ -5,14 +5,16 @@ import { SwitchForm } from './SwitchForm';
 import { XIcon } from '@heroicons/react/solid';
 import { FormInput } from './FormInput';
 import { FormConfirm } from './FormConfirm';
+import { reportTypesTest } from '../../shared/data';
 
 export const Form = ({ handleCloseForm }) => {
 
-  const { name, email, handleTypeReport, handleFormChange, handleSubmitForm, isActivePartner, setIsActivePartner, reportName, errorForm } = useForm(handleCloseForm);
+  const { name, email, handleTypeReport, handleFormChange, handleSubmitForm, isActivePartner, setIsActivePartner, reportName, errorForm, isValidData } = useForm(handleCloseForm);
   let [isOpen, setIsOpen] = useState(false);
 
   const submitForm = (e) => {
     e.preventDefault();
+    if(!isValidData) return;
     setIsOpen(true)
   }
 
@@ -21,7 +23,7 @@ export const Form = ({ handleCloseForm }) => {
       <div className="fixed top-0 left-0 z-40 flex flex-row flex-wrap min-h-screen bg-slate-200/50 md:p-12 w-100vw">
         <form
           className="absolute w-11/12 p-5 m-0 bg-white shadow md:w-3/5 lg:w-1/3 md:rounded-lg h-max top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4"
-          onSubmit={ (e) => addPartner(e) }
+          onSubmit={(e) => submitForm(e)}
         >
 
           <XIcon
@@ -33,12 +35,12 @@ export const Form = ({ handleCloseForm }) => {
 
           <FormInput
             inputType="text"
-            inputName="name"
+            inputName="partnerName"
             placeholder="Partner name"
             value={name}
             handleFormChange={handleFormChange}
-            errorMessage={errorForm.name.errorMessage}
-            error={errorForm.name.error}
+            errorMessage={errorForm.partnerName.errorMessage}
+            error={errorForm.partnerName.error}
           />
 
           <FormInput
@@ -62,7 +64,7 @@ export const Form = ({ handleCloseForm }) => {
           <div className="flex flex-col py-3">
             <label className="pb-2 font-semibold text-gray-700">Partner Types Report</label>
             {
-              reportName.map(({ status, type }) => (
+              reportTypesTest.map(({ status, type }) => (
                 <SwitchForm
                   key={type}
                   switchEnabled={status}
@@ -76,7 +78,7 @@ export const Form = ({ handleCloseForm }) => {
 
           <div className="mt-2">
             <button
-              className="w-full p-3 font-medium text-white transition-colors duration-300 bg-indigo-500 rounded hover:bg-indigo-600"
+              className={`${ isValidData ? 'bg-indigo-500 hover:bg-indigo-600' : 'bg-indigo-500 opacity-50 cursor-default' } rounded w-full p-3 font-medium text-white transition-colors duration-300`}
               type="submit"
             >Save partner</button>
           </div>

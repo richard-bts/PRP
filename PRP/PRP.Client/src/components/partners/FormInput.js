@@ -12,6 +12,7 @@ export const FormInput = ({ inputType, inputName, placeholder, value, handleForm
         name={ inputName }
         value={value}
         onChange={ handleFormChange }
+        autoComplete="off"
       />
       <FormInputError
         errorMessage={errorMessage}

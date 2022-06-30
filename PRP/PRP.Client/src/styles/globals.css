@@ -41,6 +41,10 @@ a {
   background-color: #EE964B;
 }
 
+.table-partner-item .reports span.bg-white {
+  background-color: transparent;
+}
+
 .pagination-item {
   display: none;
 }
