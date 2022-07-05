@@ -7,6 +7,7 @@ const partnerData = {
   clientId: 54321,
   partnerId: 98765,
   partnerName: "Partner test from code",
+  email: "testnewedit@cdl.react",
   reportName: "dolor consequat aute enim",
   reportTime: "1964-12-27T12:10:11.461Z"
 }
@@ -26,65 +27,6 @@ const partnerAddEmail = {
   email: "testnewedit@cdl.react"
 }
 
-
-/* GET ALL THE PARTNERS */
-
-export const getPartners = createAsyncThunk("partners/getPartners", async() => {
-  const response = await fetchPartnerQuery(baseURL, 'getpartners');
-  const { result } = await response.json();
-  return result;
-});
-
-/* GET A SPECIFIC PARTNER */
-
-export const getOnePartner = async(partnerId) => {
-  const response = await fetchPartnerQuery(baseURL, `getpartner?partnerId=${partnerId}`);
-  const body = await response.json();
-  console.log('Get Partner', body);
-}
-
-/* ADD A PARTNER */
-
-export const addNewPartner = async(data) => {
-  console.log('Add Partner', data);
-  try {
-    const response = await fetchPartner(baseURL, 'addpartner', undefined, data, 'POST');
-    const body = await response.json();
-    if(body.isSuccess) {
-      // dispatch(addPartner(data));
-      console.log('Add Partner', body);
-    } else {
-      throw new Error(body.errorMessages);
-    }
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-/* EDIT A PARTNER */
-
-export const editCurrentPartner = async(data) => {
-  try {
-    const response = await fetchPartner(baseURL, 'editpartner', undefined, data, 'PUT');
-    const body = await response.json();
-    if(body.isSuccess) {
-      // dispatch(addPartner(data));
-      console.log('Edit Partner', body);
-    } else {
-      throw new Error(body.errorMessages);
-    }
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-/* REMOVE A PARTNER */
-
-export const removeCurrentPartner = async(partnerId) => {
-  const response = await fetchPartnerQuery(baseURL, `removepartner?partnerID=${partnerId}`, 'DELETE');
-  const body = await response.json();
-  console.log('Remove Partner', body);
-}
 
 /* GET PARTNER EMAIL */
 
@@ -114,6 +56,66 @@ export const editPartnerEmail = async(data = partnerAddEmail) => {
 
 export const removePartnerEmail = async(partnerId) => {
   const response = await fetchPartnerQuery(baseURL, `removepartneremail?partnerID=${partnerId}`, 'DELETE');
+  const body = await response.json();
+  console.log('Remove Partner', body);
+}
+
+/* GET ALL THE PARTNERS */
+
+export const getPartners = createAsyncThunk("partners/getPartners", async() => {
+  const response = await fetchPartnerQuery(baseURL, 'getpartners');
+  const { result } = await response.json();
+  return result;
+});
+
+/* GET A SPECIFIC PARTNER */
+
+export const getOnePartner = async(partnerId) => {
+  const response = await fetchPartnerQuery(baseURL, `getpartner?partnerId=${partnerId}`);
+  const body = await response.json();
+  console.log('Get Partner', body);
+}
+
+/* ADD A PARTNER */
+
+export const addNewPartner = async(data) => {
+  const { email } = data;
+  try {
+    const response = await fetchPartner(baseURL, 'addpartner', undefined, data, 'POST');
+    const body = await response.json();
+
+    if(body.isSuccess) {
+      console.log('Add Partner', body);
+      addPartnerEmail({ id: body?.result?.id, partnerId: body?.result?.partnerId, email });
+    } else {
+      throw new Error(body.errorMessages);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+/* EDIT A PARTNER */
+
+export const editCurrentPartner = async(data) => {
+  try {
+    const response = await fetchPartner(baseURL, 'editpartner', undefined, data, 'PUT');
+    const body = await response.json();
+    if(body.isSuccess) {
+      // dispatch(addPartner(data));
+      console.log('Edit Partner', body);
+    } else {
+      throw new Error(body.errorMessages);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+/* REMOVE A PARTNER */
+
+export const removeCurrentPartner = async(partnerId) => {
+  const response = await fetchPartnerQuery(baseURL, `removepartner?partnerID=${partnerId}`, 'DELETE');
   const body = await response.json();
   console.log('Remove Partner', body);
 }

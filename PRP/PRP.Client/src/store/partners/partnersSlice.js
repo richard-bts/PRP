@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { getPartners } from './thunks';
 
 const initialState = {
-  activePartner: null,
+  activePartner: {},
   activedSort: false,
   error: false,
   isLoading: false,
@@ -21,9 +21,10 @@ export const partnersSlice = createSlice({
     },
     addPartner: (state, action) => {
       const { clientId, partnerId, partnerName, email, active, reportName } = action.payload;
-      const partner = state.partners.find(item => item.id === partnerId);
+      const partner = state.partners.find(item => item.partnerId === partnerId);
       if (partner) {
         partner.clientId = clientId;
+        partner.partnerId = partnerId;
         partner.partnerName = partnerName;
         partner.email = email;
         partner.active = active;

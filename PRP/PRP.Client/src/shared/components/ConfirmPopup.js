@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 
-export const ConfirmPopup = ({ isOpen, setIsOpen, onClick, title, description, colorsPrimaryBoton }) => {
+export const ConfirmPopup = ({ isOpen, setIsOpen, onClick, title, description, colorsPrimaryBoton, buttonTitle, showButton = true }) => {
 
   const colorsBtn = colorsPrimaryBoton || "bg-indigo-500 border border-transparent rounded-md hover:bg-indigo-600 focus:bg-indigo-600 active:bg-indigo-600 text-white";
 
@@ -54,23 +54,24 @@ export const ConfirmPopup = ({ isOpen, setIsOpen, onClick, title, description, c
                       { description }
                     </p>
                   </div>
-
-                  <div className="grid grid-cols-2 gap-2 mt-4">
-                    <button
-                      type="button"
-                      className={`${ colorsBtn } inline-flex justify-center px-4 py-2 text-sm font-medium transition duration-300 border border-transparent rounded-md focus:outline-none focus-visible:ring-2`}
-                      onClick={ handleClick }
-                    >
-                      Save data
-                    </button>
-                    <button
-                      type="button"
-                      className="inline-flex justify-center px-4 py-2 text-sm font-medium text-indigo-600 transition duration-300 bg-white border border-transparent rounded-md hover:border-indigo-500 focus:border-indigo-500 active:border-indigo-500 focus:outline-none focus-visible:ring-2 "
-                      onClick={ closeModal }
-                    >
-                      Cancel
-                    </button>
-                  </div>
+                  { showButton &&
+                    <div className="grid grid-cols-2 gap-2 mt-4">
+                      <button
+                        type="button"
+                        className={`${ colorsBtn } inline-flex justify-center px-4 py-2 text-sm font-medium transition duration-300 border border-transparent rounded-md focus:outline-none focus-visible:ring-2`}
+                        onClick={ handleClick }
+                      >
+                        { buttonTitle }
+                      </button>
+                      <button
+                        type="button"
+                        className="inline-flex justify-center px-4 py-2 text-sm font-medium text-indigo-600 transition duration-300 bg-white border border-transparent rounded-md hover:border-indigo-500 focus:border-indigo-500 active:border-indigo-500 focus:outline-none focus-visible:ring-2 "
+                        onClick={ closeModal }
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  }
                 </Dialog.Panel>
               </Transition.Child>
             </div>
@@ -87,5 +88,7 @@ ConfirmPopup.propTypes = {
   onClick: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  colorsPrimaryBoton: PropTypes.string
+  colorsPrimaryBoton: PropTypes.string,
+  buttonTitle: PropTypes.string.isRequired,
+  showButton: PropTypes.bool
 }

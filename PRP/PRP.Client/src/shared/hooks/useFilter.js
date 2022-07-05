@@ -9,7 +9,7 @@ export const useFilter = () => {
   const [searchText, setSearchText] = useState('');
 
   const partnersLength = partnerFiltered.length || partners.length;
-  const myPartners = partnerFiltered.length && searchText.length ? partnerFiltered : partners;
+  const myPartners = partnerFiltered && searchText.length ? partnerFiltered : partners;
 
   // Get current partners.
   const indexOfLastPost = currentPage * partnersPerPage;
@@ -23,11 +23,10 @@ export const useFilter = () => {
   const handleSearch = (value) => {
     setSearchText(value);
     setPartnerFiltered( () => {
-      const filtered = partners.filter( partner => (
-        partner.partnerName.toLowerCase().indexOf(value) > -1 /*|| partner.email.toLowerCase().indexOf(searchText) > -1*/
-      ));
-      return [...filtered];
-    }
+      return partners.filter( partner => {
+        return partner.partnerName.toLowerCase().includes(value.toLowerCase()) /*|| partner.email.toLowerCase().includes(value.toLowerCase())*/;
+        } );  
+      }
     );
     setCurrentPage(1);
   };

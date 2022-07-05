@@ -17,7 +17,7 @@ export const TableBody = ({ tbodyItems, tbodyTrStyles, tbodyTrColors, tbodyTrGri
   return (
     <tbody>
       {
-        tbodyItems.map(({ id, clientId, partnerId, partnerName, email= "partneremail@partner.cdl", active, reportName }) => (
+        tbodyItems.map(({ id, clientId, partnerId, partnerName, email = "partneremail@partner.cdl", active, reportName }) => (
           <tr
             key={ id }
             className={`border-b border-gray-200 h-14 md:h-16 table-partner-item ${ tbodyTrStyles || trStylesDefault } ${ tbodyTrColors || trColorsDefault } ${ tbodyTrGridStyles || '' }`}
@@ -58,7 +58,7 @@ export const TableBody = ({ tbodyItems, tbodyTrStyles, tbodyTrColors, tbodyTrGri
               <PencilAltIcon
                 className="w-6 h-6 text-gray-700 transition-colors duration-300 cursor-pointer hover:text-cyan-600"
                 title="Edit"
-                onClick={ () => handleEditPartner({ id, clientId, partnerId, partnerName, email, active, typesReport }) }
+                onClick={ () => handleEditPartner({ id, clientId, partnerId, partnerName, email, active, reportName }) }
               />
               <TrashIcon
                 className="w-6 h-6 text-gray-700 transition-colors duration-300 cursor-pointer hover:text-red-600"
@@ -68,6 +68,12 @@ export const TableBody = ({ tbodyItems, tbodyTrStyles, tbodyTrColors, tbodyTrGri
             </td> 
           </tr>
         ))
+      }
+      {
+        !tbodyItems.length &&
+        <tr className="border-b border-gray-200 h-14 md:h-16 table-partner-item">
+          <td className="text-lg font-medium text-center uppercase">NO PARTNERS TO SHOW</td>
+        </tr>
       }
     </tbody>
   );

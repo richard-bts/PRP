@@ -14,7 +14,7 @@ const Partners = () => {
   
   const handleCloseForm = () => {
     dispatch(setOpenForm(false));
-    dispatch(setActivePartner(null));
+    dispatch(setActivePartner({}));
   }
 
   const handleEditPartner = (partner) => {

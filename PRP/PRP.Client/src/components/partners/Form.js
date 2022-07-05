@@ -8,7 +8,7 @@ import { FormConfirm } from './FormConfirm';
 
 export const Form = ({ handleCloseForm }) => {
 
-  const { name, email, handleTypeReport, handleFormChange, handleSubmitForm, isActivePartner, setIsActivePartner, reportName, errorForm, isValidData, reportTypes } = useForm(handleCloseForm);
+  const { name, email, handleTypeReport, handleFormChange, handleSubmitForm, isActivePartner, setIsActivePartner, errorForm, isValidData, reportTypes } = useForm(handleCloseForm);
   let [isOpen, setIsOpen] = useState(false);
 
   const submitForm = (e) => {
