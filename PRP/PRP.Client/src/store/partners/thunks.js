@@ -34,6 +34,7 @@ export const getPartnerEmail = async(partnerId) => {
   const response = await fetchPartnerQuery(baseURL, `getpartneremails?partnerID=${partnerId}`);
   const body = await response.json();
   console.log('Get Partner email', body);
+  return body.result[0].email;
 }
 
 /* ADD PARTNER EMAIL */
@@ -65,7 +66,15 @@ export const removePartnerEmail = async(partnerId) => {
 export const getPartners = createAsyncThunk("partners/getPartners", async() => {
   const response = await fetchPartnerQuery(baseURL, 'getpartners');
   const { result } = await response.json();
-  return result;
+  let partnerList = [];
+  for await (const partner of result) {
+    const email = await getPartnerEmail(partner.partnerId);
+    partnerList = [ ...partnerList, {
+      email,
+      ...partner
+    }];
+  };
+  return partnerList;
 });
 
 /* GET A SPECIFIC PARTNER */
@@ -103,6 +112,7 @@ export const editCurrentPartner = async(data) => {
     const body = await response.json();
     if(body.isSuccess) {
       // dispatch(addPartner(data));
+      editPartnerEmail({ id: data.id, partnerId: data.partnerId, email: data.email });
       console.log('Edit Partner', body);
     } else {
       throw new Error(body.errorMessages);

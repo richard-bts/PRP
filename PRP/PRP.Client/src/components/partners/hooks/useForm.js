@@ -20,12 +20,13 @@ export const useForm = () => {
 
   const dispatch = useAppDispatch();
   const { activePartner } = useAppSelector(state => state.partners);
-  const { clientId, partnerId, partnerName, email, active, reportName } = activePartner || initialPartnerState;
+  const { id, clientId, partnerId, partnerName, email, active, reportName } = activePartner || initialPartnerState;
   const [isActivePartner, setIsActivePartner] = useState(active);
   // const [reportTypes, setReportTypes] = useState(reportName);
   const [reportTypes, setReportTypes] = useState(reportTypesTest);
   const [errorForm, setErrorForm] = useState(errorFormInitialState);
   const [formData, setFormData] = useState({
+    id: id || Math.floor(Math.random() * 100),
     clientId: clientId || Math.floor(Math.random() * 100),
     partnerId: partnerId || Math.floor(Math.random() * 100),
     partnerName: partnerName || '',
@@ -74,7 +75,7 @@ export const useForm = () => {
   }
 
   const handleSubmitForm = () => {
-    const { clientId, partnerId, partnerName, email } = formData;
+    const { id, clientId, partnerId, partnerName, email } = formData;
     if ((!partnerName.length || partnerName.length < 3)) {
       setErrorForm({
         ...errorForm,
@@ -111,7 +112,7 @@ export const useForm = () => {
     }
     setErrorForm(errorFormInitialState);
     const arrayStrings = reportTypes.map(item => item.status ? item.type : '');
-    const partner = {
+    let partner = {
       clientId,
       partnerId,
       partnerName,
@@ -122,6 +123,10 @@ export const useForm = () => {
     };
     setFormData(initialPartnerState);
     if (activePartner.clientId) {
+      partner = {
+        ...partner,
+        id,
+      };
       editCurrentPartner(partner);
       setTimeout(() => {
         dispatch(addPartner(partner));
@@ -141,7 +146,7 @@ export const useForm = () => {
         Swal.fire({
           position: 'center',
           icon: 'success',
-          title: 'Partner data successfully updated',
+          title: 'Partner data successfully added',
           showConfirmButton: false,
           timer: 1500
         })

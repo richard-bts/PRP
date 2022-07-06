@@ -11,7 +11,7 @@ import { Layout, Table, PageTitle, Pagination, ButtonIcon } from '../../shared/c
 const Partners = () => {
   const { currentPage, searchText, setSearchText, partnersLength, currentPartners, handleSearch, handleChangePage, partnersPerPage } =  useFilter();
   const dispatch = useAppDispatch();
-  
+    
   const handleCloseForm = () => {
     dispatch(setOpenForm(false));
     dispatch(setActivePartner({}));
@@ -69,7 +69,7 @@ const Partners = () => {
   );
 };
 
-export const getInitialProps = async() => {
+export const getStaticProps = async() => {
   const store = getStore();
   await store.dispatch(getPartners());
   return {
