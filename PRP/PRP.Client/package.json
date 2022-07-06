@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "server": "SET NODE_ENV=production & node server.js",
     "lint": "next lint",
     "test": "jest --watch",
     "test:ci": "jest --ci"
@@ -16,7 +17,7 @@
     "@reduxjs/toolkit": "^1.8.2",
     "axios": "^0.27.2",
     "dayjs": "^1.11.3",
-    "next": "12.1.6",
+    "next": "^12.2.0",
     "next-redux-wrapper": "^7.0.5",
     "nextjs-progressbar": "^0.0.14",
     "prop-types": "^15.8.1",
