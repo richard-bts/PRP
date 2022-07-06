@@ -69,7 +69,7 @@ const Partners = () => {
   );
 };
 
-export const getServerSideProps = async() => {
+export const getInitialProps = async() => {
   const store = getStore();
   await store.dispatch(getPartners());
   return {
