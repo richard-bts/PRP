@@ -9,7 +9,8 @@ namespace PRP.Service.Api.Repository
         Task<PartnerDetailDto> AddPartner(AddPartnerDto partner);
         Task<PartnerDetailDto> EditPartner(PartnerDetailDto partner);
         Task<bool> RemovePartner(int id);
-      
+
+        Task<IEnumerable<PartnerEmailDto>> GetEmails();
         Task<IEnumerable<PartnerEmailDto>> GetPartnerEmails(int partnerID);
         Task<IEnumerable<PartnerEmailDto>> AddPartnerEmail(PartnerEmailDto partneremail);
         Task<PartnerEmailDto> EditPartnerEmail(PartnerEmailDto partneremail);

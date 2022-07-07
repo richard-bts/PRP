@@ -231,6 +231,23 @@ namespace PRP.Service.Api.Repository
         #endregion
 
         #region Public Partner Email Methods
+        public async Task<IEnumerable<PartnerEmailDto>> GetEmails()
+        {
+            List<PartnerEmail> partneremails = new List<PartnerEmail>();
+            if (_db.PartnerEmails != null)
+            {
+                try
+                {
+                    partneremails = await _db.PartnerEmails.FromSqlRaw("EXEC [dbo].[sp_GetPartnerEmails]").ToListAsync();
+                    return _mapper.Map<List<PartnerEmailDto>>(partneremails);
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
+            return null;
+        }
         public async Task<IEnumerable<PartnerEmailDto>> GetPartnerEmails(int partnerID)
         {
             var param = new SqlParameter[]
@@ -255,7 +272,7 @@ namespace PRP.Service.Api.Repository
                 {
                 }
             }
-            return null;                
+            return null;
         }
         public async Task<IEnumerable<PartnerEmailDto>> AddPartnerEmail(PartnerEmailDto partneremail)
         {
