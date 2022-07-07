@@ -20,7 +20,7 @@ namespace PRP.Service.Api.Repository
         #endregion
 
         #region Public Partner Methods
-        public async Task<PartnerDetailDto> GetPartner(int partnerID)
+        public async Task<GetPartnerDetailDto> GetPartner(int partnerID)
         {
             List<PartnerDetail> partner = new();
             List<SqlParameter> param = new()
@@ -38,7 +38,19 @@ namespace PRP.Service.Api.Repository
                 try
                 {
                     partner = await _db.Partners.FromSqlRaw("EXEC [dbo].[sp_GetPartner] @partnerId", param.ToArray()).ToListAsync();
-                    return _mapper.Map<PartnerDetailDto>(partner.FirstOrDefault());
+                    List<GetPartnerDetailDto> result = partner.GroupBy(p => p.PartnerId)
+                      .Select(g => new GetPartnerDetailDto
+                      {
+                          Id = g.Key,
+                          PartnerId = g.First().PartnerId,
+                          PartnerName = g.First().PartnerName,
+                          ClientId = g.First().ClientId,
+                          ReportTime = g.First().ReportTime,
+                          active = g.First().active,
+                          ReportName = g.Select(p => p.ReportName).ToList()
+                      })
+                  .ToList();
+                    return result.FirstOrDefault();
                 }
                 catch (Exception)
                 {
@@ -53,8 +65,8 @@ namespace PRP.Service.Api.Repository
             {
                 partners = await _db.Partners.FromSqlRaw("EXEC [dbo].[sp_GetPartners]").ToListAsync();
 
-                List<GetPartnerDetailDto> result = partners.GroupBy(p => p.PartnerId)  // group by Id
-                  .Select(g => new GetPartnerDetailDto    // select values
+                List<GetPartnerDetailDto> result = partners.GroupBy(p => p.PartnerId)
+                  .Select(g => new GetPartnerDetailDto
                   {
                       Id = g.Key,
                       PartnerId = g.First().PartnerId,
@@ -66,11 +78,10 @@ namespace PRP.Service.Api.Repository
                   })
                   .ToList();
                 return result;
-                //return _mapper.Map<List<PartnerDetailDto>>(partners);
             }
             return null;
         }
-        public async Task<PartnerDetailDto> AddPartner(AddPartnerDto partner)
+        public async Task<GetPartnerDetailDto> AddPartner(AddPartnerDto partner)
         {
             try
             {
@@ -149,7 +160,7 @@ namespace PRP.Service.Api.Repository
             }
             return null;
         }
-        public async Task<PartnerDetailDto> EditPartner(PartnerDetailDto partner)
+        public async Task<GetPartnerDetailDto> EditPartner(PartnerDetailDto partner)
         {
             try
             {
