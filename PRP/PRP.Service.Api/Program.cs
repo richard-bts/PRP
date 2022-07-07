@@ -267,7 +267,7 @@ try
         return response;
     });
 
-    app.MapPut("api/partner/EditPartner", async ([FromServices] IPartnerRepository PartnerRepository, PartnerDetailDto partner) =>
+    app.MapPut("api/partner/EditPartner", async ([FromServices] IPartnerRepository PartnerRepository, GetPartnerDetailDto partner) =>
     {
         ResponseDto response = new ResponseDto();
 
@@ -301,6 +301,26 @@ try
             response.IsSuccess = false;
             response.ErrorMessages = new List<string>() { ex.ToString() };
             Log.Logger.ForContext("Component", "PRP.Service.Api").Error("{Message}", $"RemovePartner api call failed. " +
+                                    $"Error Message: {response.ErrorMessages}");
+        }
+
+        return response;
+    });
+
+    app.MapGet("api/partner/GetEmails", async ([FromServices] IPartnerRepository PartnerRepository) =>
+    {
+        ResponseDto response = new ResponseDto();
+
+        try
+        {
+            response.Result = await PartnerRepository.GetEmails();
+            Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"GetEmails api called successfully...");
+        }
+        catch (Exception ex)
+        {
+            response.IsSuccess = false;
+            response.ErrorMessages = new List<string>() { ex.ToString() };
+            Log.Logger.ForContext("Component", "PRP.Service.Api").Error("{Message}", $"GetEmails api call failed. " +
                                     $"Error Message: {response.ErrorMessages}");
         }
 
@@ -407,13 +427,6 @@ try
 
         return response;
     });
-
-
-
-
-
-
-
     #endregion
 
     #region Development env settings and app run

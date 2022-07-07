@@ -266,7 +266,7 @@ namespace PRP.Service.Api.Repository
             {
                 try
                 {
-                    partneremails = await _db.PartnerEmails.FromSqlRaw("EXEC [dbo].[sp_GetPartnerEmails]").ToListAsync();
+                    partneremails = await _db.PartnerEmails.FromSqlRaw("EXEC [dbo].[sp_GetEmails]").ToListAsync();
                     return _mapper.Map<List<PartnerEmailDto>>(partneremails);
                 }
                 catch (Exception)
