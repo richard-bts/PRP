@@ -46,13 +46,27 @@ namespace PRP.Service.Api.Repository
             }
             return null;
         }
-        public async Task<IEnumerable<PartnerDetailDto>> GetPartners()
+        public async Task<IEnumerable<GetPartnerDetailDto>> GetPartners()
         {
             List<PartnerDetail> partners = new List<PartnerDetail>();
             if (_db.Partners != null)
             {
                 partners = await _db.Partners.FromSqlRaw("EXEC [dbo].[sp_GetPartners]").ToListAsync();
-                return _mapper.Map<List<PartnerDetailDto>>(partners);
+
+                List<GetPartnerDetailDto> result = partners.GroupBy(p => p.PartnerId)  // group by Id
+                  .Select(g => new GetPartnerDetailDto    // select values
+                  {
+                      Id = g.Key,
+                      PartnerId = g.First().PartnerId,
+                      PartnerName = g.First().PartnerName,
+                      ClientId = g.First().ClientId,
+                      ReportTime = g.First().ReportTime,
+                      active = g.First().active,
+                      ReportName = g.Select(p => p.ReportName).ToList()
+                  })
+                  .ToList();
+                return result;
+                //return _mapper.Map<List<PartnerDetailDto>>(partners);
             }
             return null;
         }

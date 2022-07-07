@@ -5,7 +5,7 @@ namespace PRP.Service.Api.Repository
     public interface IPartnerRepository
     {
         Task<PartnerDetailDto> GetPartner(int partnerID);
-        Task<IEnumerable<PartnerDetailDto>> GetPartners();
+        Task<IEnumerable<GetPartnerDetailDto>> GetPartners();
         Task<PartnerDetailDto> AddPartner(AddPartnerDto partner);
         Task<PartnerDetailDto> EditPartner(PartnerDetailDto partner);
         Task<bool> RemovePartner(int id);

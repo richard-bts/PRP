@@ -86,7 +86,7 @@ namespace PRP.Service.Api.Tests
         [Fact]
         public async void GetPartnerEmails_Test()
         {
-            IEnumerable<PartnerDetailDto> partner = await _partnerService.GetPartners();
+            IEnumerable<GetPartnerDetailDto> partner = await _partnerService.GetPartners();
 
             var response = await _partnerService.GetPartnerEmails(102);
 
