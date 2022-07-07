@@ -8,7 +8,7 @@ namespace PRP.Service.Api.Models.Dto
         [Key]
         public int PartnerId { get; set; }
         public string? PartnerName { get; set; }
-        public string? ReportName { get; set; }
+        public List<string>? ReportName { get; set; }
         public DateTime? reportTime { get; set; }
     }
 }

@@ -90,7 +90,7 @@ namespace PRP.Service.Api.Repository
                             ParameterName="@reportName",
                             SqlDbType = System.Data.SqlDbType.NVarChar,
                             Direction = System.Data.ParameterDirection.Input,
-                            Value = partner.ReportName
+                            Value = string.Join(",",partner.ReportName)
                         },
                         new SqlParameter()
                         {
@@ -100,21 +100,38 @@ namespace PRP.Service.Api.Repository
                             Value = partner.reportTime
                         }
                     };
+                    List<SqlParameter> partnerreport_params = new();
+                    foreach (string pr in partner.ReportName)
+                    {
+                        partnerreport_params.Add(new SqlParameter()
+                        {
+                            ParameterName = "@reportName",
+                            SqlDbType = System.Data.SqlDbType.NVarChar,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = pr
+                        });
+                    };
                     if (_db.Partners != null)
                     {
                         try
                         {
                             await _db.Database.ExecuteSqlRawAsync("EXEC [dbo].[sp_AddPartner] @clientId, @partnerId, @partnerName, @reportName, @reportTime", param.ToArray());
+                            foreach (SqlParameter sp in partnerreport_params)
+                            {
+                                await _db.Database.ExecuteSqlRawAsync("EXEC [dbo].[sp_AddPartnerReport] @clientId, @partnerId, @reportName", param[0], param[1], sp);
+                            }
                             return await GetPartner(partner.PartnerId);
                         }
                         catch (Exception)
                         {
+                            throw;
                         }
                     }
                 }
             }
             catch (Exception)
             {
+                throw;
             }
             return null;
         }

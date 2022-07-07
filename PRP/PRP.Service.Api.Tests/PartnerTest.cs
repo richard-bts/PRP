@@ -51,7 +51,7 @@ namespace PRP.Service.Api.Tests
                 ClientId = 101,
                 PartnerId = 102,
                 PartnerName = "New Partner",
-                ReportName = "POD",
+                ReportName = new List<string> { "POD","SCAN" },
                 reportTime = DateTime.Now
             });
 
