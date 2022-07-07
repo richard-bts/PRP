@@ -61,13 +61,13 @@ namespace PRP.Service.Api.Tests
         [Fact]
         public async void EditPartner_Test()
         {
-            var response = await _partnerService.EditPartner(new PartnerDetailDto
+            var response = await _partnerService.EditPartner(new GetPartnerDetailDto
             {
                 Id = 1,
                 ClientId = 101,
                 PartnerId = 102,
                 PartnerName = "New Partner Name",
-                ReportName = "Scan Report",
+                ReportName = new List<string> { "SCAN", "EXCEPTION" },
                 ReportTime = DateTime.Now,
                 active = 1
             });
