@@ -54,6 +54,7 @@ namespace PRP.Service.Api.Repository
                 }
                 catch (Exception)
                 {
+                    throw;
                 }
             }
             return null;
@@ -160,7 +161,7 @@ namespace PRP.Service.Api.Repository
             }
             return null;
         }
-        public async Task<GetPartnerDetailDto> EditPartner(PartnerDetailDto partner)
+        public async Task<GetPartnerDetailDto> EditPartner(GetPartnerDetailDto partner)
         {
             try
             {
@@ -201,7 +202,7 @@ namespace PRP.Service.Api.Repository
                             ParameterName="@reportName",
                             SqlDbType = System.Data.SqlDbType.NVarChar,
                             Direction = System.Data.ParameterDirection.Input,
-                            Value = partner.ReportName
+                            Value = string.Join(",",partner.ReportName)
                         },
                         new SqlParameter()
                         {
@@ -227,6 +228,7 @@ namespace PRP.Service.Api.Repository
             }
             catch (Exception)
             {
+                throw;
             }
             return null;
         }
@@ -250,6 +252,7 @@ namespace PRP.Service.Api.Repository
             }
             catch (Exception)
             {
+                throw;
             }
             return Task.FromResult(response);
         }
@@ -263,7 +266,7 @@ namespace PRP.Service.Api.Repository
             {
                 try
                 {
-                    partneremails = await _db.PartnerEmails.FromSqlRaw("EXEC [dbo].[sp_GetPartnerEmails]").ToListAsync();
+                    partneremails = await _db.PartnerEmails.FromSqlRaw("EXEC [dbo].[sp_GetEmails]").ToListAsync();
                     return _mapper.Map<List<PartnerEmailDto>>(partneremails);
                 }
                 catch (Exception)
@@ -295,6 +298,7 @@ namespace PRP.Service.Api.Repository
                 }
                 catch (Exception)
                 {
+                    throw;
                 }
             }
             return null;
@@ -331,6 +335,7 @@ namespace PRP.Service.Api.Repository
             }
             catch (Exception)
             {
+                throw;
             }
             return null;
         }
@@ -370,6 +375,7 @@ namespace PRP.Service.Api.Repository
             }
             catch (Exception)
             {
+                throw;
             }
             return null;
         }
@@ -393,6 +399,7 @@ namespace PRP.Service.Api.Repository
             }
             catch (Exception)
             {
+                throw;
             }
             return Task.FromResult(response);
         }
