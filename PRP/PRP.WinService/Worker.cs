@@ -28,28 +28,7 @@ namespace PRP.WinService
         #endregion
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-           // IConfiguration configuration = (IConfiguration)new ConfigurationBuilder()
-           //.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-           //.AddEnvironmentVariables()
-           //.Build();
           
-            //TimeOnly Start = new TimeOnly(Convert.ToInt32(configuration.GetSection("EmailSettings:HowOftenrun").Value) , 00);
-            
-
-            //Log.Logger.ForContext("Component", "PRP.WinService").Information("{Message}", $"Service is starting...");
-
-            //stoppingToken.Register(() => _logger.LogInformation("Service is stopping."));
-
-            //while (!stoppingToken.IsCancellationRequested)
-            //{
-            //     if (Start.Hour == DateTime.Now.Hour)
-            //    {
-            //        _produceReport.GenerateAllReports();
-            //         await Task.Delay(TimeSpan.FromHours(24));
-            //    }
-            //await Task.Delay(TimeSpan.FromMinutes(5), stoppingToken);
-
-            //}
 
             Log.Logger.ForContext("Component", "PRP.WinService").Information("{Message}", $"Service is starting...");
 
@@ -103,19 +82,6 @@ namespace PRP.WinService
                 }
             }
 
-
-
-            //Log.Logger.ForContext("Component", "PRP.WinService").Information("{Message}", $"Service is starting...");
-
-            //stoppingToken.Register(() => _logger.LogInformation("Service is stopping."));
-
-            //while (!stoppingToken.IsCancellationRequested)
-            //{
-            //    _produceReport.GenerateAllReports();
-            //    await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
-            //}
-
-            //Log.Logger.ForContext("Component", "PRP.WinService").Information("{Message}", $"Service is starting...");
         }
 
        

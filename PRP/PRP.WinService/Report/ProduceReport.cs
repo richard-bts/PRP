@@ -162,7 +162,7 @@ namespace PRP.WinService.Report
             if (response != null && response.Result != null && !string.IsNullOrEmpty(content))
             {
                 list = JsonConvert.DeserializeObject<List<PODReportDto>>(content);
-                if (list!= null && CreatePodCSVFileAndNotifyByEmail(list, pd.ClientId))
+                if (list!= null && CreatePodCSVFileAndNotifyByEmail(list, pd.ClientId, pd.PartnerId))
                 {
                     Log.Logger.ForContext("Component", "PRP.WinService").Information("{Message}", 
                         $"POD Report: Client {content.Substring(1, 20)}........{content.Substring(content.Length - 20, 20)}");
@@ -191,7 +191,7 @@ namespace PRP.WinService.Report
                     if (!string.IsNullOrEmpty(content))
                     {
                         list = JsonConvert.DeserializeObject<List<ScanReportDto>>(content);
-                        if (list != null && CreateScanCSVFileAndNotifyByEmail(list, pd.ClientId))
+                        if (list != null && CreateScanCSVFileAndNotifyByEmail(list, pd.ClientId, pd.PartnerId))
                         {
                             Log.Logger.ForContext("Component", "PRP.WinService").Information("{Message}", 
                                 $"SCAN Report: Client {content.Substring(1, 20)}........{content.Substring(content.Length - 20, 20)}");
@@ -224,7 +224,7 @@ namespace PRP.WinService.Report
                     if (!string.IsNullOrEmpty(content))
                     {
                         list = JsonConvert.DeserializeObject<List<ExceptionReportDto>>(content);
-                        if (list != null && CreateExceptionCSVFileAndNotifyByEmail(list, pd.ClientId))
+                        if (list != null && CreateExceptionCSVFileAndNotifyByEmail(list, pd.ClientId, pd.PartnerId))
                         {
                             Log.Logger.ForContext("Component", "PRP.WinService").Information("{Message}", 
                                 $"EXCEPTION Report: Client {content.Substring(1, 20)}........{content.Substring(content.Length - 20, 20)}");
@@ -247,7 +247,7 @@ namespace PRP.WinService.Report
         #endregion
 
         #region PrivateMethods
-        private bool CreatePodCSVFileAndNotifyByEmail(List<PODReportDto> list, int clientID)
+        private bool CreatePodCSVFileAndNotifyByEmail(List<PODReportDto> list, int clientID, int PartnerId)
         {
             try
             {                
@@ -277,7 +277,7 @@ namespace PRP.WinService.Report
                     }
                 }
             
-                if(!_EmailService.SendEmail(fullpath, clientID, "POD Report"))
+                if(!_EmailService.SendEmail(fullpath, clientID, "POD Report", PartnerId))
                 {
                     Log.Logger.ForContext("Component", "PRP.WinService").Information("{Message}", $"Email is not sent");
                 }
@@ -295,7 +295,7 @@ namespace PRP.WinService.Report
             }
 
         }
-        private bool CreateScanCSVFileAndNotifyByEmail(List<ScanReportDto> list, int clientID)
+        private bool CreateScanCSVFileAndNotifyByEmail(List<ScanReportDto> list, int clientID, int PartnerId)
         {
             try
             {
@@ -324,7 +324,7 @@ namespace PRP.WinService.Report
                     }
                 }
 
-                if (!_EmailService.SendEmail(fullpath, clientID, "SCAN Report"))
+                if (!_EmailService.SendEmail(fullpath, clientID, "SCAN Report", PartnerId))
                 {
                     Log.Logger.ForContext("Component", "PRP.WinService").Information("{Message}", $"Email is not sent");
                 }
@@ -341,7 +341,7 @@ namespace PRP.WinService.Report
                 throw;
             }
         }
-        private bool CreateExceptionCSVFileAndNotifyByEmail(List<ExceptionReportDto> list, int clientID)
+        private bool CreateExceptionCSVFileAndNotifyByEmail(List<ExceptionReportDto> list, int clientID, int PartnerId)
         {
             try
             {
@@ -371,7 +371,7 @@ namespace PRP.WinService.Report
                     }
                 }
 
-                if (!_EmailService.SendEmail(fullpath, clientID, "EXCEPTION Report"))
+                if (!_EmailService.SendEmail(fullpath, clientID, "EXCEPTION Report", PartnerId))
                 {
                     Log.Logger.ForContext("Component", "PRP.WinService").Information("{Message}", $"Email is not sent");
                 }
