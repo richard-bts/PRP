@@ -1,0 +1,114 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  </head>
+
+  <body>
+    <div id="container">
+      <table
+        align="center"
+        border="0"
+        cellpadding="0"
+        cellspacing="0"
+        style="background-color:#f0f0f0;color:#000000;width:100%;border:1px solid #bbbbbb;"
+      >
+        <tbody>
+          <tr valign="top">
+            <td
+              bgcolor="#3386C2"
+              style="border:1px solid #13235e;background-color:#13235e;color:#ffffff;font-family:helvetica,​arial,​verdana,​sans-serif;font-size:14px;line-height:40px;"
+            >
+              &nbsp;&nbsp;&nbsp;{{ subject | safe }}
+            </td>
+          </tr>
+          <tr valign="top">
+            <td style="padding:16px 16px 0 16px;">
+              <table
+                align="left"
+                border="0"
+                cellpadding="0"
+                cellspacing="0"
+                width="100%"
+                style="width:100%;border:1px solid #bbbbbb;"
+              >
+                <tbody>
+                  <tr valign="top">
+                    <td
+                      style="color:#505050;font-family:helvetica,​arial,​verdana,​sans-serif;padding:32px 32px 32px 32px;background-color:#FFFFFF;"
+                      bgcolor="#FFFFFF"
+                    >
+                      {{ content | safe }}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+          <tr valign="top">
+            <td style="padding:16px 16px 0 16px;">
+              <table
+                align="left"
+                border="0"
+                cellpadding="0"
+                cellspacing="0"
+                width="100%"
+                style="width:100%;border:1px solid #bbbbbb;"
+              >
+                <tbody>
+                  <tr valign="top">
+                    <td
+                      style="color:#505050;font-family:helvetica,​arial,​verdana,​sans-serif;padding:32px 32px 32px 32px;background-color:#FFFFFF;"
+                      bgcolor="#FFFFFF"
+                    >
+                      <span style="font-weight: bold;"
+                        >Date Created: &nbsp;&nbsp;</span
+                      >{{ date_created }}
+                      <br />
+                      <span style="font-weight: bold;"
+                        >Total Orders Added To Route: &nbsp;&nbsp;</span
+                      >{{ total_order_routes }}
+                      <br />
+                      <span style="font-weight: bold;"
+                        >Total Order With Updated Driver ID: &nbsp;&nbsp;</span
+                      >{{ total_order_driver }}
+                      <br />
+                      <span style="font-weight: bold;"
+                        >Total New Orders Assigned To Drivers: &nbsp;&nbsp;</span
+                      >{{ total_new_orders_to_driver }}
+                      <br />
+                      <span style="font-weight: bold;"
+                        >Total Updated Shipment Status Codes: &nbsp;&nbsp;</span
+                      >
+                      {{ total_new_orders_shipment_status_code }}
+                      <br />
+                      <span style="font-weight: bold;">
+                        Total Updated Change Logs: &nbsp;&nbsp;</span
+                      >{{ total_new_change_logs }}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+          <tr valign="top">
+            <td style="color:#505050;font-family:helvetica,​arial,​verdana,​sans-serif;padding:32px 32px 32px 32px;background-color:#FFFFFF;"
+            bgcolor="#FFFFFF">
+              <form method="GET" action="/report">
+                <input type="submit" value="Get Report">
+              </form>
+            </td>
+          </tr>
+          <tr valign="top">
+            <td
+              style="color:#505050;font-family:helvetica,​arial,​verdana,​sans-serif;font-size:10px;line-height:14px;padding: 5px 16px 16px 16px;text-align:center;"
+            >
+              This message was sent by CDL Logistics.<br />
+              If you have any questions, please contact
+              <a href="mailto:support@cdl.com">CDL Support</a><br />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>

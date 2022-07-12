@@ -1,0 +1,581 @@
+[2022-05-25 12:21:18,597] INFO in _internal:  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+[2022-05-25 12:22:41,717] INFO in _internal:  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+[2022-05-25 12:23:20,341] INFO in _internal:  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+[2022-05-25 12:25:33,567] INFO in _internal:  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+[2022-05-25 12:25:51,511] INFO in _internal:  * Restarting with stat
+[2022-05-25 12:25:51,903] WARNING in _internal:  * Debugger is active!
+[2022-05-25 12:25:57,004] INFO in _internal:  * Debugger PIN: 115-193-437
+[2022-05-25 12:25:57,066] INFO in _internal:  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+[2022-05-25 12:26:43,878] INFO in _internal:  * Detected change in 'C:\\CDL\\CDL_PartnerReportingPackage\\main.py', reloading
+[2022-05-25 12:26:43,957] INFO in _internal:  * Restarting with stat
+[2022-05-25 12:26:44,352] INFO in _internal:  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+[2022-05-25 12:26:51,754] INFO in _internal:  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+[2022-05-25 12:28:16,800] INFO in _internal:  * Running on http://127.0.0.1:8085/ (Press CTRL+C to quit)
+[2022-05-25 12:28:29,657] INFO in _internal: 127.0.0.1 - - [25/May/2022 12:28:29] "GET / HTTP/1.1" 200 -
+[2022-05-25 12:28:29,783] INFO in _internal: 127.0.0.1 - - [25/May/2022 12:28:29] "GET /static/logo.png HTTP/1.1" 200 -
+[2022-05-25 12:28:29,826] INFO in _internal: 127.0.0.1 - - [25/May/2022 12:28:29] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2022-05-25 16:58:01,458] INFO in _internal:  * Running on http://127.0.0.1:8085/ (Press CTRL+C to quit)
+[2022-05-25 17:00:02,241] INFO in _internal: 127.0.0.1 - - [25/May/2022 17:00:02] "GET / HTTP/1.1" 200 -
+[2022-05-25 17:00:02,351] INFO in _internal: 127.0.0.1 - - [25/May/2022 17:00:02] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+[2022-05-25 17:00:02,382] INFO in _internal: 127.0.0.1 - - [25/May/2022 17:00:02] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2022-05-25 17:07:27,923] INFO in _internal:  * Running on http://127.0.0.1:8085/ (Press CTRL+C to quit)
+[2022-05-25 17:08:16,697] INFO in _internal: 127.0.0.1 - - [25/May/2022 17:08:16] "GET / HTTP/1.1" 200 -
+[2022-05-25 17:08:16,775] INFO in _internal: 127.0.0.1 - - [25/May/2022 17:08:16] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+[2022-05-25 17:08:16,791] INFO in _internal: 127.0.0.1 - - [25/May/2022 17:08:16] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2022-05-25 17:18:32,078] INFO in _internal:  * Running on http://127.0.0.1:8085/ (Press CTRL+C to quit)
+[2022-05-25 17:18:38,233] INFO in _internal: 127.0.0.1 - - [25/May/2022 17:18:38] "GET / HTTP/1.1" 200 -
+[2022-05-25 17:18:38,327] INFO in _internal: 127.0.0.1 - - [25/May/2022 17:18:38] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+[2022-05-25 17:18:38,343] INFO in _internal: 127.0.0.1 - - [25/May/2022 17:18:38] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2022-06-12 21:49:15,427] INFO in _internal:  * Running on http://127.0.0.1:8085/ (Press CTRL+C to quit)
+[2022-06-15 11:35:21,893] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-06-15 11:35:32,266] INFO in _internal: 127.0.0.1 - - [15/Jun/2022 11:35:32] "GET / HTTP/1.1" 200 -
+[2022-06-15 11:35:32,382] INFO in _internal: 127.0.0.1 - - [15/Jun/2022 11:35:32] "GET /static/logo.png HTTP/1.1" 200 -
+[2022-06-15 11:35:32,729] INFO in _internal: 127.0.0.1 - - [15/Jun/2022 11:35:32] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2022-07-12 13:32:44,444] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-12 13:33:27,703] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 13:33:27] "[32mGET /partners HTTP/1.1[0m" 308 -
+[2022-07-12 13:33:28,218] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 13:33:28] "GET /partners/ HTTP/1.1" 200 -
+[2022-07-12 13:34:43,325] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 13:34:43] "[32mGET /partners HTTP/1.1[0m" 308 -
+[2022-07-12 13:34:43,834] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 13:34:43] "GET /partners/ HTTP/1.1" 200 -
+[2022-07-12 13:34:54,751] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-12 13:35:03,846] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 13:35:03] "[32mGET /partners HTTP/1.1[0m" 308 -
+[2022-07-12 13:35:04,353] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 13:35:04] "GET /partners/ HTTP/1.1" 200 -
+[2022-07-12 13:39:26,758] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 13:39:26] "[32mPOST /partners HTTP/1.1[0m" 308 -
+[2022-07-12 13:39:27,265] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 13:39:27] "POST /partners/ HTTP/1.1" 200 -
+[2022-07-12 13:39:36,119] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 13:39:36] "[32mPOST /partner HTTP/1.1[0m" 308 -
+[2022-07-12 13:39:36,629] ERROR in app: Exception on /partner/ [POST]
+Traceback (most recent call last):
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 1518, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 1516, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 1502, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "C:\CDL\CDL_PartnerReportingPackage\main.py", line 579, in get_partner_rte
+    input_data = request.json()
+TypeError: 'dict' object is not callable
+[2022-07-12 13:39:41,846] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 13:39:41] "[35m[1mPOST /partner/ HTTP/1.1[0m" 500 -
+[2022-07-12 13:40:54,101] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 13:40:54] "[32mPOST /partner?partner_id=0 HTTP/1.1[0m" 308 -
+[2022-07-12 13:40:54,605] ERROR in app: Exception on /partner/ [POST]
+Traceback (most recent call last):
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 1518, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 1516, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 1502, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "C:\CDL\CDL_PartnerReportingPackage\main.py", line 579, in get_partner_rte
+    print(request)
+TypeError: 'NoneType' object is not callable
+[2022-07-12 13:40:59,632] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 13:40:59] "[35m[1mPOST /partner/?partner_id=0 HTTP/1.1[0m" 500 -
+[2022-07-12 13:41:07,427] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-12 13:41:13,532] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 13:41:13] "[32mPOST /partner?partner_id=0 HTTP/1.1[0m" 308 -
+[2022-07-12 13:41:14,036] ERROR in app: Exception on /partner/ [POST]
+Traceback (most recent call last):
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 1518, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 1516, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 1502, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "C:\CDL\CDL_PartnerReportingPackage\main.py", line 580, in get_partner_rte
+    input_data = request.json()
+TypeError: 'NoneType' object is not callable
+[2022-07-12 13:41:19,062] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 13:41:19] "[35m[1mPOST /partner/?partner_id=0 HTTP/1.1[0m" 500 -
+[2022-07-12 13:42:48,922] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-12 13:42:53,524] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 13:42:53] "[32mPOST /partner?partner_id=0 HTTP/1.1[0m" 308 -
+[2022-07-12 13:42:54,033] ERROR in app: Exception on /partner/ [POST]
+Traceback (most recent call last):
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 1518, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 1516, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 1502, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "C:\CDL\CDL_PartnerReportingPackage\main.py", line 580, in get_partner_rte
+    input_data = request.json()
+TypeError: 'NoneType' object is not callable
+[2022-07-12 13:42:59,063] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 13:42:59] "[35m[1mPOST /partner/?partner_id=0 HTTP/1.1[0m" 500 -
+[2022-07-12 13:43:51,619] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 13:43:51] "[32mPOST /partner HTTP/1.1[0m" 308 -
+[2022-07-12 13:43:52,123] ERROR in app: Exception on /partner/ [POST]
+Traceback (most recent call last):
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 1518, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 1516, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 1502, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "C:\CDL\CDL_PartnerReportingPackage\main.py", line 580, in get_partner_rte
+    input_data = request.json()
+TypeError: 'dict' object is not callable
+[2022-07-12 13:43:57,140] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 13:43:57] "[35m[1mPOST /partner/ HTTP/1.1[0m" 500 -
+[2022-07-12 14:04:42,538] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 14:04:42] "[32mPOST /partner HTTP/1.1[0m" 308 -
+[2022-07-12 14:04:43,043] ERROR in app: Exception on /partner/ [POST]
+Traceback (most recent call last):
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 1518, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 1516, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 1502, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "C:\CDL\CDL_PartnerReportingPackage\main.py", line 580, in get_partner_rte
+    input_data = request.data
+TypeError: 'dict' object is not callable
+[2022-07-12 14:04:48,063] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 14:04:48] "[35m[1mPOST /partner/ HTTP/1.1[0m" 500 -
+[2022-07-12 14:05:24,531] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-12 14:05:28,822] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 14:05:28] "[32mPOST /partner HTTP/1.1[0m" 308 -
+[2022-07-12 14:05:29,327] ERROR in app: Exception on /partner/ [POST]
+Traceback (most recent call last):
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 1518, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 1516, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 1502, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "C:\CDL\CDL_PartnerReportingPackage\main.py", line 580, in get_partner_rte
+    input_data = request.json()
+TypeError: 'dict' object is not callable
+[2022-07-12 14:05:34,351] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 14:05:34] "[35m[1mPOST /partner/ HTTP/1.1[0m" 500 -
+[2022-07-12 14:07:54,948] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-12 14:08:03,354] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 14:08:03] "[32mPOST /partner HTTP/1.1[0m" 308 -
+[2022-07-12 14:08:03,857] ERROR in app: Exception on /partner/ [POST]
+Traceback (most recent call last):
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 1518, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 1516, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 1502, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "C:\CDL\CDL_PartnerReportingPackage\main.py", line 580, in get_partner_rte
+    input_data = request.json()
+TypeError: 'dict' object is not callable
+[2022-07-12 14:08:08,896] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 14:08:08] "[35m[1mPOST /partner/ HTTP/1.1[0m" 500 -
+[2022-07-12 14:11:30,946] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-12 14:11:37,512] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 14:11:37] "[32mPOST /partner HTTP/1.1[0m" 308 -
+[2022-07-12 14:11:38,019] ERROR in app: Exception on /partner/ [POST]
+Traceback (most recent call last):
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 1538, in finalize_request
+    response = self.make_response(rv)
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 1730, in make_response
+    raise TypeError(
+TypeError: The view function did not return a valid response. The return type must be a string, dict, tuple, Response instance, or WSGI callable, but it was a bool.
+[2022-07-12 14:11:43,046] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 14:11:43] "[35m[1mPOST /partner/ HTTP/1.1[0m" 500 -
+[2022-07-12 14:12:42,210] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-12 14:12:47,455] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 14:12:47] "[32mPOST /partner HTTP/1.1[0m" 308 -
+[2022-07-12 14:12:47,962] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 14:12:47] "POST /partner/ HTTP/1.1" 200 -
+[2022-07-12 14:13:55,800] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-12 14:14:03,280] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 14:14:03] "[32mPOST /partner HTTP/1.1[0m" 308 -
+[2022-07-12 14:14:03,785] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 14:14:03] "POST /partner/ HTTP/1.1" 200 -
+[2022-07-12 14:15:00,256] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-12 14:15:04,849] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 14:15:04] "[32mPOST /partner HTTP/1.1[0m" 308 -
+[2022-07-12 14:15:05,354] ERROR in app: Exception on /partner/ [POST]
+Traceback (most recent call last):
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 1538, in finalize_request
+    response = self.make_response(rv)
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 1716, in make_response
+    rv = jsonify(rv)
+  File "C:\Program Files\Python39\lib\site-packages\flask\json\__init__.py", line 361, in jsonify
+    f"{dumps(data, indent=indent, separators=separators)}\n",
+  File "C:\Program Files\Python39\lib\site-packages\flask\json\__init__.py", line 139, in dumps
+    rv = _json.dumps(obj, **kwargs)
+  File "C:\Program Files\Python39\lib\json\__init__.py", line 234, in dumps
+    return cls(
+  File "C:\Program Files\Python39\lib\json\encoder.py", line 199, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "C:\Program Files\Python39\lib\json\encoder.py", line 257, in iterencode
+    return _iterencode(o, 0)
+  File "C:\Program Files\Python39\lib\site-packages\flask\json\__init__.py", line 57, in default
+    return super().default(o)
+  File "C:\Program Files\Python39\lib\json\encoder.py", line 179, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type Query is not JSON serializable
+[2022-07-12 14:15:10,412] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 14:15:10] "[35m[1mPOST /partner/ HTTP/1.1[0m" 500 -
+[2022-07-12 14:16:24,149] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-12 14:16:28,249] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 14:16:28] "[32mPOST /partner HTTP/1.1[0m" 308 -
+[2022-07-12 14:16:28,755] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 14:16:28] "POST /partner/ HTTP/1.1" 200 -
+[2022-07-12 14:18:20,138] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-12 14:18:25,289] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 14:18:25] "[32mPOST /partner HTTP/1.1[0m" 308 -
+[2022-07-12 14:18:25,815] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 14:18:25] "POST /partner/ HTTP/1.1" 200 -
+[2022-07-12 14:24:29,168] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-12 14:24:32,961] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 14:24:32] "[32mPOST /partner HTTP/1.1[0m" 308 -
+[2022-07-12 14:24:33,467] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 14:24:33] "POST /partner/ HTTP/1.1" 200 -
+[2022-07-12 14:25:07,212] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-12 14:25:17,288] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 14:25:17] "[32mPOST /partner HTTP/1.1[0m" 308 -
+[2022-07-12 14:25:17,794] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 14:25:17] "POST /partner/ HTTP/1.1" 200 -
+[2022-07-12 14:26:55,494] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-12 14:26:59,371] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 14:26:59] "[32mPOST /partner HTTP/1.1[0m" 308 -
+[2022-07-12 14:26:59,878] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 14:26:59] "POST /partner/ HTTP/1.1" 200 -
+[2022-07-12 14:30:31,954] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 14:30:31] "[32mPOST /create-partner HTTP/1.1[0m" 308 -
+[2022-07-12 14:30:32,461] ERROR in app: Exception on /create-partner/ [POST]
+Traceback (most recent call last):
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 1518, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 1516, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 1502, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "C:\CDL\CDL_PartnerReportingPackage\main.py", line 593, in create_partner_rte
+    input_data = request.json()
+TypeError: 'dict' object is not callable
+[2022-07-12 14:30:37,489] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 14:30:37] "[35m[1mPOST /create-partner/ HTTP/1.1[0m" 500 -
+[2022-07-12 14:31:56,249] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-12 14:32:14,234] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 14:32:14] "[32mPOST /create-partner HTTP/1.1[0m" 308 -
+[2022-07-12 14:32:14,789] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 14:32:14] "POST /create-partner/ HTTP/1.1" 200 -
+[2022-07-12 14:38:07,721] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-12 14:38:12,940] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 14:38:12] "[32mPOST /create-partner HTTP/1.1[0m" 308 -
+[2022-07-12 14:38:13,450] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 14:38:13] "POST /create-partner/ HTTP/1.1" 200 -
+[2022-07-12 14:46:16,113] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-12 14:46:20,585] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 14:46:20] "[32mPOST /create-partner HTTP/1.1[0m" 308 -
+[2022-07-12 14:46:21,133] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 14:46:21] "POST /create-partner/ HTTP/1.1" 200 -
+[2022-07-12 14:49:26,654] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-12 14:50:01,048] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 14:50:01] "[32mPOST /create-partner HTTP/1.1[0m" 308 -
+[2022-07-12 14:50:01,555] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 14:50:01] "POST /create-partner/ HTTP/1.1" 200 -
+[2022-07-12 14:51:22,478] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 14:51:22] "[32mPOST /create-partner HTTP/1.1[0m" 308 -
+[2022-07-12 14:51:22,983] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 14:51:22] "POST /create-partner/ HTTP/1.1" 200 -
+[2022-07-12 14:51:39,124] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-12 14:51:42,885] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 14:51:42] "[32mPOST /create-partner HTTP/1.1[0m" 308 -
+[2022-07-12 14:51:43,406] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 14:51:43] "POST /create-partner/ HTTP/1.1" 200 -
+[2022-07-12 14:57:08,327] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-12 14:57:30,999] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 14:57:30] "[32mPOST /create-partner HTTP/1.1[0m" 308 -
+[2022-07-12 14:57:31,515] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 14:57:31] "POST /create-partner/ HTTP/1.1" 200 -
+[2022-07-12 14:58:54,135] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-12 14:59:10,960] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 14:59:10] "[32mPOST /create-partner HTTP/1.1[0m" 308 -
+[2022-07-12 14:59:11,471] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 14:59:11] "POST /create-partner/ HTTP/1.1" 200 -
+[2022-07-12 15:01:03,454] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-12 15:01:20,893] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 15:01:20] "[32mPOST /create-partner HTTP/1.1[0m" 308 -
+[2022-07-12 15:01:21,408] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 15:01:21] "POST /create-partner/ HTTP/1.1" 200 -
+[2022-07-12 15:02:33,262] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-12 15:02:44,563] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 15:02:44] "[32mPOST /create-partner HTTP/1.1[0m" 308 -
+[2022-07-12 15:02:45,072] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 15:02:45] "POST /create-partner/ HTTP/1.1" 200 -
+[2022-07-12 15:03:07,981] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-12 15:03:23,961] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 15:03:23] "[32mPOST /create-partner HTTP/1.1[0m" 308 -
+[2022-07-12 15:03:24,479] ERROR in app: Exception on /create-partner/ [POST]
+Traceback (most recent call last):
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 1538, in finalize_request
+    response = self.make_response(rv)
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 1716, in make_response
+    rv = jsonify(rv)
+  File "C:\Program Files\Python39\lib\site-packages\flask\json\__init__.py", line 361, in jsonify
+    f"{dumps(data, indent=indent, separators=separators)}\n",
+  File "C:\Program Files\Python39\lib\site-packages\flask\json\__init__.py", line 139, in dumps
+    rv = _json.dumps(obj, **kwargs)
+  File "C:\Program Files\Python39\lib\json\__init__.py", line 234, in dumps
+    return cls(
+  File "C:\Program Files\Python39\lib\json\encoder.py", line 199, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "C:\Program Files\Python39\lib\json\encoder.py", line 257, in iterencode
+    return _iterencode(o, 0)
+  File "C:\Program Files\Python39\lib\site-packages\flask\json\__init__.py", line 57, in default
+    return super().default(o)
+  File "C:\Program Files\Python39\lib\json\encoder.py", line 179, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type time is not JSON serializable
+[2022-07-12 15:03:29,505] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 15:03:29] "[35m[1mPOST /create-partner/ HTTP/1.1[0m" 500 -
+[2022-07-12 15:51:39,563] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-12 15:51:44,227] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 15:51:44] "[32mPOST /add-partner-email HTTP/1.1[0m" 308 -
+[2022-07-12 15:51:44,736] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 15:51:44] "POST /add-partner-email/ HTTP/1.1" 200 -
+[2022-07-12 15:53:56,861] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-12 15:54:02,170] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 15:54:02] "[32mPOST /add-partner-email HTTP/1.1[0m" 308 -
+[2022-07-12 15:54:02,719] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 15:54:02] "POST /add-partner-email/ HTTP/1.1" 200 -
+[2022-07-12 15:56:14,011] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 15:56:14] "[32mPOST /add-partner-email HTTP/1.1[0m" 308 -
+[2022-07-12 15:56:14,523] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 15:56:14] "POST /add-partner-email/ HTTP/1.1" 200 -
+[2022-07-12 16:05:31,973] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-12 16:06:01,377] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 16:06:01] "[32mPOST /update-partner HTTP/1.1[0m" 308 -
+[2022-07-12 16:06:01,893] ERROR in app: Exception on /update-partner/ [POST]
+Traceback (most recent call last):
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 1538, in finalize_request
+    response = self.make_response(rv)
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 1716, in make_response
+    rv = jsonify(rv)
+  File "C:\Program Files\Python39\lib\site-packages\flask\json\__init__.py", line 361, in jsonify
+    f"{dumps(data, indent=indent, separators=separators)}\n",
+  File "C:\Program Files\Python39\lib\site-packages\flask\json\__init__.py", line 139, in dumps
+    rv = _json.dumps(obj, **kwargs)
+  File "C:\Program Files\Python39\lib\json\__init__.py", line 234, in dumps
+    return cls(
+  File "C:\Program Files\Python39\lib\json\encoder.py", line 199, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "C:\Program Files\Python39\lib\json\encoder.py", line 257, in iterencode
+    return _iterencode(o, 0)
+  File "C:\Program Files\Python39\lib\site-packages\flask\json\__init__.py", line 57, in default
+    return super().default(o)
+  File "C:\Program Files\Python39\lib\json\encoder.py", line 179, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type time is not JSON serializable
+[2022-07-12 16:06:06,919] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 16:06:06] "[35m[1mPOST /update-partner/ HTTP/1.1[0m" 500 -
+[2022-07-12 16:09:38,892] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-12 16:09:45,781] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 16:09:45] "[32mPOST /update-partner HTTP/1.1[0m" 308 -
+[2022-07-12 16:09:46,300] ERROR in app: Exception on /update-partner/ [POST]
+Traceback (most recent call last):
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 1538, in finalize_request
+    response = self.make_response(rv)
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 1716, in make_response
+    rv = jsonify(rv)
+  File "C:\Program Files\Python39\lib\site-packages\flask\json\__init__.py", line 361, in jsonify
+    f"{dumps(data, indent=indent, separators=separators)}\n",
+  File "C:\Program Files\Python39\lib\site-packages\flask\json\__init__.py", line 139, in dumps
+    rv = _json.dumps(obj, **kwargs)
+  File "C:\Program Files\Python39\lib\json\__init__.py", line 234, in dumps
+    return cls(
+  File "C:\Program Files\Python39\lib\json\encoder.py", line 199, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "C:\Program Files\Python39\lib\json\encoder.py", line 257, in iterencode
+    return _iterencode(o, 0)
+  File "C:\Program Files\Python39\lib\site-packages\flask\json\__init__.py", line 57, in default
+    return super().default(o)
+  File "C:\Program Files\Python39\lib\json\encoder.py", line 179, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type time is not JSON serializable
+[2022-07-12 16:09:51,327] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 16:09:51] "[35m[1mPOST /update-partner/ HTTP/1.1[0m" 500 -
+[2022-07-12 16:12:31,382] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-12 16:12:34,674] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 16:12:34] "[32mPOST /update-partner HTTP/1.1[0m" 308 -
+[2022-07-12 16:12:35,190] ERROR in app: Exception on /update-partner/ [POST]
+Traceback (most recent call last):
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 1538, in finalize_request
+    response = self.make_response(rv)
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 1716, in make_response
+    rv = jsonify(rv)
+  File "C:\Program Files\Python39\lib\site-packages\flask\json\__init__.py", line 361, in jsonify
+    f"{dumps(data, indent=indent, separators=separators)}\n",
+  File "C:\Program Files\Python39\lib\site-packages\flask\json\__init__.py", line 139, in dumps
+    rv = _json.dumps(obj, **kwargs)
+  File "C:\Program Files\Python39\lib\json\__init__.py", line 234, in dumps
+    return cls(
+  File "C:\Program Files\Python39\lib\json\encoder.py", line 199, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "C:\Program Files\Python39\lib\json\encoder.py", line 257, in iterencode
+    return _iterencode(o, 0)
+  File "C:\Program Files\Python39\lib\site-packages\flask\json\__init__.py", line 57, in default
+    return super().default(o)
+  File "C:\Program Files\Python39\lib\json\encoder.py", line 179, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type time is not JSON serializable
+[2022-07-12 16:12:40,217] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 16:12:40] "[35m[1mPOST /update-partner/ HTTP/1.1[0m" 500 -
+[2022-07-12 16:13:34,098] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-12 16:13:38,294] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 16:13:38] "[32mPOST /update-partner HTTP/1.1[0m" 308 -
+[2022-07-12 16:13:38,803] ERROR in app: Exception on /update-partner/ [POST]
+Traceback (most recent call last):
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 1538, in finalize_request
+    response = self.make_response(rv)
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 1716, in make_response
+    rv = jsonify(rv)
+  File "C:\Program Files\Python39\lib\site-packages\flask\json\__init__.py", line 361, in jsonify
+    f"{dumps(data, indent=indent, separators=separators)}\n",
+  File "C:\Program Files\Python39\lib\site-packages\flask\json\__init__.py", line 139, in dumps
+    rv = _json.dumps(obj, **kwargs)
+  File "C:\Program Files\Python39\lib\json\__init__.py", line 234, in dumps
+    return cls(
+  File "C:\Program Files\Python39\lib\json\encoder.py", line 199, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "C:\Program Files\Python39\lib\json\encoder.py", line 257, in iterencode
+    return _iterencode(o, 0)
+  File "C:\Program Files\Python39\lib\site-packages\flask\json\__init__.py", line 57, in default
+    return super().default(o)
+  File "C:\Program Files\Python39\lib\json\encoder.py", line 179, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type time is not JSON serializable
+[2022-07-12 16:13:43,830] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 16:13:43] "[35m[1mPOST /update-partner/ HTTP/1.1[0m" 500 -
+[2022-07-12 16:17:04,110] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-12 16:17:12,880] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 16:17:12] "[32mPOST /update-partner HTTP/1.1[0m" 308 -
+[2022-07-12 16:17:13,392] ERROR in app: Exception on /update-partner/ [POST]
+Traceback (most recent call last):
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 1538, in finalize_request
+    response = self.make_response(rv)
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 1716, in make_response
+    rv = jsonify(rv)
+  File "C:\Program Files\Python39\lib\site-packages\flask\json\__init__.py", line 361, in jsonify
+    f"{dumps(data, indent=indent, separators=separators)}\n",
+  File "C:\Program Files\Python39\lib\site-packages\flask\json\__init__.py", line 139, in dumps
+    rv = _json.dumps(obj, **kwargs)
+  File "C:\Program Files\Python39\lib\json\__init__.py", line 234, in dumps
+    return cls(
+  File "C:\Program Files\Python39\lib\json\encoder.py", line 199, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "C:\Program Files\Python39\lib\json\encoder.py", line 257, in iterencode
+    return _iterencode(o, 0)
+  File "C:\Program Files\Python39\lib\site-packages\flask\json\__init__.py", line 57, in default
+    return super().default(o)
+  File "C:\Program Files\Python39\lib\json\encoder.py", line 179, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type time is not JSON serializable
+[2022-07-12 16:17:18,421] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 16:17:18] "[35m[1mPOST /update-partner/ HTTP/1.1[0m" 500 -
+[2022-07-12 16:17:43,758] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 16:17:43] "[32mPOST /partner HTTP/1.1[0m" 308 -
+[2022-07-12 16:17:44,264] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 16:17:44] "POST /partner/ HTTP/1.1" 200 -
+[2022-07-12 16:17:52,306] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 16:17:52] "[32mPOST /partner HTTP/1.1[0m" 308 -
+[2022-07-12 16:17:52,811] ERROR in app: Exception on /partner/ [POST]
+Traceback (most recent call last):
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 1538, in finalize_request
+    response = self.make_response(rv)
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 1716, in make_response
+    rv = jsonify(rv)
+  File "C:\Program Files\Python39\lib\site-packages\flask\json\__init__.py", line 361, in jsonify
+    f"{dumps(data, indent=indent, separators=separators)}\n",
+  File "C:\Program Files\Python39\lib\site-packages\flask\json\__init__.py", line 139, in dumps
+    rv = _json.dumps(obj, **kwargs)
+  File "C:\Program Files\Python39\lib\json\__init__.py", line 234, in dumps
+    return cls(
+  File "C:\Program Files\Python39\lib\json\encoder.py", line 199, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "C:\Program Files\Python39\lib\json\encoder.py", line 257, in iterencode
+    return _iterencode(o, 0)
+  File "C:\Program Files\Python39\lib\site-packages\flask\json\__init__.py", line 57, in default
+    return super().default(o)
+  File "C:\Program Files\Python39\lib\json\encoder.py", line 179, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type time is not JSON serializable
+[2022-07-12 16:17:57,829] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 16:17:57] "[35m[1mPOST /partner/ HTTP/1.1[0m" 500 -
+[2022-07-12 16:18:21,052] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-12 16:19:23,411] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-12 16:19:34,504] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 16:19:34] "[32mPOST /partner HTTP/1.1[0m" 308 -
+[2022-07-12 16:19:35,010] ERROR in app: Exception on /partner/ [POST]
+Traceback (most recent call last):
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 1538, in finalize_request
+    response = self.make_response(rv)
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 1716, in make_response
+    rv = jsonify(rv)
+  File "C:\Program Files\Python39\lib\site-packages\flask\json\__init__.py", line 361, in jsonify
+    f"{dumps(data, indent=indent, separators=separators)}\n",
+  File "C:\Program Files\Python39\lib\site-packages\flask\json\__init__.py", line 139, in dumps
+    rv = _json.dumps(obj, **kwargs)
+  File "C:\Program Files\Python39\lib\json\__init__.py", line 234, in dumps
+    return cls(
+  File "C:\Program Files\Python39\lib\json\encoder.py", line 199, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "C:\Program Files\Python39\lib\json\encoder.py", line 257, in iterencode
+    return _iterencode(o, 0)
+  File "C:\Program Files\Python39\lib\site-packages\flask\json\__init__.py", line 57, in default
+    return super().default(o)
+  File "C:\Program Files\Python39\lib\json\encoder.py", line 179, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type time is not JSON serializable
+[2022-07-12 16:19:40,038] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 16:19:40] "[35m[1mPOST /partner/ HTTP/1.1[0m" 500 -
+[2022-07-12 16:20:07,810] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-12 16:20:11,586] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 16:20:11] "[32mPOST /partner HTTP/1.1[0m" 308 -
+[2022-07-12 16:20:12,094] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 16:20:12] "POST /partner/ HTTP/1.1" 200 -
+[2022-07-12 16:20:27,591] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 16:20:27] "[32mPOST /update-partner HTTP/1.1[0m" 308 -
+[2022-07-12 16:20:28,110] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 16:20:28] "POST /update-partner/ HTTP/1.1" 200 -
+[2022-07-12 16:20:54,113] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 16:20:54] "[32mPOST /partner HTTP/1.1[0m" 308 -
+[2022-07-12 16:20:54,618] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 16:20:54] "POST /partner/ HTTP/1.1" 200 -
+[2022-07-12 16:21:17,446] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-12 16:21:22,708] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 16:21:22] "[32mPOST /partner HTTP/1.1[0m" 308 -
+[2022-07-12 16:21:23,214] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 16:21:23] "POST /partner/ HTTP/1.1" 200 -
+[2022-07-12 16:23:47,253] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-12 16:23:55,052] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 16:23:55] "[32mPOST /partner HTTP/1.1[0m" 308 -
+[2022-07-12 16:23:55,560] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 16:23:55] "POST /partner/ HTTP/1.1" 200 -
+[2022-07-12 16:24:34,689] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-12 16:24:37,890] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 16:24:37] "[32mPOST /partner HTTP/1.1[0m" 308 -
+[2022-07-12 16:24:38,396] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 16:24:38] "POST /partner/ HTTP/1.1" 200 -
+[2022-07-12 16:24:45,694] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 16:24:45] "[32mPOST /update-partner HTTP/1.1[0m" 308 -
+[2022-07-12 16:24:46,204] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 16:24:46] "POST /update-partner/ HTTP/1.1" 200 -
+[2022-07-12 16:27:50,372] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 16:27:50] "[32mGET /active-partners HTTP/1.1[0m" 308 -
+[2022-07-12 16:27:50,883] ERROR in app: Exception on /active-partners/ [GET]
+Traceback (most recent call last):
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 1538, in finalize_request
+    response = self.make_response(rv)
+  File "C:\Program Files\Python39\lib\site-packages\flask\app.py", line 1716, in make_response
+    rv = jsonify(rv)
+  File "C:\Program Files\Python39\lib\site-packages\flask\json\__init__.py", line 361, in jsonify
+    f"{dumps(data, indent=indent, separators=separators)}\n",
+  File "C:\Program Files\Python39\lib\site-packages\flask\json\__init__.py", line 139, in dumps
+    rv = _json.dumps(obj, **kwargs)
+  File "C:\Program Files\Python39\lib\json\__init__.py", line 234, in dumps
+    return cls(
+  File "C:\Program Files\Python39\lib\json\encoder.py", line 199, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "C:\Program Files\Python39\lib\json\encoder.py", line 257, in iterencode
+    return _iterencode(o, 0)
+  File "C:\Program Files\Python39\lib\site-packages\flask\json\__init__.py", line 57, in default
+    return super().default(o)
+  File "C:\Program Files\Python39\lib\json\encoder.py", line 179, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type time is not JSON serializable
+[2022-07-12 16:27:55,912] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 16:27:55] "[35m[1mGET /active-partners/ HTTP/1.1[0m" 500 -
+[2022-07-12 16:28:21,201] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-12 16:28:26,975] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 16:28:26] "[32mGET /active-partners HTTP/1.1[0m" 308 -
+[2022-07-12 16:28:27,482] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 16:28:27] "GET /active-partners/ HTTP/1.1" 200 -
+[2022-07-12 16:31:23,985] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-12 16:31:35,075] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 16:31:35] "[32mGET /inactive-partners HTTP/1.1[0m" 308 -
+[2022-07-12 16:31:35,581] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 16:31:35] "GET /inactive-partners/ HTTP/1.1" 200 -
+[2022-07-12 16:34:39,480] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 16:34:39] "[32mPOST /partner-emails HTTP/1.1[0m" 308 -
+[2022-07-12 16:34:39,985] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 16:34:39] "POST /partner-emails/ HTTP/1.1" 200 -
+[2022-07-12 16:39:04,136] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 16:39:04] "[32mPOST /partner HTTP/1.1[0m" 308 -
+[2022-07-12 16:39:04,640] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 16:39:04] "POST /partner/ HTTP/1.1" 200 -
+[2022-07-12 16:40:41,441] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 16:40:41] "[32mPOST /update-partner-email HTTP/1.1[0m" 308 -
+[2022-07-12 16:40:41,944] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 16:40:41] "POST /update-partner-email/ HTTP/1.1" 200 -
+[2022-07-12 16:42:05,486] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-12 16:43:13,442] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 16:43:13] "[32mPOST /update-partner-email HTTP/1.1[0m" 308 -
+[2022-07-12 16:43:13,955] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 16:43:13] "POST /update-partner-email/ HTTP/1.1" 200 -
+[2022-07-12 16:48:57,888] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 16:48:57] "[32mGET /reports HTTP/1.1[0m" 308 -
+[2022-07-12 16:48:58,393] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 16:48:58] "GET /reports/ HTTP/1.1" 200 -
+[2022-07-12 16:51:18,240] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 16:51:18] "[32mPOST /partner-reports HTTP/1.1[0m" 308 -
+[2022-07-12 16:51:18,748] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 16:51:18] "POST /partner-reports/ HTTP/1.1" 200 -
+[2022-07-12 16:53:35,591] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 16:53:35] "[32mPOST /partner-reports HTTP/1.1[0m" 308 -
+[2022-07-12 16:53:36,096] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 16:53:36] "POST /partner-reports/ HTTP/1.1" 200 -
+[2022-07-12 16:55:22,853] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 16:55:22] "[32mPOST /add-partner-report HTTP/1.1[0m" 308 -
+[2022-07-12 16:55:23,360] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 16:55:23] "POST /add-partner-report/ HTTP/1.1" 200 -
+[2022-07-12 16:58:32,358] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 16:58:32] "[32mGET /report-types HTTP/1.1[0m" 308 -
+[2022-07-12 16:58:32,865] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 16:58:32] "GET /report-types/ HTTP/1.1" 200 -
+[2022-07-12 16:58:41,841] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-12 16:58:58,194] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 16:58:58] "[32mGET /report-types HTTP/1.1[0m" 308 -
+[2022-07-12 16:58:58,698] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 16:58:58] "GET /report-types/ HTTP/1.1" 200 -
