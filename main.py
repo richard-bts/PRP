@@ -6,17 +6,19 @@ from flask_mail import Mail, Message
 from sqlalchemy import BIGINT, ForeignKey, exc, cast, Date, Column, Integer, DECIMAL, String, DateTime, false, insert, Time
 from sqlalchemy.ext.automap import automap_base 
 from sqlalchemy.orm import Session
-from datetime import date, datetime, timedelta
+from datetime import date, datetime, timedelta, time
 from smtplib import SMTPException
 from dotenv import load_dotenv
 from logging.config import dictConfig
 from logging.handlers import SMTPHandler
 from sqlalchemy.ext.declarative import declarative_base
+from utils.utility import json_return
 
 
 import xlsxwriter
 import os
 import logging
+
 
 
 dictConfig(
@@ -98,7 +100,7 @@ def _name_for_collection_relationship(base, local_cls, referred_cls, constraint)
     return name_for_collection_relationship(base, local_cls, referred_cls, constraint)
 
 class Partner(Base):
-    __tablename__ = "partners"
+    __tablename__ = "partner"
     __table_args__ = {'implicit_returning':False}
     partner_id = Column(Integer, primary_key=True)
     client_id = Column(Integer, nullable=False)
@@ -110,7 +112,7 @@ class Partner(Base):
 
 
 class PartnerEmail(Base):
-    __tablename__ = "partner_emails"
+    __tablename__ = "partner_email"
     __table_args__ = {'implicit_returning':False}
     partner_email_id = Column(Integer, primary_key=True)
     partner_id = Column(Integer)
@@ -161,20 +163,20 @@ def get_partner(partner_id):
             Partner.partner_name, 
             Partner.active, 
             Partner.client_id, 
-            # Partner.partner_report_time
+            Partner.partner_report_time
         )
 
         dbquery = dbquery.filter(Partner.partner_id == partner_id)
-        partner_det = dbquery.one()
-        if partner_det is not None:
+        partner_det = [r._asdict() for r in dbquery.all()]
+        
+        if len(partner_det) > 0:
             partner = {
-                'partner_id': partner_det[0],
-                'partner_name': partner_det[1],
-                'active': partner_det[2],
-                'client_id': partner_det[3],
-                # 'partner_report_time': str(partner[0]['partner_report_time'])
-            }
-
+                'partner_id': partner_det[0]['partner_id'],
+                'partner_name': partner_det[0]['partner_name'],
+                'active': partner_det[0]['active'],
+                'client_id': partner_det[0]['client_id'],
+                'partner_report_time':  str(partner_det[0]['partner_report_time'])
+            }            
         success = True 
         msg = 'Partner retrieved successfully'
         return (partner, success, msg)
@@ -198,6 +200,8 @@ def get_all_partners():
         )
 
         partners = [r._asdict() for r in dbquery.all()]
+        for partner in partners:
+            partner['partner_report_time'] = str(partner['partner_report_time'])
         success = True 
         msg = 'Partner retrieved successfully'
         return partners, success, msg
@@ -217,12 +221,14 @@ def get_active_partners():
             Partner.partner_name, 
             Partner.active, 
             Partner.client_id, 
-            # Partner.partner_report_time
+            Partner.partner_report_time
         )
 
         dbquery = dbquery.filter(Partner.active == 1)
 
         partners = [r._asdict() for r in dbquery.all()]
+        for partner in partners:
+            partner['partner_report_time'] = str(partner['partner_report_time'])
         success = True 
         msg = 'Partner retrieved successfully'
         return partners, success, msg
@@ -243,12 +249,14 @@ def get_inactive_partners():
             Partner.partner_name, 
             Partner.active, 
             Partner.client_id, 
-            # Partner.partner_report_time
+            Partner.partner_report_time
         )
 
         dbquery = dbquery.filter(Partner.active == 0)
 
         partners = [r._asdict() for r in dbquery.all()]
+        for partner in partners:
+            partner['partner_report_time'] = str(partner['partner_report_time'])
         success = True 
         msg = 'Partner retrieved successfully'
         return partners, success, msg
@@ -368,6 +376,8 @@ def get_partner_reports(partner_id):
             Report.date_created)
         dbquery = dbquery.filter(Report.partner_id == partner_id)
         reports = [r._asdict() for r in dbquery.all()]
+        for report in reports:
+            report['date_created'] = str(report['date_created'])
         success = True 
         msg = 'Report generated successfully'
         return (reports, success, msg)
@@ -581,25 +591,14 @@ def home_rte():
 @app.route('/partners/', methods=['POST', 'GET'])
 def get_all_partners_rte():
     partners, success, msg = get_all_partners()
-    res = {
-        'data': partners, 
-        'success': success, 
-        'msg': msg, 
-        'length': len(partners)
-    }
-    return res
+    return json_return(partners, success, msg)
 
 @app.route('/partner/', methods=['POST', 'GET'])
 def get_partner_rte():
     input_data = request.get_json()
     partner_id = input_data['partner_id']
     partner, success, msg = get_partner(partner_id=partner_id)
-    res = {
-        'data': partner, 
-        'success': success, 
-        'msg': msg
-    }
-    return res
+    return json_return(partner, success, msg)
 
 @app.route('/create-partner/', methods=['POST', 'GET'])
 def create_partner_rte():
@@ -608,12 +607,7 @@ def create_partner_rte():
     partner_name = input_data['partner_name']
     partner_report_time = input_data['partner_report_time']
     partner, success, msg = create_partner(client_id, partner_name, partner_report_time)
-    res = {
-        'data': partner, 
-        'success': success, 
-        'msg': msg
-    }
-    return res
+    return json_return(partner, success, msg)
 
 
 @app.route('/update-partner/', methods=['POST', 'GET'])
@@ -624,32 +618,17 @@ def update_partner_rte():
     partner_report_time = input_data['partner_report_time']
     active = input_data['active']
     partner, success, msg = update_partner(partner_id, partner_name, partner_report_time, active)
-    res = {
-        'data': partner, 
-        'success': success, 
-        'msg': msg
-    }
-    return res
+    return json_return(partner, success, msg)
 
 @app.route('/active-partners/', methods=['POST', 'GET'])
 def get_active_partners_rte():
     partners, success, msg = get_active_partners()
-    res = {
-        'data': partners, 
-        'success': success, 
-        'msg': msg
-    }
-    return res
+    json_return(partners, success, msg)
 
 @app.route('/inactive-partners/', methods=['POST', 'GET'])
 def get_inactive_partners_rte():
     partners, success, msg = get_inactive_partners()
-    res = {
-        'data': partners, 
-        'success': success, 
-        'msg': msg
-    }
-    return res
+    return json_return(partners, success, msg)
 
 #Partner Emails 
 @app.route('/partner-emails/', methods=['POST', 'GET'])
@@ -657,13 +636,7 @@ def get_partner_emails_rte():
     input_data = request.get_json()
     partner_id = input_data['partner_id']
     emails, success, msg = get_partner_emails(partner_id=partner_id)
-    res = {
-        'data': emails, 
-        'success': success, 
-        'msg': msg,
-        'count': len(emails)
-    }
-    return res
+    return json_return(emails, success, msg)
 
 @app.route('/add-partner-email/', methods=['POST', 'GET'])
 def add_partner_email_rte():
@@ -671,12 +644,7 @@ def add_partner_email_rte():
     partner_id = input_data['partner_id']
     partner_email = input_data['partner_email']
     emails, success, msg = add_partner_email(partner_id, partner_email)
-    res = {
-        'data': emails, 
-        'success': success, 
-        'msg': msg
-    }
-    return res
+    return json_return(emails, success, msg)
 
 @app.route('/update-partner-email/', methods=['POST', 'GET'])
 def update_partner_email_rte():
@@ -686,35 +654,20 @@ def update_partner_email_rte():
     email = input_data['email']
     active = input_data['active']
     emails, success, msg = update_partner_email(partner_email_id, partner_id, email, active)
-    res = {
-        'data': emails, 
-        'success': success, 
-        'msg': msg
-    }
-    return res
+    return json_return(emails, success, msg)
 
 #Reports 
 @app.route('/reports/', methods=['POST', 'GET'])
 def get_reports_rte():
     reports, success, msg = get_reports()
-    res = {
-        'data': reports, 
-        'success': success, 
-        'msg': msg
-    }
-    return res
+    return json_return(reports, success, msg)
 
 @app.route('/partner-reports/', methods=['POST', 'GET'])
 def get_partner_reports_rte():
     input_data = request.get_json()
     partner_id = input_data['partner_id']
     reports, success, msg = get_partner_reports(partner_id=partner_id)
-    res = {
-        'data': reports, 
-        'success': success, 
-        'msg': msg
-    }
-    return res
+    return json_return(reports, success, msg)
 
 
 @app.route('/add-partner-report/', methods=['POST', 'GET'])
@@ -723,35 +676,20 @@ def add_partner_reports_rte():
     partner_id = input_data['partner_id']
     report_type_id = input_data['report_type_id']
     reports, success, msg = add_partner_report(partner_id, report_type_id)
-    res = {
-        'data': reports, 
-        'success': success, 
-        'msg': msg
-    }
-    return res
+    return json_return(reports, success, msg)
 
 #Report Types
 @app.route('/report-types/', methods=['POST', 'GET'])
 def get_report_types_rte():
     reports, success, msg = get_report_types()
-    res = {
-        'data': reports, 
-        'success': success, 
-        'msg': msg
-    }
-    return res
+    return json_return(reports, success, msg)
 
 @app.route('/partner-report-types/', methods=['POST', 'GET'])
 def get_partner_report_types_rte():
     input_data = request.get_json()
     partner_id = input_data['partner_id']
     reports, success, msg = get_partner_report_types(partner_id=partner_id)
-    res = {
-        'data': reports, 
-        'success': success, 
-        'msg': msg
-    }
-    return res
+    return json_return(reports, success, msg)
 
 @app.route('/update-partner-report-type/', methods=['POST', 'GET'])
 def update_partner_report_types_rte():
@@ -760,36 +698,21 @@ def update_partner_report_types_rte():
     report_type_id = input_data['report_type_id']
     active = input_data['active']
     reports, success, msg = update_partner_report_type(partner_id, report_type_id, active)
-    res = {
-        'data': reports, 
-        'success': success, 
-        'msg': msg
-    }
-    return res
+    return json_return(reports, success, msg)
 
 @app.route('/add-partner-report-type/', methods=['POST', 'GET'])
 def add_partner_report_type_rte():
     input_data = request.get_json()
     partner_id = input_data['partner_id']
     reports, success, msg = add_partner_report_type(partner_id)
-    res = {
-        'data': reports, 
-        'success': success, 
-        'msg': msg
-    }
-    return res
+    return json_return(reports, success, msg)
 
 @app.route('/add-report-type/', methods=['POST', 'GET'])
 def add_report_type_rte():
     input_data = request.get_json()
     report_name = input_data['report_name']
     reports, success, msg = add_report_type(report_name)
-    res = {
-        'data': reports, 
-        'success': success, 
-        'msg': msg
-    }
-    return res
+    return json_return(reports, success, msg)
 
 
 

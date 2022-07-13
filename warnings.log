@@ -579,3 +579,6 @@ TypeError: Object of type time is not JSON serializable
 [2022-07-12 16:58:41,841] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
 [2022-07-12 16:58:58,194] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 16:58:58] "[32mGET /report-types HTTP/1.1[0m" 308 -
 [2022-07-12 16:58:58,698] INFO in _internal: 127.0.0.1 - - [12/Jul/2022 16:58:58] "GET /report-types/ HTTP/1.1" 200 -
+[2022-07-13 10:35:19,415] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-13 10:35:25,569] INFO in _internal: 127.0.0.1 - - [13/Jul/2022 10:35:25] "[32mGET /partners HTTP/1.1[0m" 308 -
+[2022-07-13 10:35:26,076] INFO in _internal: 127.0.0.1 - - [13/Jul/2022 10:35:26] "GET /partners/ HTTP/1.1" 200 -
