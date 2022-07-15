@@ -786,3 +786,81 @@ TypeError: cannot unpack non-iterable NoneType object
 [2022-07-14 11:53:45,832] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
 [2022-07-14 11:53:56,115] INFO in _internal: 127.0.0.1 - - [14/Jul/2022 11:53:56] "[32mPOST /add-partner-report HTTP/1.1[0m" 308 -
 [2022-07-14 11:53:56,629] INFO in _internal: 127.0.0.1 - - [14/Jul/2022 11:53:56] "POST /add-partner-report/ HTTP/1.1" 200 -
+[2022-07-14 12:16:06,948] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-14 12:16:09,663] INFO in _internal: 127.0.0.1 - - [14/Jul/2022 12:16:09] "[32mGET /partners HTTP/1.1[0m" 308 -
+[2022-07-14 12:16:10,168] INFO in _internal: 127.0.0.1 - - [14/Jul/2022 12:16:10] "GET /partners/ HTTP/1.1" 200 -
+[2022-07-14 12:16:57,929] INFO in _internal: 127.0.0.1 - - [14/Jul/2022 12:16:57] "[32mPOST /partner-emails HTTP/1.1[0m" 308 -
+[2022-07-14 12:16:58,435] INFO in _internal: 127.0.0.1 - - [14/Jul/2022 12:16:58] "POST /partner-emails/ HTTP/1.1" 200 -
+[2022-07-14 12:33:48,341] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-14 12:34:46,365] INFO in _internal: 127.0.0.1 - - [14/Jul/2022 12:34:46] "[32mPOST /update-partner HTTP/1.1[0m" 308 -
+[2022-07-14 12:34:46,889] INFO in _internal: 127.0.0.1 - - [14/Jul/2022 12:34:46] "POST /update-partner/ HTTP/1.1" 200 -
+[2022-07-14 12:35:58,082] INFO in _internal: 127.0.0.1 - - [14/Jul/2022 12:35:58] "[32mPOST /update-partner-email HTTP/1.1[0m" 308 -
+[2022-07-14 12:35:58,593] INFO in _internal: 127.0.0.1 - - [14/Jul/2022 12:35:58] "POST /update-partner-email/ HTTP/1.1" 200 -
+[2022-07-14 12:48:04,525] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-14 12:48:30,100] INFO in _internal: 127.0.0.1 - - [14/Jul/2022 12:48:30] "[32mPOST /create-partner HTTP/1.1[0m" 308 -
+[2022-07-14 12:48:30,612] INFO in _internal: 127.0.0.1 - - [14/Jul/2022 12:48:30] "POST /create-partner/ HTTP/1.1" 200 -
+[2022-07-14 12:49:33,040] INFO in _internal: 127.0.0.1 - - [14/Jul/2022 12:49:33] "[32mPOST /add-default-partner-report-types HTTP/1.1[0m" 308 -
+[2022-07-14 12:49:33,553] INFO in _internal: 127.0.0.1 - - [14/Jul/2022 12:49:33] "POST /add-default-partner-report-types/ HTTP/1.1" 200 -
+[2022-07-14 12:50:47,836] INFO in _internal: 127.0.0.1 - - [14/Jul/2022 12:50:47] "[32mPOST /update-partner-report-type HTTP/1.1[0m" 308 -
+[2022-07-14 12:50:48,347] INFO in _internal: 127.0.0.1 - - [14/Jul/2022 12:50:48] "POST /update-partner-report-type/ HTTP/1.1" 200 -
+[2022-07-15 14:05:58,569] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-15 14:07:31,871] INFO in _internal: 127.0.0.1 - - [15/Jul/2022 14:07:31] "[32mPOST /partner HTTP/1.1[0m" 308 -
+[2022-07-15 14:07:32,379] INFO in _internal: 127.0.0.1 - - [15/Jul/2022 14:07:32] "POST /partner/ HTTP/1.1" 200 -
+[2022-07-15 14:08:49,287] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-15 14:08:54,049] INFO in _internal: 127.0.0.1 - - [15/Jul/2022 14:08:54] "[32mPOST /partner HTTP/1.1[0m" 308 -
+[2022-07-15 14:08:54,557] INFO in _internal: 127.0.0.1 - - [15/Jul/2022 14:08:54] "POST /partner/ HTTP/1.1" 200 -
+[2022-07-15 14:11:46,425] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-15 14:11:53,324] INFO in _internal: 127.0.0.1 - - [15/Jul/2022 14:11:53] "[32mGET /partners HTTP/1.1[0m" 308 -
+[2022-07-15 14:11:53,835] INFO in _internal: 127.0.0.1 - - [15/Jul/2022 14:11:53] "GET /partners/ HTTP/1.1" 200 -
+[2022-07-15 14:12:33,479] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-15 14:12:39,811] INFO in _internal: 127.0.0.1 - - [15/Jul/2022 14:12:39] "[32mGET /partners HTTP/1.1[0m" 308 -
+[2022-07-15 14:12:40,321] INFO in _internal: 127.0.0.1 - - [15/Jul/2022 14:12:40] "GET /partners/ HTTP/1.1" 200 -
+[2022-07-15 14:13:26,440] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-15 14:13:30,558] INFO in _internal: 127.0.0.1 - - [15/Jul/2022 14:13:30] "[32mGET /partners HTTP/1.1[0m" 308 -
+[2022-07-15 14:13:31,069] INFO in _internal: 127.0.0.1 - - [15/Jul/2022 14:13:31] "GET /partners/ HTTP/1.1" 200 -
+[2022-07-15 14:14:30,014] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-15 14:14:37,146] INFO in _internal: 127.0.0.1 - - [15/Jul/2022 14:14:37] "[32mGET /partners HTTP/1.1[0m" 308 -
+[2022-07-15 14:14:37,681] INFO in _internal: 127.0.0.1 - - [15/Jul/2022 14:14:37] "GET /partners/ HTTP/1.1" 200 -
+[2022-07-15 14:15:31,309] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-15 14:15:35,173] INFO in _internal: 127.0.0.1 - - [15/Jul/2022 14:15:35] "[32mGET /partners HTTP/1.1[0m" 308 -
+[2022-07-15 14:15:35,705] INFO in _internal: 127.0.0.1 - - [15/Jul/2022 14:15:35] "GET /partners/ HTTP/1.1" 200 -
+[2022-07-15 14:16:40,697] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-15 14:16:46,499] INFO in _internal: 127.0.0.1 - - [15/Jul/2022 14:16:46] "[32mGET /active-partners HTTP/1.1[0m" 308 -
+[2022-07-15 14:16:47,024] ERROR in app: Exception on /active-partners/ [GET]
+Traceback (most recent call last):
+  File "C:\CDL\PartnerReportingPackage\PartnerReportingPackage\lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\CDL\PartnerReportingPackage\PartnerReportingPackage\lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "C:\CDL\PartnerReportingPackage\PartnerReportingPackage\lib\site-packages\flask\app.py", line 1538, in finalize_request
+    response = self.make_response(rv)
+  File "C:\CDL\PartnerReportingPackage\PartnerReportingPackage\lib\site-packages\flask\app.py", line 1701, in make_response
+    raise TypeError(
+TypeError: The view function for 'get_active_partners_rte' did not return a valid response. The function either returned None or ended without a return statement.
+[2022-07-15 14:16:52,124] INFO in _internal: 127.0.0.1 - - [15/Jul/2022 14:16:52] "[35m[1mGET /active-partners/ HTTP/1.1[0m" 500 -
+[2022-07-15 14:17:59,414] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-15 14:18:03,505] INFO in _internal: 127.0.0.1 - - [15/Jul/2022 14:18:03] "[32mGET /active-partners HTTP/1.1[0m" 308 -
+[2022-07-15 14:18:04,034] INFO in _internal: 127.0.0.1 - - [15/Jul/2022 14:18:04] "GET /active-partners/ HTTP/1.1" 200 -
+[2022-07-15 14:18:58,687] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-15 14:19:04,717] INFO in _internal: 127.0.0.1 - - [15/Jul/2022 14:19:04] "[32mGET /inactive-partners HTTP/1.1[0m" 308 -
+[2022-07-15 14:19:05,229] INFO in _internal: 127.0.0.1 - - [15/Jul/2022 14:19:05] "GET /inactive-partners/ HTTP/1.1" 200 -
+[2022-07-15 14:27:38,233] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-15 14:33:17,841] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-15 14:33:31,882] INFO in _internal: 127.0.0.1 - - [15/Jul/2022 14:33:31] "[32mPOST /create-partner HTTP/1.1[0m" 308 -
+[2022-07-15 14:33:32,385] ERROR in app: Exception on /create-partner/ [POST]
+Traceback (most recent call last):
+  File "C:\CDL\PartnerReportingPackage\PartnerReportingPackage\lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\CDL\PartnerReportingPackage\PartnerReportingPackage\lib\site-packages\flask\app.py", line 1518, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\CDL\PartnerReportingPackage\PartnerReportingPackage\lib\site-packages\flask\app.py", line 1516, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\CDL\PartnerReportingPackage\PartnerReportingPackage\lib\site-packages\flask\app.py", line 1502, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "C:\CDL\PartnerReportingPackage\main.py", line 598, in create_partner_rte
+    partner, success, msg = create_partner(client_id, partner_name, partner_report_time)
+TypeError: create_partner() missing 2 required positional arguments: 'partner_report_types' and 'partner_emails'
+[2022-07-15 14:33:37,412] INFO in _internal: 127.0.0.1 - - [15/Jul/2022 14:33:37] "[35m[1mPOST /create-partner/ HTTP/1.1[0m" 500 -
+[2022-07-15 14:35:13,484] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-15 14:35:16,879] INFO in _internal: 127.0.0.1 - - [15/Jul/2022 14:35:16] "[32mPOST /create-partner HTTP/1.1[0m" 308 -
+[2022-07-15 14:35:17,387] INFO in _internal: 127.0.0.1 - - [15/Jul/2022 14:35:17] "POST /create-partner/ HTTP/1.1" 200 -

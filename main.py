@@ -168,14 +168,17 @@ def get_partner(partner_id):
 
         dbquery = dbquery.filter(Partner.partner_id == partner_id)
         partner_det = [r._asdict() for r in dbquery.all()]
-        
+        partner_report_types, success, msg = get_partner_report_types(partner_id)
+        partner_emails, success, msg = get_partner_emails(partner_id)
         if len(partner_det) > 0:
             partner = {
                 'partner_id': partner_det[0]['partner_id'],
                 'partner_name': partner_det[0]['partner_name'],
                 'active': partner_det[0]['active'],
                 'client_id': partner_det[0]['client_id'],
-                'partner_report_time':  str(partner_det[0]['partner_report_time'])
+                'partner_report_time':  str(partner_det[0]['partner_report_time']),
+                'partner_report_types': partner_report_types,
+                'partner_emails': partner_emails
             }            
         success = True 
         msg = 'Partner retrieved successfully'
@@ -191,16 +194,13 @@ def get_all_partners():
 
     try: 
         dbquery = session.query(
-            Partner.partner_id, 
-            Partner.partner_name, 
-            Partner.active, 
-            Partner.client_id, 
-            Partner.partner_report_time
+            Partner.partner_id
         )
 
-        partners = [r._asdict() for r in dbquery.all()]
-        for partner in partners:
-            partner['partner_report_time'] = str(partner['partner_report_time'])
+        partners_list = [r._asdict() for r in dbquery.all()]
+        for partner in partners_list:
+            p, success, msg = get_partner(partner['partner_id'])
+            partners.append(p)
         success = True 
         msg = 'Partner retrieved successfully'
     except Exception as err: 
@@ -216,17 +216,14 @@ def get_active_partners():
     try: 
         dbquery = session.query(
             Partner.partner_id, 
-            Partner.partner_name, 
-            Partner.active, 
-            Partner.client_id, 
-            Partner.partner_report_time
         )
 
         dbquery = dbquery.filter(Partner.active == 1)
 
-        partners = [r._asdict() for r in dbquery.all()]
-        for partner in partners:
-            partner['partner_report_time'] = str(partner['partner_report_time'])
+        partners_list = [r._asdict() for r in dbquery.all()]
+        for partner in partners_list:
+            p, success, msg = get_partner(partner['partner_id'])
+            partners.append(p)
         success = True 
         msg = 'Partner retrieved successfully'
     except Exception as err: 
@@ -243,17 +240,14 @@ def get_inactive_partners():
     try: 
         dbquery = session.query(
             Partner.partner_id, 
-            Partner.partner_name, 
-            Partner.active, 
-            Partner.client_id, 
-            Partner.partner_report_time
         )
 
         dbquery = dbquery.filter(Partner.active == 0)
 
-        partners = [r._asdict() for r in dbquery.all()]
-        for partner in partners:
-            partner['partner_report_time'] = str(partner['partner_report_time'])
+        partners_list = [r._asdict() for r in dbquery.all()]
+        for partner in partners_list:
+            p, success, msg = get_partner(partner['partner_id'])
+            partners.append(p)
         success = True 
         msg = 'Partner retrieved successfully'
     except Exception as err: 
@@ -377,7 +371,7 @@ def get_partner_reports(partner_id):
 
 # WRITES
 
-def create_partner(client_id, partner_name, partner_report_time):
+def create_partner(client_id, partner_name, partner_report_time, partner_report_types, partner_emails):
     isInline = True
     success = True 
     msg = 'New Partner Added Successfully'
@@ -392,6 +386,24 @@ def create_partner(client_id, partner_name, partner_report_time):
         session.add(new_partner)
         session.flush()
         partner_id = new_partner.partner_id  
+
+        for report_type in partner_report_types:
+            new_partner_report_type = PartnerReportType()
+            setattr(new_partner_report_type, 'partner_id', partner_id)
+            setattr(new_partner_report_type, 'report_type_id', report_type['report_type_id'])
+            setattr(new_partner_report_type, 'active', report_type['active'])
+            setattr(new_partner_report_type, 'date_created', datetime.now())
+            session.merge(new_partner_report_type)
+        if partner_emails is not None and len(partner_emails) > 0:
+            partner_emails = partner_emails.replace(" ", "")
+            emails = partner_emails.split(',')
+            for email in emails:
+                new_partner = PartnerEmail()
+                setattr(new_partner, 'partner_id', partner_id)
+                setattr(new_partner, 'email', email)
+                setattr(new_partner, 'active', 1)
+                setattr(new_partner, 'date_created', datetime.now())
+                session.merge(new_partner)
         session.commit()
         partner, success, msgg = get_partner(partner_id)
     except Exception as err: 
@@ -458,7 +470,7 @@ def update_partner_email(partner_email_id, partner_id, email, active):
         session.commit()
         success = True 
         msg = 'Partner Email Updated Successfullly'
-        partner_email, success, msg = get_partner_emails(partner_id)
+        partner_email, success, msg = get_partner(partner_id)
     except Exception as err: 
         success = False 
         msg = err.args[0]
@@ -531,7 +543,7 @@ def update_partner_report_type(partner_id, report_type_id, active):
         dbquery = dbquery.filter(PartnerReportType.partner_id == partner_id and PartnerReportType.report_type_id == report_type_id)
         dbquery = dbquery.update({'active': active, 'date_modified': datetime.now()})
         session.commit()
-        report_types, success, msg = get_partners_report_types()
+        report_types, success, msg = get_partner(partner_id)
     except Exception as err: 
         success = False 
         msg = err.args[0]
@@ -583,7 +595,9 @@ def create_partner_rte():
     client_id = input_data['client_id']
     partner_name = input_data['partner_name']
     partner_report_time = input_data['partner_report_time']
-    partner, success, msg = create_partner(client_id, partner_name, partner_report_time)
+    partner_report_types = input_data['partner_report_types']
+    partner_emails = input_data['partner_emails']
+    partner, success, msg = create_partner(client_id, partner_name, partner_report_time, partner_report_types, partner_emails)
     return json_return(partner, success, msg)
 
 
@@ -600,7 +614,7 @@ def update_partner_rte():
 @app.route('/active-partners/', methods=['POST', 'GET'])
 def get_active_partners_rte():
     partners, success, msg = get_active_partners()
-    json_return(partners, success, msg)
+    return json_return(partners, success, msg)
 
 @app.route('/inactive-partners/', methods=['POST', 'GET'])
 def get_inactive_partners_rte():
