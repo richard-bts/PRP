@@ -864,3 +864,20 @@ TypeError: create_partner() missing 2 required positional arguments: 'partner_re
 [2022-07-15 14:35:13,484] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
 [2022-07-15 14:35:16,879] INFO in _internal: 127.0.0.1 - - [15/Jul/2022 14:35:16] "[32mPOST /create-partner HTTP/1.1[0m" 308 -
 [2022-07-15 14:35:17,387] INFO in _internal: 127.0.0.1 - - [15/Jul/2022 14:35:17] "POST /create-partner/ HTTP/1.1" 200 -
+[2022-07-15 14:35:48,807] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-15 14:38:02,919] INFO in _internal: 127.0.0.1 - - [15/Jul/2022 14:38:02] "[32mPOST /create-partner HTTP/1.1[0m" 308 -
+[2022-07-15 14:38:03,432] INFO in _internal: 127.0.0.1 - - [15/Jul/2022 14:38:03] "POST /create-partner/ HTTP/1.1" 200 -
+[2022-07-15 14:38:33,511] INFO in _internal: 127.0.0.1 - - [15/Jul/2022 14:38:33] "[32mPOST /create-partner HTTP/1.1[0m" 308 -
+[2022-07-15 14:38:34,043] INFO in _internal: 127.0.0.1 - - [15/Jul/2022 14:38:34] "POST /create-partner/ HTTP/1.1" 200 -
+[2022-07-15 14:39:51,041] INFO in _internal: 127.0.0.1 - - [15/Jul/2022 14:39:51] "[32mPOST /create-partner HTTP/1.1[0m" 308 -
+[2022-07-15 14:39:51,559] INFO in _internal: 127.0.0.1 - - [15/Jul/2022 14:39:51] "POST /create-partner/ HTTP/1.1" 200 -
+[2022-07-15 14:40:13,843] INFO in _internal: 127.0.0.1 - - [15/Jul/2022 14:40:13] "[32mGET /reports HTTP/1.1[0m" 308 -
+[2022-07-15 14:40:14,350] INFO in _internal: 127.0.0.1 - - [15/Jul/2022 14:40:14] "GET /reports/ HTTP/1.1" 200 -
+[2022-07-15 14:53:31,049] INFO in _internal: 127.0.0.1 - - [15/Jul/2022 14:53:31] "[32mGET /partners HTTP/1.1[0m" 308 -
+[2022-07-15 14:53:31,585] INFO in _internal: 127.0.0.1 - - [15/Jul/2022 14:53:31] "GET /partners/ HTTP/1.1" 200 -
+[2022-07-15 14:54:25,222] INFO in _internal: 127.0.0.1 - - [15/Jul/2022 14:54:25] "[32mGET /inactive-partners HTTP/1.1[0m" 308 -
+[2022-07-15 14:54:25,732] INFO in _internal: 127.0.0.1 - - [15/Jul/2022 14:54:25] "GET /inactive-partners/ HTTP/1.1" 200 -
+[2022-07-15 14:57:49,564] INFO in _internal: 127.0.0.1 - - [15/Jul/2022 14:57:49] "[32mGET /active-partners HTTP/1.1[0m" 308 -
+[2022-07-15 14:57:50,093] INFO in _internal: 127.0.0.1 - - [15/Jul/2022 14:57:50] "GET /active-partners/ HTTP/1.1" 200 -
+[2022-07-15 14:58:51,081] INFO in _internal: 127.0.0.1 - - [15/Jul/2022 14:58:51] "[32mGET /inactive-partners HTTP/1.1[0m" 308 -
+[2022-07-15 14:58:51,591] INFO in _internal: 127.0.0.1 - - [15/Jul/2022 14:58:51] "GET /inactive-partners/ HTTP/1.1" 200 -
