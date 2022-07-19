@@ -53,10 +53,10 @@ namespace PRP.WinService.Tests
             Assert.True(bResult);
         }
         [Fact]
-        public void GenerateAllReports_SendEmail_Test()
-        {
-            bool bResult = _produceReport.GenerateAllReports();
-            Assert.True(bResult);
-        }
+        //public void GenerateAllReports_SendEmail_Test()
+        //{
+        //    bool bResult = _produceReport.GenerateAllReports();
+        //    Assert.True(bResult);
+        //}
     }
 }
