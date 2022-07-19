@@ -183,15 +183,18 @@ namespace PRP.WinService.Report
                 List<ScanReportDto>? list = new();
 
                 var response = _PRPService.GetScanReport(DateTime.Now, pd.ClientId);
-
+                string? content = String.Empty;
                 if (response != null && response.Result != null && response.Result.Result != null)
+                    content = Convert.ToString(response.Result.Result);
+
+                if (response != null && response.Result != null && !string.IsNullOrEmpty(content))
                 {
-                    string? content = Convert.ToString(response.Result.Result);
+                    
 
                     if (!string.IsNullOrEmpty(content))
                     {
                         list = JsonConvert.DeserializeObject<List<ScanReportDto>>(content);
-                        if (list != null && CreateScanCSVFileAndNotifyByEmail(list, pd.ClientId, pd.PartnerId))
+                        if (list != null && CreateScanCSVFileAndNotifyByEmail(list, pd.ClientId, pd.PartnerId) & list.Count>0 )
                         {
                             Log.Logger.ForContext("Component", "PRP.WinService").Information("{Message}", 
                                 $"SCAN Report: Client {content.Substring(1, 20)}........{content.Substring(content.Length - 20, 20)}");
@@ -205,8 +208,9 @@ namespace PRP.WinService.Report
                 }
                 return false;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Log.Logger.ForContext("Component", "PRP.WinService").Error("{Message}", ex);
                 throw;
             }
         }
