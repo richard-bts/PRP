@@ -145,6 +145,26 @@ try
         return response;
     });
 
+    app.MapGet("report-types", async ([FromServices] IReportRepository ReportRepository) =>
+    {
+        ResponseDto response = new ResponseDto();
+
+        try
+        {
+            response.Result = await ReportRepository.GetReportTypes();
+            Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"GetReportTypes api called successfully...");
+        }
+        catch (Exception ex)
+        {
+            response.IsSuccess = false;
+            response.ErrorMessages = new List<string>() { ex.ToString() };
+            Log.Logger.ForContext("Component", "PRP.Service.Api").Error("{Message}", $"GetReportTypes api call failed. " +
+                $"Error Message: {response.ErrorMessages}.");
+        }
+
+        return response;
+    });
+
     app.MapPost("api/report/AddReportType", async ([FromServices] IReportRepository ReportRepository, ReportTypeDto RaportType) =>
     {
         ResponseDto response = new ResponseDto();
@@ -205,13 +225,13 @@ try
         return response;
     });
 
-    app.MapGet("api/partner/GetPartner", async ([FromServices] IPartnerRepository PartnerRepository,int partnerId) =>
+    app.MapGet("partner", async ([FromServices] IPartnerRepository PartnerRepository,int partner_id) =>
     {
         ResponseDto response = new ResponseDto();
 
         try
         {
-            response.Result = await PartnerRepository.GetPartner(partnerId);
+            response.Result = await PartnerRepository.GetPartner(partner_id);
             Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"GetPartner api called successfully...");
         }
         catch (Exception ex)
@@ -226,13 +246,13 @@ try
 
     });
 
-    app.MapGet("api/partner/GetPartners", async ([FromServices] IPartnerRepository PartnerRepository) =>
+    app.MapGet("partners", async ([FromServices] IPartnerRepository PartnerRepository) =>
     {
         ResponseDto response = new ResponseDto();
 
         try
         {
-            response.Result = await PartnerRepository.GetPartners();
+            response.Result = await PartnerRepository.GetPartners(-1);
             Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"GetPartners api called successfully...");
         }
         catch (Exception ex)
@@ -247,7 +267,49 @@ try
 
     });
 
-    app.MapPost("api/partner/AddPartner", async ([FromServices] IPartnerRepository PartnerRepository, AddPartnerDto partner) =>
+    app.MapGet("active-partners", async ([FromServices] IPartnerRepository PartnerRepository) =>
+    {
+        ResponseDto response = new ResponseDto();
+
+        try
+        {
+            response.Result = await PartnerRepository.GetPartners(1);
+            Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"GetPartners api called successfully...");
+        }
+        catch (Exception ex)
+        {
+            response.IsSuccess = false;
+            response.ErrorMessages = new List<string>() { ex.ToString() };
+            Log.Logger.ForContext("Component", "PRP.Service.Api").Error("{Message}", $"GetPartners api call failed. " +
+                                    $"Error Message: {response.ErrorMessages}");
+        }
+
+        return response;
+
+    });
+
+    app.MapGet("inactive-partners", async ([FromServices] IPartnerRepository PartnerRepository) =>
+    {
+        ResponseDto response = new ResponseDto();
+
+        try
+        {
+            response.Result = await PartnerRepository.GetPartners(0);
+            Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"GetPartners api called successfully...");
+        }
+        catch (Exception ex)
+        {
+            response.IsSuccess = false;
+            response.ErrorMessages = new List<string>() { ex.ToString() };
+            Log.Logger.ForContext("Component", "PRP.Service.Api").Error("{Message}", $"GetPartners api call failed. " +
+                                    $"Error Message: {response.ErrorMessages}");
+        }
+
+        return response;
+
+    });
+
+    app.MapPost("create-partner", async ([FromServices] IPartnerRepository PartnerRepository, AddPartnerDto partner) =>
     {
         ResponseDto response = new ResponseDto();
 
@@ -267,7 +329,7 @@ try
         return response;
     });
 
-    app.MapPut("api/partner/EditPartner", async ([FromServices] IPartnerRepository PartnerRepository, GetPartnerDetailDto partner) =>
+    app.MapPut("update-partner", async ([FromServices] IPartnerRepository PartnerRepository, UpdatePartnerDto partner) =>
     {
         ResponseDto response = new ResponseDto();
 
@@ -287,47 +349,7 @@ try
         return response;
     });
 
-    app.MapDelete("api/partner/RemovePartner", async ([FromServices] IPartnerRepository PartnerRepository, int partnerID) =>
-    {
-        ResponseDto response = new ResponseDto();
-
-        try
-        {
-            response.Result = await PartnerRepository.RemovePartner(partnerID);
-            Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"RemovePartner api called successfully...");
-        }
-        catch (Exception ex)
-        {
-            response.IsSuccess = false;
-            response.ErrorMessages = new List<string>() { ex.ToString() };
-            Log.Logger.ForContext("Component", "PRP.Service.Api").Error("{Message}", $"RemovePartner api call failed. " +
-                                    $"Error Message: {response.ErrorMessages}");
-        }
-
-        return response;
-    });
-
-    app.MapGet("api/partner/GetEmails", async ([FromServices] IPartnerRepository PartnerRepository) =>
-    {
-        ResponseDto response = new ResponseDto();
-
-        try
-        {
-            response.Result = await PartnerRepository.GetEmails();
-            Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"GetEmails api called successfully...");
-        }
-        catch (Exception ex)
-        {
-            response.IsSuccess = false;
-            response.ErrorMessages = new List<string>() { ex.ToString() };
-            Log.Logger.ForContext("Component", "PRP.Service.Api").Error("{Message}", $"GetEmails api call failed. " +
-                                    $"Error Message: {response.ErrorMessages}");
-        }
-
-        return response;
-    });
-
-    app.MapGet("api/partner/GetPartnerEmails", async ([FromServices] IPartnerRepository PartnerRepository, int partnerID) =>
+    app.MapGet("partner-emails", async ([FromServices] IPartnerRepository PartnerRepository, int partnerID) =>
     {
         ResponseDto response = new ResponseDto();
 
@@ -347,7 +369,7 @@ try
         return response;
     });
 
-    app.MapPost("api/partner/AddPartnerEmail", async ([FromServices] IPartnerRepository PartnerRepository, PartnerEmailDto partner) =>
+    app.MapPost("add-partner-email", async ([FromServices] IPartnerRepository PartnerRepository, PartnerEmailDto partner) =>
     {
         ResponseDto response = new ResponseDto();
 
@@ -367,7 +389,7 @@ try
         return response;
     });
 
-    app.MapPut("api/partner/EditPartnerEmail", async ([FromServices] IPartnerRepository PartnerRepository, PartnerEmailDto partner) =>
+    app.MapPut("update-partner-email", async ([FromServices] IPartnerRepository PartnerRepository, UpdatePartnerEmailDto partner) =>
     {
         ResponseDto response = new ResponseDto();
 
@@ -387,26 +409,25 @@ try
         return response;
     });
 
-    app.MapDelete("api/partner/RemovePartnerEmail", async ([FromServices] IPartnerRepository PartnerRepository, int partnerID) =>
+    app.MapPut("update-partner-report-type", async ([FromServices] IPartnerRepository PartnerRepository, UpdatePartnerReportTypeDto partner) =>
     {
         ResponseDto response = new ResponseDto();
 
         try
         {
-            response.Result = await PartnerRepository.RemovePartnerEmail(partnerID);
-            Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"RemovePartnerEmail api called successfully...");
+            response.Result = await PartnerRepository.EditPartnerReportType(partner);
+            Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"EditPartnerEmail api called successfully...");
         }
         catch (Exception ex)
         {
             response.IsSuccess = false;
             response.ErrorMessages = new List<string>() { ex.ToString() };
-            Log.Logger.ForContext("Component", "PRP.Service.Api").Error("{Message}", $"RemovePartnerEmail api call failed. " +
+            Log.Logger.ForContext("Component", "PRP.Service.Api").Error("{Message}", $"EditPartnerReportType api call failed. " +
                                     $"Error Message: {response.ErrorMessages}");
         }
 
         return response;
     });
-
 
     app.MapGet("api/report/GetCompanyName", async ([FromServices] IPartnerRepository PartnerRepository, string Name) =>
     {

@@ -1,14 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace PRP.Service.Api.Models.Dto
+﻿namespace PRP.Service.Api.Models.Dto
 {
     public class AddPartnerDto
     {
-        public int ClientId { get; set; }
-        [Key]
-        public int PartnerId { get; set; }
-        public string? PartnerName { get; set; }
-        public List<string>? ReportName { get; set; }
-        public DateTime? reportTime { get; set; }
+        public int client_id { get; set; }
+        public string partner_name { get; set; }
+        public DateTime partner_report_time { get; set; }
+        public List<PartnerReportType> partner_report_types { get; set; }
+        public string? partner_emails { get; set; }
     }
 }

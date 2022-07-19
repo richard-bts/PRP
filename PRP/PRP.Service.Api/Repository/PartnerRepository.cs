@@ -20,7 +20,7 @@ namespace PRP.Service.Api.Repository
         #endregion
 
         #region Public Partner Methods
-        public async Task<GetPartnerDetailDto> GetPartner(int partnerID)
+        public async Task<GetPartnerDto> GetPartner(int partnerID)
         {
             List<PartnerDetail> partner = new();
             List<SqlParameter> param = new()
@@ -38,18 +38,24 @@ namespace PRP.Service.Api.Repository
                 try
                 {
                     partner = await _db.Partners.FromSqlRaw("EXEC [dbo].[sp_GetPartner] @partnerId", param.ToArray()).ToListAsync();
-                    List<GetPartnerDetailDto> result = partner.GroupBy(p => p.PartnerId)
-                      .Select(g => new GetPartnerDetailDto
+                    List<GetPartnerDto> result = partner.GroupBy(p => p.partner_id)
+                      .Select(g => new GetPartnerDto
                       {
-                          Id = g.Key,
-                          PartnerId = g.First().PartnerId,
-                          PartnerName = g.First().PartnerName,
-                          ClientId = g.First().ClientId,
-                          ReportTime = g.First().ReportTime,
-                          active = g.First().active,
-                          ReportName = g.Select(p => p.ReportName).ToList()
-                      })
-                  .ToList();
+                          id = g.FirstOrDefault().id,
+                          client_id = g.FirstOrDefault().client_id,
+                          partner_id = g.FirstOrDefault().partner_id,
+                          partner_name = g.FirstOrDefault().partner_name,
+                          partner_active = g.First().partner_active,
+
+                          partner_report_types = g.Select(p => new PartnerReportType
+                          {
+                              report_type_id = p.report_type_id,
+                              active = p.report_active
+                          }).ToList(),
+                          
+                          partner_emails = g.FirstOrDefault().partner_emails,
+                          partner_report_time = g.FirstOrDefault().partner_report_time
+                      }).ToList();
                     return result.FirstOrDefault();
                 }
                 catch (Exception)
@@ -59,94 +65,87 @@ namespace PRP.Service.Api.Repository
             }
             return null;
         }
-        public async Task<IEnumerable<GetPartnerDetailDto>> GetPartners()
+        public async Task<IEnumerable<GetPartnerDto>> GetPartners(int filter)
         {
-            List<PartnerDetail> partners = new List<PartnerDetail>();
+            List<PartnerDetail> partners = new();
             if (_db.Partners != null)
             {
                 partners = await _db.Partners.FromSqlRaw("EXEC [dbo].[sp_GetPartners]").ToListAsync();
 
-                List<GetPartnerDetailDto> result = partners.GroupBy(p => p.PartnerId)
-                  .Select(g => new GetPartnerDetailDto
+                List<GetPartnerDto> result = partners.GroupBy(p => p.partner_id)
+                  .Select(g => new GetPartnerDto
                   {
-                      Id = g.Key,
-                      PartnerId = g.First().PartnerId,
-                      PartnerName = g.First().PartnerName,
-                      ClientId = g.First().ClientId,
-                      ReportTime = g.First().ReportTime,
-                      active = g.First().active,
-                      ReportName = g.Select(p => p.ReportName).ToList()
+                      id = g.FirstOrDefault().id,
+                      client_id = g.FirstOrDefault().client_id,
+                      partner_id = g.FirstOrDefault().partner_id,
+                      partner_name = g.FirstOrDefault().partner_name,
+                      partner_active = g.First().partner_active,
+                    
+                      partner_report_types = g.Select(p => new PartnerReportType
+                      {
+                         report_type_id = p.report_type_id,
+                         active = p.report_active
+                      }).ToList(),
+
+                      partner_emails = g.FirstOrDefault().partner_emails,
+                      partner_report_time = g.FirstOrDefault().partner_report_time
                   })
                   .ToList();
+                if (filter > -1)
+                    result = result.Where(p => p.partner_active == filter).ToList();
                 return result;
             }
             return null;
         }
-        public async Task<GetPartnerDetailDto> AddPartner(AddPartnerDto partner)
+        public async Task<GetPartnerDto> AddPartner(AddPartnerDto partner)
         {
             try
             {
                 if (partner != null)
                 {
-                    List<SqlParameter> param = new()
+                    SqlParameter[] param = new SqlParameter[]
                     {
                         new SqlParameter()
                         {
                             ParameterName="@clientId",
                             SqlDbType = System.Data.SqlDbType.Int,
                             Direction = System.Data.ParameterDirection.Input,
-                            Value = partner.ClientId
-                        },
-                        new SqlParameter()
-                        {
-                            ParameterName="@partnerId",
-                            SqlDbType = System.Data.SqlDbType.Int,
-                            Direction = System.Data.ParameterDirection.Input,
-                            Value = partner.PartnerId
+                            Value = partner.client_id
                         },
                         new SqlParameter()
                         {
                             ParameterName="@partnerName",
                             SqlDbType = System.Data.SqlDbType.NVarChar,
                             Direction = System.Data.ParameterDirection.Input,
-                            Value = partner.PartnerName
-                        },
-                        new SqlParameter()
-                        {
-                            ParameterName="@reportName",
-                            SqlDbType = System.Data.SqlDbType.NVarChar,
-                            Direction = System.Data.ParameterDirection.Input,
-                            Value = string.Join(",",partner.ReportName)
+                            Value = partner.partner_name
                         },
                         new SqlParameter()
                         {
                             ParameterName="@reportTime",
                             SqlDbType = System.Data.SqlDbType.DateTime,
                             Direction = System.Data.ParameterDirection.Input,
-                            Value = partner.reportTime
+                            Value = partner.partner_report_time
+                        },
+                        new SqlParameter()
+                        {
+                            ParameterName="@partnerId",
+                            SqlDbType = System.Data.SqlDbType.Int,
+                            Direction = System.Data.ParameterDirection.Output
                         }
                     };
-                    List<SqlParameter> partnerreport_params = new();
-                    foreach (string pr in partner.ReportName)
-                    {
-                        partnerreport_params.Add(new SqlParameter()
-                        {
-                            ParameterName = "@reportName",
-                            SqlDbType = System.Data.SqlDbType.NVarChar,
-                            Direction = System.Data.ParameterDirection.Input,
-                            Value = pr
-                        });
-                    };
+                    
                     if (_db.Partners != null)
                     {
                         try
                         {
-                            await _db.Database.ExecuteSqlRawAsync("EXEC [dbo].[sp_AddPartner] @clientId, @partnerId, @partnerName, @reportName, @reportTime", param.ToArray());
-                            foreach (SqlParameter sp in partnerreport_params)
+                            await _db.Database.ExecuteSqlRawAsync("EXEC [dbo].[sp_AddPartner] @clientId, @partnerName, @reportTime, @partnerId out", param);
+                            int partnerId = (int)param[3].Value;
+                            for(int i = 0; i < partner.partner_report_types.Count; i++)
                             {
-                                await _db.Database.ExecuteSqlRawAsync("EXEC [dbo].[sp_AddPartnerReport] @clientId, @partnerId, @reportName", param[0], param[1], sp);
-                            }
-                            return await GetPartner(partner.PartnerId);
+                                await AddPartnerReport(partnerId, partner.partner_report_types[i].report_type_id, partner.partner_report_types[i].active);
+                            };
+                            await AddPartnerEmail(new PartnerEmailDto() { partner_id = partnerId, partner_email = partner.partner_emails });
+                            return await GetPartner(partnerId);
                         }
                         catch (Exception)
                         {
@@ -161,55 +160,66 @@ namespace PRP.Service.Api.Repository
             }
             return null;
         }
-        public async Task<GetPartnerDetailDto> EditPartner(GetPartnerDetailDto partner)
+
+        private async Task<bool> AddPartnerReport(int partnerId, int reportId, int active)
+        {
+            bool response = false;
+            try
+            {
+                SqlParameter[] param = new SqlParameter[]
+                {
+                    new SqlParameter()
+                    {
+                        ParameterName = "@partnerId",
+                        SqlDbType = System.Data.SqlDbType.NVarChar,
+                        Direction = System.Data.ParameterDirection.Input,
+                        Value = partnerId
+                    },
+                    new SqlParameter()
+                    {
+                        ParameterName = "@reportId",
+                        SqlDbType = System.Data.SqlDbType.Int,
+                        Direction = System.Data.ParameterDirection.Input,
+                        Value = reportId
+                    },
+                    new SqlParameter()
+                    {
+                        ParameterName = "@active",
+                        SqlDbType = System.Data.SqlDbType.Int,
+                        Direction = System.Data.ParameterDirection.Input,
+                        Value = active
+                    }
+                };
+                await _db.Database.ExecuteSqlRawAsync("EXEC [dbo].[sp_AddPartnerReport] @partnerId, @reportId, @active", param);
+                response = true;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return response;
+        }
+        public async Task<GetPartnerDto> EditPartnerReportType(UpdatePartnerReportTypeDto partner)
         {
             try
             {
                 if (partner != null)
                 {
-                    var param = new SqlParameter[]
+                    SqlParameter[] param = new SqlParameter[]
                     {
                         new SqlParameter()
                         {
-                            ParameterName="@Id",
+                            ParameterName="@reportId",
                             SqlDbType = System.Data.SqlDbType.Int,
                             Direction = System.Data.ParameterDirection.Input,
-                            Value = partner.Id
-                        },
-                        new SqlParameter()
-                        {
-                            ParameterName="@clientId",
-                            SqlDbType = System.Data.SqlDbType.Int,
-                            Direction = System.Data.ParameterDirection.Input,
-                            Value = partner.ClientId
+                            Value = partner.partner_id
                         },
                         new SqlParameter()
                         {
                             ParameterName="@partnerId",
-                            SqlDbType = System.Data.SqlDbType.Int,
-                            Direction = System.Data.ParameterDirection.Input,
-                            Value = partner.PartnerId
-                        },
-                        new SqlParameter()
-                        {
-                            ParameterName="@partnerName",
                             SqlDbType = System.Data.SqlDbType.NVarChar,
                             Direction = System.Data.ParameterDirection.Input,
-                            Value = partner.PartnerName
-                        },
-                        new SqlParameter()
-                        {
-                            ParameterName="@reportName",
-                            SqlDbType = System.Data.SqlDbType.NVarChar,
-                            Direction = System.Data.ParameterDirection.Input,
-                            Value = string.Join(",",partner.ReportName)
-                        },
-                        new SqlParameter()
-                        {
-                            ParameterName="@reportTime",
-                            SqlDbType = System.Data.SqlDbType.DateTime,
-                            Direction = System.Data.ParameterDirection.Input,
-                            Value = partner.ReportTime
+                            Value = partner.report_type_id
                         },
                         new SqlParameter()
                         {
@@ -221,8 +231,8 @@ namespace PRP.Service.Api.Repository
                     };
                     if (_db.Partners != null)
                     {
-                        await _db.Database.ExecuteSqlRawAsync("EXEC [dbo].[sp_EditPartner] @Id, @clientId, @partnerId, @partnerName, @reportName, @reportTime, @active", param.ToArray());
-                        return await GetPartner(partner.PartnerId);
+                        await _db.Database.ExecuteSqlRawAsync("EXEC [dbo].[sp_EditPartnerReportType] @reportId, @partnerId, @active", param.ToArray());
+                        return await GetPartner(partner.partner_id);
                     }
                 }
             }
@@ -232,6 +242,58 @@ namespace PRP.Service.Api.Repository
             }
             return null;
         }
+
+        public async Task<GetPartnerDto> EditPartner(UpdatePartnerDto partner)
+        {
+            try
+            {
+                if (partner != null)
+                {
+                    SqlParameter[] param = new SqlParameter[]
+                    {
+                        new SqlParameter()
+                        {
+                            ParameterName="@partnerId",
+                            SqlDbType = System.Data.SqlDbType.Int,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = partner.partner_id
+                        },
+                        new SqlParameter()
+                        {
+                            ParameterName="@partnerName",
+                            SqlDbType = System.Data.SqlDbType.NVarChar,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = partner.partner_name
+                        },
+                        new SqlParameter()
+                        {
+                            ParameterName="@reportTime",
+                            SqlDbType = System.Data.SqlDbType.DateTime,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = partner.partner_report_time
+                        },
+                        new SqlParameter()
+                        {
+                            ParameterName="@active",
+                            SqlDbType = System.Data.SqlDbType.TinyInt,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = partner.active
+                        }
+                    };
+                    if (_db.Partners != null)
+                    {
+                        await _db.Database.ExecuteSqlRawAsync("EXEC [dbo].[sp_EditPartner] @partnerId, @partnerName, @reportTime, @active", param.ToArray());
+                        return await GetPartner(partner.partner_id);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return null;
+        }
+
         public Task<bool> RemovePartner(int id)
         {
             bool response = false;
@@ -259,23 +321,6 @@ namespace PRP.Service.Api.Repository
         #endregion
 
         #region Public Partner Email Methods
-        public async Task<IEnumerable<PartnerEmailDto>> GetEmails()
-        {
-            List<PartnerEmail> partneremails = new List<PartnerEmail>();
-            if (_db.PartnerEmails != null)
-            {
-                try
-                {
-                    partneremails = await _db.PartnerEmails.FromSqlRaw("EXEC [dbo].[sp_GetEmails]").ToListAsync();
-                    return _mapper.Map<List<PartnerEmailDto>>(partneremails);
-                }
-                catch (Exception)
-                {
-                    throw;
-                }
-            }
-            return null;
-        }
         public async Task<IEnumerable<PartnerEmailDto>> GetPartnerEmails(int partnerID)
         {
             var param = new SqlParameter[]
@@ -316,20 +361,20 @@ namespace PRP.Service.Api.Repository
                             ParameterName="@partnerId",
                             SqlDbType = System.Data.SqlDbType.Int,
                             Direction = System.Data.ParameterDirection.Input,
-                            Value = partneremail.PartnerId
+                            Value = partneremail.partner_id
                         },
                         new SqlParameter()
                         {
                             ParameterName="@email",
                             SqlDbType = System.Data.SqlDbType.NVarChar,
                             Direction = System.Data.ParameterDirection.Input,
-                            Value = partneremail.Email
+                            Value = partneremail.partner_email
                         }
                     };
                     if (_db.PartnerEmails != null)
                     {
                         await _db.Database.ExecuteSqlRawAsync("EXEC [dbo].[sp_AddPartnerEmail] @partnerId, @email", param);
-                        return await GetPartnerEmails(partneremail.PartnerId);
+                        return await GetPartnerEmails(partneremail.partner_id);
                     }
                 }
             }
@@ -339,7 +384,7 @@ namespace PRP.Service.Api.Repository
             }
             return null;
         }
-        public async Task<PartnerEmailDto> EditPartnerEmail(PartnerEmailDto partneremail)
+        public async Task<IEnumerable<PartnerEmailDto>> EditPartnerEmail(UpdatePartnerEmailDto  partneremail)
         {
             try
             {
@@ -352,25 +397,32 @@ namespace PRP.Service.Api.Repository
                             ParameterName="@Id",
                             SqlDbType = System.Data.SqlDbType.Int,
                             Direction = System.Data.ParameterDirection.Input,
-                            Value = partneremail.Id
+                            Value = partneremail.partner_email_id
                         },
                         new SqlParameter()
                         {
                             ParameterName="@partnerId",
                             SqlDbType = System.Data.SqlDbType.Int,
                             Direction = System.Data.ParameterDirection.Input,
-                            Value = partneremail.PartnerId
+                            Value = partneremail.partner_id
                         },
                         new SqlParameter()
                         {
                             ParameterName="@email",
                             SqlDbType = System.Data.SqlDbType.NVarChar,
                             Direction = System.Data.ParameterDirection.Input,
-                            Value = partneremail.Email
+                            Value = partneremail.email
+                        },
+                        new SqlParameter()
+                        {
+                            ParameterName="@active",
+                            SqlDbType = System.Data.SqlDbType.TinyInt,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = partneremail.active
                         }
                     };
-                    await _db.Database.ExecuteSqlRawAsync("EXEC [dbo].[sp_EditPartnerEmail] @Id, @partnerId, @email", param);
-                    return partneremail;
+                    await _db.Database.ExecuteSqlRawAsync("EXEC [dbo].[sp_EditPartnerEmail] @Id, @partnerId, @email, @active", param);
+                    return await GetPartnerEmails(partneremail.partner_id);
                 }
             }
             catch (Exception)

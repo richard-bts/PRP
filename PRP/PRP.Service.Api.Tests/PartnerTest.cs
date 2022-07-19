@@ -38,7 +38,7 @@ namespace PRP.Service.Api.Tests
         [Fact]
         public async void GetPartner_Test()
         {
-            var response = await _partnerService.GetPartners();
+            var response = await _partnerService.GetPartners(-1);
 
             Assert.NotNull(response);
         }
@@ -48,11 +48,10 @@ namespace PRP.Service.Api.Tests
         {
             var response = await _partnerService.AddPartner(new AddPartnerDto
             {
-                ClientId = 101,
-                PartnerId = 102,
-                PartnerName = "New Partner",
-                ReportName = new List<string> { "POD","SCAN" },
-                reportTime = DateTime.Now
+                client_id = 101,
+                partner_name = "New Partner",
+                partner_report_types = new List<PartnerReportType>() { new PartnerReportType { report_type_id = 1, active = 1 } },
+                partner_report_time = DateTime.Now
             });
 
             Assert.NotNull(response);
@@ -61,14 +60,11 @@ namespace PRP.Service.Api.Tests
         [Fact]
         public async void EditPartner_Test()
         {
-            var response = await _partnerService.EditPartner(new GetPartnerDetailDto
+            var response = await _partnerService.EditPartner(new UpdatePartnerDto 
             {
-                Id = 1,
-                ClientId = 101,
-                PartnerId = 102,
-                PartnerName = "New Partner Name",
-                ReportName = new List<string> { "SCAN", "EXCEPTION" },
-                ReportTime = DateTime.Now,
+                partner_id = 102,
+                partner_name = "Edited Partner Name",
+                partner_report_time = DateTime.Now,
                 active = 1
             });
 
@@ -86,8 +82,6 @@ namespace PRP.Service.Api.Tests
         [Fact]
         public async void GetPartnerEmails_Test()
         {
-            IEnumerable<GetPartnerDetailDto> partner = await _partnerService.GetPartners();
-
             var response = await _partnerService.GetPartnerEmails(102);
 
             Assert.NotNull(response);
@@ -98,9 +92,8 @@ namespace PRP.Service.Api.Tests
         {
             var response = await _partnerService.AddPartnerEmail(new PartnerEmailDto
             {
-                Id = 0,
-                PartnerId = 102,
-                Email = "test@broadviewtechnicalsolutions.com"
+                partner_id = 3,
+                partner_email = "test@broadviewtechnicalsolutions.com"
             });
 
             Assert.NotNull(response);
@@ -109,11 +102,12 @@ namespace PRP.Service.Api.Tests
         [Fact]
         public async void EditPartnerEmail_Test()
         {
-            var response = await _partnerService.EditPartnerEmail(new PartnerEmailDto
+            var response = await _partnerService.EditPartnerEmail(new UpdatePartnerEmailDto
             {
-                Id = 0,
-                PartnerId = 102,
-                Email = "test@broadviewtechnicalsolutions.com;test2@broadviewtechnicalsolutions.com"
+                partner_email_id = 2, 
+                partner_id = 3,
+                active = 1,
+                email = "test@broadviewtechnicalsolutions.com;test2@broadviewtechnicalsolutions.com"
             });
 
             Assert.NotNull(response);

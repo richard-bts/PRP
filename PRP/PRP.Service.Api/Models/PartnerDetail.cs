@@ -1,13 +1,18 @@
-﻿namespace PRP.Service.Api.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace PRP.Service.Api.Models
 {
     public class PartnerDetail
     {
-        public int Id { get; set; }
-        public int ClientId { get; set; }
-        public int PartnerId { get; set; }
-        public string? PartnerName { get; set; }
-        public string? ReportName { get; set; }
-        public DateTime? ReportTime { get; set; }
-        public byte? active { get; set; }
+        [Key]
+        public int id { get; set; }
+        public int client_id { get; set; }
+        public int partner_id { get; set; }
+        public string? partner_name { get; set; }
+        public byte partner_active { get; set; }
+        public int report_type_id { get; set; }
+        public DateTime? partner_report_time { get; set; }
+        public string? partner_emails { get; set; }
+        public byte report_active { get; set; }
     }
 }
