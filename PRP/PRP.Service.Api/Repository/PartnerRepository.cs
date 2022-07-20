@@ -50,6 +50,7 @@ namespace PRP.Service.Api.Repository
                           partner_report_types = g.Select(p => new PartnerReportType
                           {
                               report_type_id = p.report_type_id,
+                              report_name = p.report_name,
                               active = p.report_active
                           }).ToList(),
                           
@@ -84,6 +85,7 @@ namespace PRP.Service.Api.Repository
                       partner_report_types = g.Select(p => new PartnerReportType
                       {
                          report_type_id = p.report_type_id,
+                         report_name = p.report_name,
                          active = p.report_active
                       }).ToList(),
 
