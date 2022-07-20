@@ -1,8 +1,8 @@
 import dayjs from "dayjs";
 import { useState } from "react";
-import Swal from "sweetalert2";
 import { initialPartnerState, reportTypesTest } from "../../../shared/data";
-import { addPartner, setActivePartner, useAppDispatch, useAppSelector } from "../../../store";
+import { alertPopup } from "../../../shared/helpers/alertPopup";
+import { setActivePartner, useAppDispatch, useAppSelector } from "../../../store";
 import { addNewPartner, editCurrentPartner } from "../../../store/partners/thunks";
 
 const errorFormInitialState = {
@@ -16,39 +16,53 @@ const errorFormInitialState = {
   }
 }
 
+const regexName = /^[A-zÀ-ÿ ]*$/;
+
 export const useForm = () => {
 
   const dispatch = useAppDispatch();
   const { activePartner } = useAppSelector(state => state.partners);
   const { id, clientId, partnerId, partnerName, email, active, reportName } = activePartner || initialPartnerState;
   const [isActivePartner, setIsActivePartner] = useState(active);
-  // const [reportTypes, setReportTypes] = useState(reportName);
-  const [reportTypes, setReportTypes] = useState(reportTypesTest);
+  const [reportTypes, setReportTypes] = useState([...reportName]);
   const [errorForm, setErrorForm] = useState(errorFormInitialState);
   const [formData, setFormData] = useState({
-    id: id || Math.floor(Math.random() * 100),
-    clientId: clientId || Math.floor(Math.random() * 100),
-    partnerId: partnerId || Math.floor(Math.random() * 100),
+    id: id || Math.floor(Math.random() * 1000000),
+    clientId: clientId || Math.floor(Math.random() * 1000000),
+    partnerId: partnerId || Math.floor(Math.random() * 1000000),
     partnerName: partnerName || '',
-    email: email || '',
+    email: !email?.length ? [''] : [...email],
   });
-  const isValidConditions = formData?.partnerName?.match(regexName) && formData?.email?.match(regexEmail) && formData?.partnerName?.length !== 0 && formData?.email?.length !== 0;
-  const [isValidData, setIsValidData] = useState(isValidConditions);
 
-  const regexEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  const regexName = /^[A-zÀ-ÿ ]*$/;
+  const isValidConditions = formData?.partnerName?.match(regexName) && formData?.partnerName?.length !== 0;
+  const [isValidData, setIsValidData] = useState(isValidConditions);
 
   const handleTypeReport = (value, typeName) => {
     setReportTypes(prev => (
       prev.map(item => {
-        if (item.type === typeName) {
-          return { ...item, status: value };
+        if (item.report_name === typeName) {
+          return { ...item, active: value };
         }
         return item;
       })
     )
     );
   };
+
+  const handleAddEmail = () => {
+    setFormData({ ...formData, email: [...formData.email, ''] });
+  }
+
+  const handleRemoveEmail = (index) => {
+    setFormData({ ...formData, email: [...formData.email.slice(0, index), ...formData.email.slice(index + 1)] });
+  }
+
+  const handleSaveEmail = (e, index) => {
+    const { value } = e.target;
+    const newEmail = [...formData.email];
+    newEmail[index] = value;
+    setFormData({ ...formData, email: newEmail });
+  }
 
   const handleFormChange = (e) => {
     const { name, value } = e.target;
@@ -62,7 +76,8 @@ export const useForm = () => {
       });
       return;
     }
-    const isValidConditions = formData?.partnerName?.match(regexName) && formData?.email?.match(regexEmail) && formData?.partnerName?.length > 2 && formData?.email?.length > 8;
+
+    const isValidConditions = formData?.partnerName?.match(regexName) && formData?.partnerName?.length > 2;
 
     if (isValidConditions) {
       setIsValidData(true);
@@ -72,9 +87,10 @@ export const useForm = () => {
 
     setErrorForm({ ...errorForm, [name]: { error: false, errorMessage: '' } });
     setFormData({ ...formData, [name]: value });
+
   }
 
-  const handleSubmitForm = () => {
+  const handleSubmitForm = async () => {
     const { id, clientId, partnerId, partnerName, email } = formData;
     if ((!partnerName.length || partnerName.length < 3)) {
       setErrorForm({
@@ -86,71 +102,41 @@ export const useForm = () => {
       });
       return;
     }
-    if ((!email.length || email.length < 3)) {
-      setErrorForm({
-        ...errorForm,
-        email: {
-          error: true,
-          errorMessage: 'Email must be at least 3 characters'
-        }
-      });
-      return;
-    }
-
-    if (!email.match(regexEmail)) {
-      setErrorForm({
-        ...errorForm,
-        email: {
-          error: true,
-          errorMessage: 'Email must be valid'
-        }
-      });
-      return;
-    }
     if (errorForm.email.error || errorForm.partnerName.error) {
       return;
     }
     setErrorForm(errorFormInitialState);
-    const arrayStrings = reportTypes.map(item => item.status ? item.type : '');
+    const emailsNoEmpty = email.filter(item => item.length > 0).join(',');
     let partner = {
-      clientId,
-      partnerId,
-      partnerName,
-      email,
-      reportName: arrayStrings.join(''),
-      reportTime: dayjs().format(),
-      active: isActivePartner
+      partner_id: partnerId,
+      partner_emails: emailsNoEmpty,
+      partner_name: partnerName,
+      partner_report_types: [...reportTypes],
+      partner_report_time: dayjs().format(),
+      partner_active: isActivePartner
     };
     setFormData(initialPartnerState);
-    if (activePartner.clientId) {
-      partner = {
-        ...partner,
-        id,
+    if (activePartner.id) {
+      const { partner_active, ...rest } = partner;
+      const partnerToEdit = {
+        ...rest,
+        active: partner_active
       };
-      editCurrentPartner(partner);
-      setTimeout(() => {
-        dispatch(addPartner(partner));
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Partner data successfully saved',
-          showConfirmButton: false,
-          timer: 1500
-        })
-      }, 500);
+      const { payload } = await dispatch(editCurrentPartner(partnerToEdit));
+      if(payload) {
+        alertPopup('Partner data successfully saved');
+      } else {
+        alertPopup('Error saving partner data', 'error');
+      }
     } else {
-      console.log("activePartner", activePartner);
-      addNewPartner(partner);
-      setTimeout(() => {
-        dispatch(addPartner(partner));
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Partner data successfully added',
-          showConfirmButton: false,
-          timer: 1500
-        })
-      }, 500);
+      const { partner_id, ...rest } = partner;
+      const partnerToAdd = { ...rest };
+      const { payload } = await dispatch(addNewPartner(partnerToAdd));
+      if (payload) {
+        alertPopup('Partner data successfully saved');
+      } else {
+        alertPopup('Error saving partner data', 'error');
+      }
     }
     setIsActivePartner(0);
     setActivePartner({});
@@ -162,9 +148,13 @@ export const useForm = () => {
     handleTypeReport,
     handleFormChange,
     handleSubmitForm,
+    handleAddEmail,
+    handleSaveEmail,
     isActivePartner,
     setIsActivePartner,
-    reportTypes,
+    reportName: reportTypes,
+    setErrorForm,
+    handleRemoveEmail,
     errorForm,
     isValidData
   };

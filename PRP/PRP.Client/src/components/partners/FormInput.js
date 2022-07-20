@@ -4,7 +4,7 @@ import { FormInputError } from './FormInputError';
 export const FormInput = ({ inputType, inputName, placeholder, value, handleFormChange, errorMessage, error }) => {
   return (
     <div className="flex flex-col py-3">
-      <label className="pb-2 font-semibold text-gray-700 first-letter:uppercase">{ inputName }</label>
+      <label className="pb-2 font-semibold text-gray-700 first-letter:uppercase">{ placeholder }</label>
       <input
         type={ inputType }
         className="p-2 bg-gray-100 rounded-lg shadow outline-none focus:bg-gray-200"

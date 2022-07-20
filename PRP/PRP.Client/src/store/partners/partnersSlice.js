@@ -8,8 +8,9 @@ const initialState = {
   isLoading: false,
   namedSort: false,
   openForm: false,
-  partnersPerPage: 5,
-  partners: []
+  currentPage: 1,
+  partnersPerPage: 15,
+  partners: [] 
 };
 
 export const partnersSlice = createSlice({
@@ -20,32 +21,42 @@ export const partnersSlice = createSlice({
       state.isLoading = action.payload;
     },
     addPartner: (state, action) => {
-      const { clientId, partnerId, partnerName, email, active, reportName } = action.payload;
-      const partner = state.partners.find(item => item.partnerId === partnerId);
+      const { client_id, partner_id, partner_name, partner_emails, partner_active, partner_report_types } = action.payload;
+      const partner = state.partners.find(item => item.partnerId === partner_id);
       if (partner) {
-        partner.clientId = clientId;
-        partner.partnerId = partnerId;
-        partner.partnerName = partnerName;
-        partner.email = email;
-        partner.active = active;
-        partner.reportName = reportName;
+        partner.active = partner_active;
+        partner.clientId = client_id;
+        partner.email = partner_emails;
+        partner.partnerId = partner_id;
+        partner.partnerName = partner_name;
+        partner.reportName = partner_report_types;
       } else {
-        state.partners.push(action.payload);
+        const { partner_emails, partner_name, partner_report_types, partner_active, partner_id, client_id, id } = action.payload;
+        state.partners.push({
+          clientId: client_id,
+          id,
+          active: partner_active,
+          email: partner_emails,
+          partnerId: partner_id,
+          partnerName: partner_name,
+          reportName: partner_report_types
+        });
       }
     },
     setActivePartner: (state, action) => {
       state.activePartner = action.payload ? action.payload : null;
-    },
-    removePartner: (state, action) => {
-      state.partners = state.partners.filter(partner => partner.partnerId !== action.payload);
     },
     setOpenForm: (state, action) => {
       state.openForm = action.payload;
     },
     setPartnersPerPage: (state, action) => {
       state.partnersPerPage = action.payload;
+      state.currentPage = 1;
     },
-    sortByName: (state) => {
+    setCurrentPage: (state, action) => {
+      state.currentPage = action.payload;
+    },
+    sortBypartnerName: (state) => {
       state.namedSort = !state.namedSort;
       state.activedSort = false;
       state.partners = [...state.partners].sort((a, b) => {
@@ -97,7 +108,17 @@ export const partnersSlice = createSlice({
       })
       .addCase(getPartners.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.partners = action.payload;
+        state.partners = action.payload.map( partner => {
+          return {
+            id: partner.id,
+            clientId: partner.client_id,
+            partnerId: partner.partner_id,
+            partnerName: partner.partner_name,
+            email: partner.partner_emails,
+            active: partner.partner_active,
+            reportName: partner.partner_report_types
+          };
+        });
       })
       .addCase(getPartners.rejected, (state) => {
         state.isLoading = false;
@@ -106,6 +127,6 @@ export const partnersSlice = createSlice({
   },
 });
 
-export const { setLoading, addPartner, removePartner, setPartnersPerPage, setActivePartner, filterPartners, setOpenForm, sortByName, sortByActive } = partnersSlice.actions;
+export const { setLoading, addPartner, setPartnersPerPage, setCurrentPage, setActivePartner, filterPartners, setOpenForm, sortByName, sortByActive } = partnersSlice.actions;
 
 export default partnersSlice.reducer;

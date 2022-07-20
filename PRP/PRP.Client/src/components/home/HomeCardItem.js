@@ -9,9 +9,9 @@ export const HomeCardItem = ({ title, description }) => {
         <p className="mt-2 text-gray-600">{ description }</p>
       </section>
 
-      {/* <div className="flex justify-end mt-4">
+      <div className="flex justify-end mt-4">
         <a className="text-xl font-medium text-indigo-500 transition-opacity duration-300 cursor-pointer hover:opacity-70">Go there</a>
-      </div> */}
+      </div>
 
     </div>
   );

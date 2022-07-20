@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
 import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
+import { ButtonComponent } from './ButtonComponent';
 
-export const FormConfirm = ({ isOpen, setIsOpen, handleSubmitForm, handleCloseForm, name }) => {
+export const FormConfirm = ({ isOpen, setIsOpen, handleSubmitForm, handleCloseForm, name, errorForm }) => {
 
   function closeModal() {
     setIsOpen(false);
@@ -55,20 +56,15 @@ export const FormConfirm = ({ isOpen, setIsOpen, handleSubmitForm, handleCloseFo
                   </div>
 
                   <div className="grid grid-cols-2 gap-2 mt-4">
-                    <button
-                      type="button"
-                      className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white transition duration-300 bg-indigo-500 border border-transparent rounded-md hover:bg-indigo-600 focus:bg-indigo-600 active:bg-indigo-600 focus:outline-none focus-visible:ring-2 "
-                      onClick={ onSubmitForm }
-                    >
-                      Save data
-                    </button>
-                    <button
-                      type="button"
-                      className="inline-flex justify-center px-4 py-2 text-sm font-medium text-indigo-600 transition duration-300 bg-white border border-transparent rounded-md hover:border-indigo-500 focus:border-indigo-500 active:border-indigo-500 focus:outline-none focus-visible:ring-2 "
-                      onClick={ closeModal }
-                    >
-                      Cancel
-                    </button>
+                    <ButtonComponent
+                      handleClick={ onSubmitForm }
+                      buttonText="Save data"
+                      isPrimary
+                    />
+                    <ButtonComponent
+                      handleClick={ closeModal }
+                      buttonText="Cancel"
+                    />
                   </div>
                 </Dialog.Panel>
               </Transition.Child>

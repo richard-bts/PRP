@@ -1,15 +1,21 @@
 import { useState } from 'react';
-import { useAppSelector } from "../../store";
+import { setCurrentPage, useAppDispatch, useAppSelector } from "../../store";
 
 export const useFilter = () => {
 
-  const { partners, partnersPerPage } = useAppSelector( state => state.partners );
+  const { partners, partnersPerPage, currentPage } = useAppSelector( state => state.partners );
+  const finalPartners = partners.map( partner => {
+    return {
+      ...partner,
+      email: partner.email?.split(','),
+    }
+  });
+  const dispatch = useAppDispatch();
   const [partnerFiltered, setPartnerFiltered] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
   const [searchText, setSearchText] = useState('');
 
-  const partnersLength = partnerFiltered.length || partners.length;
-  const myPartners = partnerFiltered && searchText.length ? partnerFiltered : partners;
+  const partnersLength = partnerFiltered.length || finalPartners.length;
+  const myPartners = partnerFiltered && searchText.length ? partnerFiltered : finalPartners;
 
   // Get current partners.
   const indexOfLastPost = currentPage * partnersPerPage;
@@ -17,18 +23,18 @@ export const useFilter = () => {
   const currentPartners = myPartners.slice(indexOfFirstPost, indexOfLastPost);
   
   const handleChangePage = (number) => {
-    setCurrentPage(number);
+    dispatch(setCurrentPage(number));
   };
 
   const handleSearch = (value) => {
     setSearchText(value);
     setPartnerFiltered( () => {
-      return partners.filter( partner => {
+      return finalPartners.filter( partner => {
         return partner.partnerName.toLowerCase().includes(value.toLowerCase()) /*|| partner.email.toLowerCase().includes(value.toLowerCase())*/;
         } );  
       }
     );
-    setCurrentPage(1);
+    dispatch(setCurrentPage(1));
   };
 
   return {

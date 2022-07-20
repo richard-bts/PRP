@@ -1,12 +1,12 @@
-import PropTypes from 'prop-types';
 import { TableHead } from './';
-import { Form } from '../../components/partners/Form';
-import { TableBody as TableBodyPartners } from '../../components/partners';
-import { removePartner, useAppDispatch, useAppSelector } from '../../store';
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import { ConfirmPopup } from './ConfirmPopup';
+import { Form } from '../../components/partners/Form';
+import { useAppDispatch, useAppSelector } from '../../store';
 import { removeCurrentPartner } from '../../store/partners/thunks';
-import Swal from 'sweetalert2';
+import { TableBody as TableBodyPartners } from '../../components/partners';
+import { alertPopup } from '../helpers/alertPopup';
 
 export const Table = (
   {
@@ -31,21 +31,6 @@ export const Table = (
     name: '',
     id: ''
   });
-
-  const handleRemovePartner = () => {
-    removeCurrentPartner(partnerToRemove.id);
-    setTimeout(() => {
-      dispatch(removePartner(partnerToRemove.id));
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Partner data successfully removed',
-        showConfirmButton: false,
-        timer: 1500
-      })
-    }, 500);
-    setIsOpen(false);
-  }
 
   const handleOpenPopup = () => {
     setIsOpen(true);
@@ -75,10 +60,10 @@ export const Table = (
       <ConfirmPopup
         isOpen={ isOpen }
         setIsOpen={ setIsOpen }
-        onClick={ handleRemovePartner }
+        onClick={ () => {  } }
         title="Remove partner"
         buttonTitle="Remove"
-        description={`Are you sure you want to remove ${ partnerToRemove.name } of the partner list?`}
+        description={`Do you want to remove ${ partnerToRemove.name } from the list of partners?`}
         colorsPrimaryBoton="bg-red-500 border border-transparent rounded-md hover:bg-red-600 focus:bg-red-600 active:bg-red-600 text-white"
       />
     </>

@@ -1,78 +1,65 @@
 import PropTypes from 'prop-types';
-import { PencilAltIcon, TrashIcon } from '@heroicons/react/solid';
+import { PencilAltIcon } from '@heroicons/react/solid';
 
 const trColorsDefault = 'text-gray-600 bg-white';
 const trStylesDefault = 'text-sm leading-normal md:h-12';
 
-export const TableBody = ({ tbodyItems, tbodyTrStyles, tbodyTrColors, tbodyTrGridStyles, setPartnerToRemove, handleEditPartner, handleOpenPopup }) => {
-
-  const handleRemovePartner = (id, name) => {
-    setPartnerToRemove({
-      id,
-      name
-    });
-    handleOpenPopup();
-  }
-
+export const TableBody = ({ tbodyItems, tbodyTrStyles, tbodyTrColors, tbodyTrGridStyles, handleEditPartner }) => {
   return (
     <tbody>
       {
-        tbodyItems.map(({ id, clientId, partnerId, partnerName, email = "partneremail@partner.cdl", active, reportName }) => (
+        tbodyItems.map(({ id, clientId, partnerId, partnerName, email = ["NO EMAIL ADDRESS" ], active, reportName = [] }) => (
           <tr
-            key={ id }
-            className={`border-b border-gray-200 h-14 md:h-16 table-partner-item ${ tbodyTrStyles || trStylesDefault } ${ tbodyTrColors || trColorsDefault } ${ tbodyTrGridStyles || '' }`}
+            key={`${partnerName}-${partnerId}`}
+            className={`border-b border-gray-200 h-14 md:h-16 table-partner-item select-none ${tbodyTrStyles || trStylesDefault} ${tbodyTrColors || trColorsDefault} ${tbodyTrGridStyles || ''}`}
           >
-            <td 
-              onDoubleClick={ () => handleEditPartner({ id, clientId, partnerId, partnerName, email, active, reportName }) }
-              className="px-6 py-3 font-semibold text-left cursor-pointer whitespace-nowrap"
-            >{ partnerName }</td> 
-            <td 
-              onDoubleClick={ () => handleEditPartner({ id, clientId, partnerId, partnerName, email, active, reportName }) }
-              className="hidden px-6 py-3 text-left cursor-pointer whitespace-nowrap xl:block"
-            >{ email }</td> 
-            <td 
-              onDoubleClick={ () => handleEditPartner({ id, clientId, partnerId, partnerName, email, active, reportName }) }
-              className="hidden px-6 py-3 font-medium text-center cursor-pointer sm:block"
-            >{ active ? 'Yes' : 'No'}</td> 
-            <td 
-              onDoubleClick={ () => handleEditPartner({ id, clientId, partnerId, partnerName, email, active, reportName }) }
-              className="justify-center hidden grid-flow-col gap-2 px-6 py-3 text-center cursor-pointer lg:grid justify-items-center reports"
+            <td
+              onDoubleClick={() => handleEditPartner({ id, clientId, partnerId, partnerName, email, active, reportName })}
+              className="px-6 py-3 font-semibold text-left cursor-pointer max-h-16 whitespace-nowrap"
+            >{partnerName}</td>
+            <td
+              onDoubleClick={() => handleEditPartner({ id, clientId, partnerId, partnerName, email, active, reportName })}
+              className="hidden max-h-full px-6 py-3 overflow-hidden text-left cursor-pointer xl:grid"
             >
-              { reportName?.includes('POD') &&
-                <span className={`text-xs text-white ${ reportName.toLowerCase() } px-3 py-1 uppercase rounded-full whitespace-nowrap`}>POD</span> 
-              }
-              { reportName?.includes('EXCEPTION') &&
-                <span className={`text-xs text-white ${ reportName.toLowerCase() } px-3 py-1 uppercase rounded-full whitespace-nowrap`}>EXCEPTION</span> 
-              }
-              { reportName?.includes('SCAN') &&
-                <span className={`text-xs text-white ${ reportName.toLowerCase() } px-3 py-1 uppercase rounded-full whitespace-nowrap`}>SCAN REPORT</span> 
-              }
-              { reportName?.includes('CLEAR') &&
-                <span className={`text-xs text-white ${ reportName.toLowerCase() } px-3 py-1 uppercase rounded-full whitespace-nowrap`}>CLEAR</span> 
-              }
-              { !reportName &&
-                <span className={`text-xs font-medium bg-white text-black px-3 py-1 uppercase rounded-full whitespace-nowrap`}>don't have any Report Types</span> 
-              }
-            </td> 
-            <td className="grid justify-center grid-flow-col gap-5 px-6 py-3 text-center justify-items-center">
+              { email?.map((email, index) => index < 2 && (
+                <span key={`${email}+${index}`} className="h-5 truncate">{email ?? ''}</span>
+              )) }
+            </td>
+            <td
+              onDoubleClick={() => handleEditPartner({ id, clientId, partnerId, partnerName, email, active, reportName })}
+              className="hidden px-6 py-3 font-medium text-center cursor-pointer max-h-16 sm:block"
+            >{active ? 'Yes' : 'No'}</td>
+            <td
+              onDoubleClick={() => handleEditPartner({ id, clientId, partnerId, partnerName, email, active, reportName })}
+              className="justify-center hidden grid-flow-col gap-2 px-6 py-3 text-center cursor-pointer max-h-16 lg:grid justify-items-center reports"
+            >
+              { reportName.length >= 3 ?
+                    <>
+                      <span className={`text-xs text-white ${ reportName[0]?.report_name.toLowerCase() } px-3 py-1 uppercase rounded-full whitespace-nowrap`}>{ reportName[0].report_name }</span> 
+                      <span className="text-xs font-semibold leading-6">+ { reportName.length - 1 } others</span>
+                    </>
+                  : reportName.length === 2 ?
+                    <>
+                      <span className={`text-xs text-white ${ reportName[0]?.report_name.toLowerCase() } px-3 py-1 uppercase rounded-full whitespace-nowrap`}>{ reportName[0].report_name }</span> 
+                      <span className="text-xs font-semibold leading-6">+ 1 other</span>
+                    </>
+                  :  <span className={`text-xs text-white ${ reportName[0]?.report_name.toLowerCase() } px-3 py-1 uppercase rounded-full whitespace-nowrap`}>{ reportName[0].report_name }</span> 
+                }
+            </td>
+            <td className="grid justify-center grid-flow-col gap-5 px-6 py-3 text-center max-h-16 justify-items-center">
               <PencilAltIcon
                 className="w-6 h-6 text-gray-700 transition-colors duration-300 cursor-pointer hover:text-cyan-600"
                 title="Edit"
-                onClick={ () => handleEditPartner({ id, clientId, partnerId, partnerName, email, active, reportName }) }
+                onClick={() => handleEditPartner({ id, clientId, partnerId, partnerName, email, active, reportName })}
               />
-              <TrashIcon
-                className="w-6 h-6 text-gray-700 transition-colors duration-300 cursor-pointer hover:text-red-600"
-                title="Watch"
-                onClick={ () => handleRemovePartner(partnerId, partnerName) }
-              />
-            </td> 
+            </td>
           </tr>
         ))
       }
       {
         !tbodyItems.length &&
-        <tr className="border-b border-gray-200 h-14 md:h-16 table-partner-item">
-          <td className="text-lg font-medium text-center uppercase">NO PARTNERS TO SHOW</td>
+        <tr className="h-20 border-b border-gray-200 md:h-20 table-partner-item">
+          <td className="text-lg font-medium text-center text-gray-400 uppercase">NO PARTNERS TO SHOW</td>
         </tr>
       }
     </tbody>
@@ -82,22 +69,15 @@ export const TableBody = ({ tbodyItems, tbodyTrStyles, tbodyTrColors, tbodyTrGri
 TableBody.propTypes = {
   tbodyItems: PropTypes.arrayOf(PropTypes.shape(
     {
-      id: PropTypes.number.isRequired,
+      id: PropTypes.number,
       partnerName: PropTypes.string.isRequired,
-      email: PropTypes.string.isRequired,
+      email: PropTypes.array,
       active: PropTypes.number.isRequired,
-      typesReport: PropTypes.arrayOf(PropTypes.shape(
-        {
-          status: PropTypes.bool, 
-          type: PropTypes.string.isRequired
-        }
-      )).isRequired
+      reportName: PropTypes.array
     }
-    )).isRequired,
-  handleEditPartner: PropTypes.func.isRequired,
-  setPartnerToRemove: PropTypes.func.isRequired,
-  handleOpenPopup: PropTypes.func.isRequired,
-  tbodyTrGridStyles: PropTypes.string,
+  )).isRequired,
   tbodyTrStyles: PropTypes.string,
-  tbodyTrColors: PropTypes.string
+  tbodyTrColors: PropTypes.string,
+  tbodyTrGridStyles: PropTypes.string,
+  handleEditPartner: PropTypes.func.isRequired
 };
