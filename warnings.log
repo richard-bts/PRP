@@ -881,3 +881,12 @@ TypeError: create_partner() missing 2 required positional arguments: 'partner_re
 [2022-07-15 14:57:50,093] INFO in _internal: 127.0.0.1 - - [15/Jul/2022 14:57:50] "GET /active-partners/ HTTP/1.1" 200 -
 [2022-07-15 14:58:51,081] INFO in _internal: 127.0.0.1 - - [15/Jul/2022 14:58:51] "[32mGET /inactive-partners HTTP/1.1[0m" 308 -
 [2022-07-15 14:58:51,591] INFO in _internal: 127.0.0.1 - - [15/Jul/2022 14:58:51] "GET /inactive-partners/ HTTP/1.1" 200 -
+[2022-07-15 15:11:17,396] INFO in _internal: 127.0.0.1 - - [15/Jul/2022 15:11:17] "[32mPOST /partner-reports HTTP/1.1[0m" 308 -
+[2022-07-15 15:11:17,903] INFO in _internal: 127.0.0.1 - - [15/Jul/2022 15:11:17] "POST /partner-reports/ HTTP/1.1" 200 -
+[2022-07-15 15:11:28,556] INFO in _internal: 127.0.0.1 - - [15/Jul/2022 15:11:28] "[32mPOST /partner-report-types HTTP/1.1[0m" 308 -
+[2022-07-15 15:11:29,061] INFO in _internal: 127.0.0.1 - - [15/Jul/2022 15:11:29] "POST /partner-report-types/ HTTP/1.1" 200 -
+[2022-07-15 15:15:41,963] INFO in _internal: 127.0.0.1 - - [15/Jul/2022 15:15:41] "[32mGET /partners HTTP/1.1[0m" 308 -
+[2022-07-15 15:15:42,499] INFO in _internal: 127.0.0.1 - - [15/Jul/2022 15:15:42] "GET /partners/ HTTP/1.1" 200 -
+[2022-07-15 15:19:22,626] INFO in _internal:  * Running on http://127.0.0.1:8081/ (Press CTRL+C to quit)
+[2022-07-15 15:19:34,479] INFO in _internal: 127.0.0.1 - - [15/Jul/2022 15:19:34] "[32mGET /active-partners HTTP/1.1[0m" 308 -
+[2022-07-15 15:19:35,012] INFO in _internal: 127.0.0.1 - - [15/Jul/2022 15:19:35] "GET /active-partners/ HTTP/1.1" 200 -
