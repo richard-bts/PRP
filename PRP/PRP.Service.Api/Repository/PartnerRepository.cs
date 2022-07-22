@@ -47,7 +47,7 @@ namespace PRP.Service.Api.Repository
                           partner_name = g.FirstOrDefault().partner_name,
                           partner_active = g.First().partner_active,
 
-                          partner_report_types = g.Select(p => new PartnerReportType
+                          partner_report_types = g.DistinctBy(d => d.report_type_id).Select(p => new PartnerReportType
                           {
                               report_type_id = p.report_type_id,
                               report_name = p.report_name,
