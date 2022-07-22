@@ -3,7 +3,7 @@ import { Layout } from '../../shared/components';
 const Reports = () => {
   return (
     <Layout
-      headTitle="Reports"
+      headTitle="Reports Test"
     >
       <div>Hi from Reports</div>
     </Layout>
