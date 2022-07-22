@@ -6,13 +6,13 @@ export const navLinks = [
   {
     to: '/partners',
     label: 'Partners'
-  },
-  {
-    to: '/reports',
-    label: 'Reports'
-  },
-  {
-    to: '/partners/add-partner',
-    label: 'Add Partner'
   }
+  // {
+  //   to: '/reports',
+  //   label: 'Reports'
+  // },
+  // {
+  //   to: '/partners/add-partner',
+  //   label: 'Add Partner'
+  // }
 ];

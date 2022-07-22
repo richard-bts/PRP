@@ -31,7 +31,7 @@ namespace PRP.WinService.Email
         #endregion
 
         #region Public Methods
-        bool IEmailService.SendEmail(string filename, int clientID, string reportTitle)
+        bool IEmailService.SendEmail(string filename, int clientID, string reportTitle, int PartnerId)
         {
             IConfiguration configuration = (IConfiguration)new ConfigurationBuilder()
             .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
@@ -58,7 +58,7 @@ namespace PRP.WinService.Email
 
                 List<PartnerEmailDto>? PartnerEmailList = new();
 
-                var response = _PRPService.GetPartnerEmails(2);
+                var response = _PRPService.GetPartnerEmails(PartnerId);
 
                 string? content = String.Empty;
 
@@ -76,9 +76,9 @@ namespace PRP.WinService.Email
                         mimeMessage.To.Add(new MailboxAddress(email.Email, email.Email));
                 }
 
-                mimeMessage.To.Add(new MailboxAddress(testUser, testUserEmailID));
-                mimeMessage.Cc.Add(new MailboxAddress(testUser, testUserEmailID));
-                mimeMessage.Bcc.Add(new MailboxAddress(testUser, testUserEmailID));
+               // mimeMessage.To.Add(new MailboxAddress(testUser, testUserEmailID));
+               // mimeMessage.Cc.Add(new MailboxAddress(testUser, testUserEmailID));
+               // mimeMessage.Bcc.Add(new MailboxAddress(testUser, testUserEmailID));
 
                 BodyBuilder builder = new BodyBuilder();
 
@@ -90,10 +90,11 @@ namespace PRP.WinService.Email
 
                 try
                 {
-                    //client.Send(mimeMessage);
+                    client.Send(mimeMessage);
                 }
                 catch(Exception ex)
                 {
+
                     Console.WriteLine(ex.Message);
                     return false;
                 }
@@ -118,7 +119,7 @@ namespace PRP.WinService.Email
                         {
                             foreach(MimePart attachment in message.Attachments)
                             {
-                                Console.WriteLine(attachment.FileName);
+                              //  Console.WriteLine(attachment.FileName);
                             }
                         }
 

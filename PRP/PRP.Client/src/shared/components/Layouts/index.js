@@ -1,8 +1,9 @@
-import Header from "../Header";
-import Sidebar from "../Sidebar";
-import Head from "next/head";
+import Head from 'next/head';
+import PropTypes from 'prop-types';
+import { Header } from '../';
+import { Sidebar } from '../';
 
-const Layout = ({ children, headTitle }) => {
+export const Layout = ({ children, headTitle }) => {
   return (
     <>
       <Sidebar />
@@ -17,7 +18,10 @@ const Layout = ({ children, headTitle }) => {
         {children}
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Layout;
+Layout.propTypes = {
+  children: PropTypes.node.isRequired,
+  headTitle: PropTypes.string.isRequired
+};

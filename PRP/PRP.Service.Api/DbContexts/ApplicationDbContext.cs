@@ -19,6 +19,7 @@ namespace PRP.Service.Api.DbContexts
         public DbSet<PartnerEmail>? PartnerEmails { get; set; }
 
         public DbSet<ReportType>? ReportTypes { get; set; }
+        public DbSet<FindCompanyName>? CampanyName { get; set; } 
         #endregion
     }
 }

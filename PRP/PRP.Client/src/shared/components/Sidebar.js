@@ -1,10 +1,9 @@
-import { BurgerIcon } from './BurgerIcon';
-import { Links } from './Links';
-
+import { Links } from './';
+import { BurgerIcon } from './';
 import { navLinks } from '../data';
 import { hideSidebar, showSidebar, useAppDispatch, useAppSelector } from '../../store';
 
-const Sidebar = () => {
+export const Sidebar = () => {
   const { isOpen } = useAppSelector( state => state.sidebar);
   const dispatch = useAppDispatch();
   const genericHamburgerLine = `h-1 w-6 my-1 rounded-full bg-black transition ease transform duration-300`;
@@ -20,9 +19,9 @@ const Sidebar = () => {
   } 
 
   return (
-    <section className={`fixed z-10 w-screen h-screen md:hidden transition-colors duration-300 ${ isOpen ? 'bg-slate-200/50 ml-0' : '-ml-96' }`} onClick={ handleCloseSidebar }>
+    <section className={`fixed z-30 w-screen h-screen md:hidden transition-colors duration-300 ${ isOpen ? 'bg-slate-200/50 ml-0' : '-ml-96' }`} onClick={ handleCloseSidebar }>
       <aside
-        className={`sidebar fixed top-0 left-0 z-40 flex flex-col w-60 h-full py-8 bg-white shadow-lg gap-7 transition-all duration-300 md:hidden ${ isOpen ? 'ml-0' : '-ml-96' }`}
+        className={`sidebar fixed top-0 left-0 z-20 flex flex-col w-60 h-full py-8 bg-white shadow-lg gap-7 transition-all duration-300 md:hidden ${ isOpen ? 'ml-0' : '-ml-96' }`}
       >
         <Links
           navItems={navLinks}
@@ -37,7 +36,5 @@ const Sidebar = () => {
       />
 
     </section>
-  )
-}
-
-export default Sidebar
+  );
+};

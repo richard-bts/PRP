@@ -1,4 +1,5 @@
-import { HomeCardItem } from "./HomeCardItem"
+import PropTypes from 'prop-types';
+import { HomeCardItem } from './';
 
 export const HomeCardContainer = ({ items }) => {
   return (
@@ -13,5 +14,14 @@ export const HomeCardContainer = ({ items }) => {
         ))
       }
     </div>
-  )
-}
+  );
+};
+
+HomeCardContainer.propTypes = {
+  items: PropTypes.arrayOf(PropTypes.shape(
+    { 
+      title: PropTypes.string.isRequired, 
+      description: PropTypes.string.isRequired 
+    }
+  )).isRequired
+};

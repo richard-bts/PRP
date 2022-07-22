@@ -25,20 +25,24 @@ a {
   background-color: rgba(75, 85, 99, 0.15);
 }
 
-.table-partner-item .reports span {
+.table-partner-item .reports span.pod {
   background-color: #343434;
 }
 
-.table-partner-item .reports span.api {
+.table-partner-item .reports span.clear {
   background-color: #3C8DB9;
 }
 
-.table-partner-item .reports span.scan.audit {
+.table-partner-item .reports span.scan {
   background-color: #9C7A97;
 }
 
 .table-partner-item .reports span.exception {
   background-color: #EE964B;
+}
+
+.table-partner-item .reports span.bg-white {
+  background-color: transparent;
 }
 
 .pagination-item {
@@ -48,6 +52,31 @@ a {
 .pagination .current-page,
 .pagination .next-page {
   display: block;
+}
+
+.w-100vw {
+  width: 100vw;
+}
+
+
+.partner-form::-webkit-scrollbar,
+.list-per-page::-webkit-scrollbar {
+  border-radius: 5px;
+  width: 8px;
+  background: #d7d7d7;
+}
+
+.partner-form::-webkit-scrollbar-thumb,
+.list-per-page::-webkit-scrollbar-thumb {
+  background: #4f46e5;
+  border-radius: 4px;
+}
+.partner-form::-webkit-scrollbar-thumb {
+  background: #6366F1;
+}
+
+.partner-form {
+  max-height: 90vh;
 }
 
 @media screen and (min-width: 768px) {

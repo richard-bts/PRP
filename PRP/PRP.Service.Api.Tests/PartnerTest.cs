@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.VisualStudio.TestPlatform.TestHost;
 using PRP.Service.Api.DbContexts;
+using PRP.Service.Api.Models;
 using PRP.Service.Api.Models.Dto;
 using PRP.Service.Api.Repository;
 using PRPApi;
@@ -38,7 +39,7 @@ namespace PRP.Service.Api.Tests
         [Fact]
         public async void GetPartner_Test()
         {
-            var response = await _partnerService.GetPartners();
+            var response = await _partnerService.GetPartners(-1);
 
             Assert.NotNull(response);
         }
@@ -46,13 +47,12 @@ namespace PRP.Service.Api.Tests
         [Fact]
         public async void AddPartner_Test()
         {
-            var response = await _partnerService.AddPartner(new PartnerDetailDto
+            var response = await _partnerService.AddPartner(new AddPartnerDto
             {
-                Id = 0,
-                ClientId = 101,
-                PartnerId = 102,
-                PartnerName = "New Partner",
-                ReportName = null
+                client_id = 101,
+                partner_name = "New Partner",
+                partner_report_types = new List<PartnerReportType>() { new PartnerReportType { report_type_id = 1, active = 1 } },
+                partner_report_time = DateTime.Now
             });
 
             Assert.NotNull(response);
@@ -61,31 +61,20 @@ namespace PRP.Service.Api.Tests
         [Fact]
         public async void EditPartner_Test()
         {
-            var response = await _partnerService.EditPartner(new PartnerDetailDto
+            var response = await _partnerService.EditPartner(new UpdatePartnerDto 
             {
-                Id = 1,
-                ClientId = 101,
-                PartnerId = 102,
-                PartnerName = "New Partner Name",
-                ReportName = "Scan Report"
+                partner_id = 102,
+                partner_name = "Edited Partner Name",
+                partner_report_time = DateTime.Now,
+                active = 1
             });
 
             Assert.NotNull(response);
         }
 
         [Fact]
-        public async void RemovePartner_Test()
-        {
-            var response = await _partnerService.RemovePartner(102);
-
-            Assert.True(response);
-        }
-
-        [Fact]
         public async void GetPartnerEmails_Test()
         {
-            IEnumerable<PartnerDetailDto> partner = await _partnerService.GetPartners();
-
             var response = await _partnerService.GetPartnerEmails(102);
 
             Assert.NotNull(response);
@@ -96,9 +85,8 @@ namespace PRP.Service.Api.Tests
         {
             var response = await _partnerService.AddPartnerEmail(new PartnerEmailDto
             {
-                Id = 0,
-                PartnerId = 102,
-                Email = "test@broadviewtechnicalsolutions.com"
+                partner_id = 3,
+                partner_email = "test@broadviewtechnicalsolutions.com"
             });
 
             Assert.NotNull(response);
@@ -107,11 +95,12 @@ namespace PRP.Service.Api.Tests
         [Fact]
         public async void EditPartnerEmail_Test()
         {
-            var response = await _partnerService.EditPartnerEmail(new PartnerEmailDto
+            var response = await _partnerService.EditPartnerEmail(new UpdatePartnerEmailDto
             {
-                Id = 0,
-                PartnerId = 102,
-                Email = "test@broadviewtechnicalsolutions.com;test2@broadviewtechnicalsolutions.com"
+                partner_email_id = 2, 
+                partner_id = 3,
+                active = 1,
+                email = "test@broadviewtechnicalsolutions.com;test2@broadviewtechnicalsolutions.com"
             });
 
             Assert.NotNull(response);
@@ -123,6 +112,13 @@ namespace PRP.Service.Api.Tests
             var response = await _partnerService.RemovePartnerEmail(1);
 
             Assert.True(response);
+        }
+        [Fact]
+        public async void GetCompanyName_Test()
+        {
+            var response = await _partnerService.GetCompanyName("Tes");
+
+            Assert.NotNull(response);
         }
     }
 }

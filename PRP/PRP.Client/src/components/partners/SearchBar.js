@@ -1,7 +1,16 @@
+import { useRef } from 'react';
+import PropTypes from 'prop-types';
 import { SearchIcon } from '@heroicons/react/solid';
-import { ButtonIcon } from '../../shared/components/ButtonIcon';
+import { ButtonIcon } from '../../shared/components';
 
-export const SearchBar = ({ setSearchText, searchText, handleSearch }) => {
+export const SearchBar = ({ searchText, handleSearch }) => {
+
+  const searchInputRef = useRef();
+
+  const handleFocus = () => {
+    searchInputRef.current.focus();
+  }
+
   return (
     <div className="flex justify-center">
       <div className="xl:w-96">
@@ -13,10 +22,13 @@ export const SearchBar = ({ setSearchText, searchText, handleSearch }) => {
             aria-label="Search"
             aria-describedby="button-addon2"
             value={ searchText }
-            onChange={ e => setSearchText(e.target.value) }
+            onChange={ e => handleSearch(e.target.value) }
+            ref={ searchInputRef }
           />
           <ButtonIcon
-            onClick={ handleSearch }
+            onClick={ handleFocus }
+            btnColors='bg-indigo-500'
+            btnStyles='rounded-tr rounded-br cursor-default'
             btnLabel="Search"
           >
             <SearchIcon className="w-5 h-5 text-white" />
@@ -24,5 +36,10 @@ export const SearchBar = ({ setSearchText, searchText, handleSearch }) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
+
+SearchBar.propTypes = {
+  searchText: PropTypes.string.isRequired,
+  handleSearch: PropTypes.func.isRequired
+};

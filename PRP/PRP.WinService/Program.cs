@@ -20,6 +20,7 @@ IHost host = Host.CreateDefaultBuilder(args)
         services.AddSingleton<IPRPService, PRPService>();
         services.AddSingleton<IEmailService, EmailService>();
     })
+    .UseWindowsService()
     .Build();
 
 await host.RunAsync();

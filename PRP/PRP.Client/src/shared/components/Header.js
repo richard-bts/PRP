@@ -1,8 +1,8 @@
-import Navbar from "./Navbar";
-import Image from "next/image";
-import Link from "next/link";
+import { Navbar } from './';
+import Image from 'next/image';
+import Link from 'next/link';
 
-const Header = () => {
+export const Header = () => {
   return (
     <header className="h-20">
       <div className="container flex items-center justify-between h-full p-5 md:p-0 md:px-4">
@@ -23,7 +23,5 @@ const Header = () => {
         <Navbar />
       </div>
     </header>
-  )
-}
-
-export default Header
+  );
+};

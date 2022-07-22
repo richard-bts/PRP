@@ -1,36 +1,41 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useState } from 'react';
+import { setCurrentPage, useAppDispatch, useAppSelector } from "../../store";
 
 export const useFilter = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [searchText, setSearchText] = useState('');
-  const [partnerFiltered, setPartnerFiltered] = useState([]);
-  const { partners } = useSelector( state => state.partners );
 
-  const partnersLength = partnerFiltered.length || partners.length;
-  const myPartners = partnerFiltered.length ? partnerFiltered : partners;
-  const partnersPerPage = 2;
+  const { partners, partnersPerPage, currentPage } = useAppSelector( state => state.partners );
+  const finalPartners = partners.map( partner => {
+    return {
+      ...partner,
+      email: partner.email?.split(','),
+    }
+  });
+  const dispatch = useAppDispatch();
+  const [partnerFiltered, setPartnerFiltered] = useState([]);
+  const [searchText, setSearchText] = useState('');
+
+  const partnersLength = partnerFiltered.length || finalPartners.length;
+  const myPartners = partnerFiltered && searchText.length ? partnerFiltered : finalPartners;
 
   // Get current partners.
   const indexOfLastPost = currentPage * partnersPerPage;
   const indexOfFirstPost = indexOfLastPost - partnersPerPage;
   const currentPartners = myPartners.slice(indexOfFirstPost, indexOfLastPost);
-
+  
   const handleChangePage = (number) => {
-    setCurrentPage(number);
-  }
+    dispatch(setCurrentPage(number));
+  };
 
-  const handleSearch = () => {
+  const handleSearch = (value) => {
+    setSearchText(value);
     setPartnerFiltered( () => {
-      const filtered = partners.filter( partner => (
-        partner.name.toLowerCase().indexOf(searchText) > -1 || partner.email.toLowerCase().indexOf(searchText) > -1
-      ))
-
-      return [...filtered];
-    }
+      return finalPartners.filter( partner => {
+        return partner.partnerName.toLowerCase().includes(value.toLowerCase()) /*|| partner.email.toLowerCase().includes(value.toLowerCase())*/;
+        } );  
+      }
     );
-    setCurrentPage(1);
-  }
+    dispatch(setCurrentPage(1));
+  };
 
   return {
     currentPage,
@@ -44,5 +49,5 @@ export const useFilter = () => {
     handleChangePage,
     handleSearch,
     partnersPerPage
-  }
+  };
 };

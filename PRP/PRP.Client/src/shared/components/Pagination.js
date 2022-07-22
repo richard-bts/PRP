@@ -1,4 +1,5 @@
-import { ChevronDoubleLeftIcon, ChevronDoubleRightIcon } from "@heroicons/react/solid";
+import PropTypes from 'prop-types';
+import { ChevronDoubleLeftIcon, ChevronDoubleRightIcon } from '@heroicons/react/solid';
 
 export const Pagination = ({ partnersPerPage, totalPartners, handleChangePage, currentPage }) => {
 
@@ -10,6 +11,10 @@ export const Pagination = ({ partnersPerPage, totalPartners, handleChangePage, c
   for (let i = 0; i < totalPages; i++) {
     pageNumbers.push(i+1);
   };
+
+  if(!nextAvailable && !prevAvailable) {
+    return null;
+  }
 
   return (
     <div className="grid justify-center grid-flow-col gap-3 mt-10 justify-items-center pagination">
@@ -24,7 +29,7 @@ export const Pagination = ({ partnersPerPage, totalPartners, handleChangePage, c
         pageNumbers.map( number => (
           <button
             key={ number }
-            className={`${ currentPage === number ? 'current-page cursor-default bg-indigo-600 text-white' : currentPage === (number - 1) ? 'bg-white next-page' : 'bg-white' } ${ (number > (currentPage + 1)) || (number < (currentPage - 1)) ? 'hidden' : ''  } px-4 py-2 rounded shadow-md pagination-item`}
+            className={`${ currentPage === number ? 'current-page cursor-default bg-indigo-600 text-white' : currentPage === (number - 1) ? 'bg-white next-page' : 'bg-white' } ${ (number > (currentPage + 2)) || (number < (currentPage - 2)) ? 'hidden' : ''  } px-4 py-2 rounded shadow-md pagination-item`}
             onClick={ () => handleChangePage(number) }
           >{ number }</button>
         ))
@@ -37,5 +42,12 @@ export const Pagination = ({ partnersPerPage, totalPartners, handleChangePage, c
         <ChevronDoubleRightIcon className="w-4 h-4 text-gray-500" />
       </button>
     </div>
-  )
+  );
+};
+
+Pagination.propTypes = {
+  partnersPerPage: PropTypes.number.isRequired,
+  totalPartners: PropTypes.number.isRequired,
+  handleChangePage: PropTypes.func.isRequired,
+  currentPage: PropTypes.number.isRequired
 };

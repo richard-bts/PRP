@@ -7,5 +7,6 @@
         public int PartnerId { get; set; }
         public string? PartnerName { get; set; }
         public string? ReportName { get; set; }
+        public DateTime? ReportTime { get; set; }
     }
 }

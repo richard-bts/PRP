@@ -1,7 +1,7 @@
-import { Links } from "./Links";
-import { navLinks } from "../data";
+import { Links } from './';
+import { navLinks } from '../data';
 
-const Navbar = () => {
+export const Navbar = () => {
   return (
     <nav className="hidden md:block">
       <Links
@@ -9,7 +9,5 @@ const Navbar = () => {
         classStyles="px-4 transition duration-300 hover:text-black font-medium"
       />
     </nav>
-  )
-}
-
-export default Navbar
+  );
+};
