@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.VisualStudio.TestPlatform.TestHost;
 using PRP.Service.Api.DbContexts;
+using PRP.Service.Api.Models;
 using PRP.Service.Api.Models.Dto;
 using PRP.Service.Api.Repository;
 using PRPApi;
@@ -69,14 +70,6 @@ namespace PRP.Service.Api.Tests
             });
 
             Assert.NotNull(response);
-        }
-
-        [Fact]
-        public async void RemovePartner_Test()
-        {
-            var response = await _partnerService.RemovePartner(102);
-
-            Assert.True(response);
         }
 
         [Fact]
