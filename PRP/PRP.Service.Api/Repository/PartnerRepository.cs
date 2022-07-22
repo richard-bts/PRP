@@ -20,7 +20,7 @@ namespace PRP.Service.Api.Repository
         #endregion
 
         #region Public Partner Methods
-        public async Task<GetPartnerDto> GetPartner(int partnerID)
+        public async Task<IEnumerable<GetPartnerDto>> GetPartner(int partnerID)
         {
             List<PartnerDetail> partner = new();
             List<SqlParameter> param = new()
@@ -38,7 +38,7 @@ namespace PRP.Service.Api.Repository
                 try
                 {
                     partner = await _db.Partners.FromSqlRaw("EXEC [dbo].[sp_GetPartner] @partnerId", param.ToArray()).ToListAsync();
-                    List<GetPartnerDto> result = partner.GroupBy(p => p.partner_id)
+                    IEnumerable<GetPartnerDto> result = partner.GroupBy(p => p.partner_id)
                       .Select(g => new GetPartnerDto
                       {
                           id = g.FirstOrDefault().id,
@@ -54,10 +54,10 @@ namespace PRP.Service.Api.Repository
                               active = p.report_active
                           }).ToList(),
                           
-                          partner_emails = g.FirstOrDefault().partner_emails,
+                          partner_emails = GetPartnerEmails(partnerID).Result.ToList(),
                           partner_report_time = g.FirstOrDefault().partner_report_time
-                      }).ToList();
-                    return result.FirstOrDefault();
+                      });
+                    return result;
                 }
                 catch (Exception)
                 {
@@ -72,34 +72,35 @@ namespace PRP.Service.Api.Repository
             if (_db.Partners != null)
             {
                 partners = await _db.Partners.FromSqlRaw("EXEC [dbo].[sp_GetPartners]").ToListAsync();
+                if (partners == null)
+                    return null;
 
-                List<GetPartnerDto> result = partners.GroupBy(p => p.partner_id)
-                  .Select(g => new GetPartnerDto
-                  {
-                      id = g.FirstOrDefault().id,
-                      client_id = g.FirstOrDefault().client_id,
-                      partner_id = g.FirstOrDefault().partner_id,
-                      partner_name = g.FirstOrDefault().partner_name,
-                      partner_active = g.First().partner_active,
-                    
-                      partner_report_types = g.Select(p => new PartnerReportType
-                      {
-                         report_type_id = p.report_type_id,
-                         report_name = p.report_name,
-                         active = p.report_active
-                      }).ToList(),
+                IEnumerable<GetPartnerDto> result = partners.Select(p => new GetPartnerDto
+                {
+                    id = p.id,
+                    client_id = p.client_id,
+                    partner_id = p.partner_id,
+                    partner_name = p.partner_name,
+                    partner_active = p.partner_active,
 
-                      partner_emails = g.FirstOrDefault().partner_emails,
-                      partner_report_time = g.FirstOrDefault().partner_report_time
-                  })
-                  .ToList();
+                    partner_report_types =  partners.GroupBy(g => g.partner_id).DistinctBy(d => d.FirstOrDefault().report_type_id).Select(x => new PartnerReportType
+                    {
+                        report_type_id = x.FirstOrDefault().report_type_id,
+                        report_name = x.FirstOrDefault().report_name,
+                        active = x.FirstOrDefault().report_active
+                    }).ToList(),
+
+                    partner_emails = GetPartnerEmails(p.partner_id).Result.ToList(),
+
+                    partner_report_time = p.partner_report_time
+                }).DistinctBy(d => d.partner_id);
                 if (filter > -1)
                     result = result.Where(p => p.partner_active == filter).ToList();
                 return result;
             }
             return null;
         }
-        public async Task<GetPartnerDto> AddPartner(AddPartnerDto partner)
+        public async Task<IEnumerable<GetPartnerDto>> AddPartner(AddPartnerDto partner)
         {
             try
             {
@@ -201,7 +202,7 @@ namespace PRP.Service.Api.Repository
             }
             return response;
         }
-        public async Task<GetPartnerDto> EditPartnerReportType(UpdatePartnerReportTypeDto partner)
+        public async Task<IEnumerable<GetPartnerDto> >EditPartnerReportType(UpdatePartnerReportTypeDto partner)
         {
             try
             {
@@ -245,7 +246,7 @@ namespace PRP.Service.Api.Repository
             return null;
         }
 
-        public async Task<GetPartnerDto> EditPartner(UpdatePartnerDto partner)
+        public async Task<IEnumerable<GetPartnerDto>> EditPartner(UpdatePartnerDto partner)
         {
             try
             {

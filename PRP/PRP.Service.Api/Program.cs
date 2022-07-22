@@ -225,13 +225,14 @@ try
         return response;
     });
 
-    app.MapGet("partner", async ([FromServices] IPartnerRepository PartnerRepository,int partner_id) =>
+    app.MapGet("partner", async ([FromServices] IPartnerRepository PartnerRepository, int partner_id) =>
     {
-        ResponseDto response = new ResponseDto();
+        PartnerResponseDto<GetPartnerDto> response = new();
 
         try
         {
             response.Result = await PartnerRepository.GetPartner(partner_id);
+            response.Count = response.Result.Count();
             Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"GetPartner api called successfully...");
         }
         catch (Exception ex)
@@ -248,11 +249,12 @@ try
 
     app.MapGet("partners", async ([FromServices] IPartnerRepository PartnerRepository) =>
     {
-        ResponseDto response = new ResponseDto();
+        PartnerResponseDto<GetPartnerDto> response = new();
 
         try
         {
             response.Result = await PartnerRepository.GetPartners(-1);
+            response.Count = response.Result.Count();
             Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"GetPartners api called successfully...");
         }
         catch (Exception ex)
@@ -269,11 +271,12 @@ try
 
     app.MapGet("active-partners", async ([FromServices] IPartnerRepository PartnerRepository) =>
     {
-        ResponseDto response = new ResponseDto();
+        PartnerResponseDto<GetPartnerDto> response = new();
 
         try
         {
             response.Result = await PartnerRepository.GetPartners(1);
+            response.Count = response.Result.Count();
             Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"GetPartners api called successfully...");
         }
         catch (Exception ex)
@@ -290,11 +293,12 @@ try
 
     app.MapGet("inactive-partners", async ([FromServices] IPartnerRepository PartnerRepository) =>
     {
-        ResponseDto response = new ResponseDto();
+        PartnerResponseDto<GetPartnerDto> response = new();
 
         try
         {
             response.Result = await PartnerRepository.GetPartners(0);
+            response.Count = response.Result.Count();
             Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"GetPartners api called successfully...");
         }
         catch (Exception ex)
@@ -311,11 +315,12 @@ try
 
     app.MapPost("create-partner", async ([FromServices] IPartnerRepository PartnerRepository, AddPartnerDto partner) =>
     {
-        ResponseDto response = new ResponseDto();
+        PartnerResponseDto<GetPartnerDto> response = new();
 
         try
         {
             response.Result = await PartnerRepository.AddPartner(partner);
+            response.Count = response.Result.Count();
             Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"AddPartner api called successfully...");
         }
         catch (Exception ex)
@@ -331,11 +336,12 @@ try
 
     app.MapPut("update-partner", async ([FromServices] IPartnerRepository PartnerRepository, UpdatePartnerDto partner) =>
     {
-        ResponseDto response = new ResponseDto();
+        PartnerResponseDto<GetPartnerDto> response = new();
 
         try
         {
             response.Result = await PartnerRepository.EditPartner(partner);
+            response.Count = response.Result.Count();
             Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"EditPartner api called successfully...");
         }
         catch (Exception ex)
@@ -351,11 +357,12 @@ try
 
     app.MapGet("partner-emails", async ([FromServices] IPartnerRepository PartnerRepository, int partnerID) =>
     {
-        ResponseDto response = new ResponseDto();
+        PartnerResponseDto<PartnerEmailDto> response = new();
 
         try
         {
             response.Result = await PartnerRepository.GetPartnerEmails(partnerID);
+            response.Count = response.Result.Count();
             Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"GetPartnerEmails api called successfully...");
         }
         catch (Exception ex)
@@ -371,11 +378,12 @@ try
 
     app.MapPost("add-partner-email", async ([FromServices] IPartnerRepository PartnerRepository, PartnerEmailDto partner) =>
     {
-        ResponseDto response = new ResponseDto();
+        PartnerResponseDto<PartnerEmailDto> response = new();
 
         try
         {
             response.Result = await PartnerRepository.AddPartnerEmail(partner);
+            response.Count = response.Result.Count();
             Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"AddPartnerEmail api called successfully...");
         }
         catch (Exception ex)
@@ -391,11 +399,12 @@ try
 
     app.MapPut("update-partner-email", async ([FromServices] IPartnerRepository PartnerRepository, UpdatePartnerEmailDto partner) =>
     {
-        ResponseDto response = new ResponseDto();
+        PartnerResponseDto<PartnerEmailDto> response = new();
 
         try
         {
             response.Result = await PartnerRepository.EditPartnerEmail(partner);
+            response.Count = response.Result.Count();
             Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"EditPartnerEmail api called successfully...");
         }
         catch (Exception ex)
@@ -409,13 +418,34 @@ try
         return response;
     });
 
+    app.MapPut("remove-partner-email", async ([FromServices] IPartnerRepository PartnerRepository, int emailId) =>
+    {
+        ResponseDto response = new();
+
+        try
+        {
+            response.Result = await PartnerRepository.RemovePartnerEmail(emailId);
+            Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"EditPartnerEmail api called successfully...");
+        }
+        catch (Exception ex)
+        {
+            response.IsSuccess = false;
+            response.ErrorMessages = new List<string>() { ex.ToString() };
+            Log.Logger.ForContext("Component", "PRP.Service.Api").Error("{Message}", $"EditPartnerReportType api call failed. " +
+                                    $"Error Message: {response.ErrorMessages}");
+        }
+
+        return response;
+    });
+
     app.MapPut("update-partner-report-type", async ([FromServices] IPartnerRepository PartnerRepository, UpdatePartnerReportTypeDto partner) =>
     {
-        ResponseDto response = new ResponseDto();
+        PartnerResponseDto<GetPartnerDto> response = new();
 
         try
         {
             response.Result = await PartnerRepository.EditPartnerReportType(partner);
+            response.Count = response.Result.Count();
             Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"EditPartnerEmail api called successfully...");
         }
         catch (Exception ex)
