@@ -215,14 +215,14 @@ namespace PRP.Service.Api.Repository
                             ParameterName="@reportId",
                             SqlDbType = System.Data.SqlDbType.Int,
                             Direction = System.Data.ParameterDirection.Input,
-                            Value = partner.partner_id
+                            Value = partner.report_type_id 
                         },
                         new SqlParameter()
                         {
                             ParameterName="@partnerId",
-                            SqlDbType = System.Data.SqlDbType.NVarChar,
+                            SqlDbType = System.Data.SqlDbType.Int,
                             Direction = System.Data.ParameterDirection.Input,
-                            Value = partner.report_type_id
+                            Value = partner.partner_id
                         },
                         new SqlParameter()
                         {
@@ -234,7 +234,7 @@ namespace PRP.Service.Api.Repository
                     };
                     if (_db.Partners != null)
                     {
-                        await _db.Database.ExecuteSqlRawAsync("EXEC [dbo].[sp_EditPartnerReportType] @reportId, @partnerId, @active", param.ToArray());
+                        await _db.Database.ExecuteSqlRawAsync("EXEC [dbo].[sp_EditPartnerReportType] @reportId, @partnerId, @active", param);
                         return await GetPartner(partner.partner_id);
                     }
                 }
