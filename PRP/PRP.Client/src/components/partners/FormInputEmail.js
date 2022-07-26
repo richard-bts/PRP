@@ -4,7 +4,7 @@ import { FormInputError } from './FormInputError';
 
 const regexEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-export const FormInputEmail = ({ children, index, inputValue, setErrorForm, handleSaveEmail }) => {
+export const FormInputEmail = ({ children, index, inputValue, setErrorForm, handleSaveEmail, emailId }) => {
   const [email, setEmail] = useState(inputValue || '');
   const [emailError, setEmailError] = useState({ error: false, errorMessage: '' });
 
@@ -25,7 +25,7 @@ export const FormInputEmail = ({ children, index, inputValue, setErrorForm, hand
     } else {
       setErrorForm(prev => ({ ...prev, email: { error: false, errorMessage: '' } }));
     }
-    handleSaveEmail(e, index);
+    handleSaveEmail(e, index, emailId);
   }
 
   return (
@@ -56,5 +56,6 @@ FormInputEmail.propTypes = {
   handleSaveEmail: PropTypes.func.isRequired,
   inputValue: PropTypes.string.isRequired,
   setErrorForm: PropTypes.func.isRequired,
-  index: PropTypes.number.isRequired
+  index: PropTypes.number.isRequired,
+  emailId: PropTypes.number
 };

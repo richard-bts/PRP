@@ -8,7 +8,7 @@ export const TableBody = ({ tbodyItems, tbodyTrStyles, tbodyTrColors, tbodyTrGri
   return (
     <tbody>
       {
-        tbodyItems.map(({ id, clientId, partnerId, partnerName, email = ["NO EMAIL ADDRESS" ], active, reportName = [] }) => (
+        tbodyItems.map(({ id, clientId, partnerId, partnerName, email = [ { partner_email: ""} ], active, reportName = [] }) => (
           <tr
             key={`${partnerName}-${partnerId}`}
             className={`border-b border-gray-200 h-14 md:h-16 table-partner-item select-none ${tbodyTrStyles || trStylesDefault} ${tbodyTrColors || trColorsDefault} ${tbodyTrGridStyles || ''}`}
@@ -21,8 +21,8 @@ export const TableBody = ({ tbodyItems, tbodyTrStyles, tbodyTrColors, tbodyTrGri
               onDoubleClick={() => handleEditPartner({ id, clientId, partnerId, partnerName, email, active, reportName })}
               className="hidden max-h-full px-6 py-3 overflow-hidden text-left cursor-pointer xl:grid"
             >
-              { email?.map((email, index) => index < 2 && (
-                <span key={`${email}+${index}`} className="h-5 truncate">{email ?? ''}</span>
+              { email?.map(({ partner_email }, index) => index < 2 && (
+                <span key={`${partner_email}+${index}`} className="h-5 truncate">{partner_email ?? ''}</span>
               )) }
             </td>
             <td
@@ -35,15 +35,16 @@ export const TableBody = ({ tbodyItems, tbodyTrStyles, tbodyTrColors, tbodyTrGri
             >
               { reportName.length >= 3 ?
                     <>
-                      <span className={`text-xs text-white ${ reportName[0]?.report_name.toLowerCase() } px-3 py-1 uppercase rounded-full whitespace-nowrap`}>{ reportName[0].report_name }</span> 
+                      <span className={`text-xs text-white ${ reportName[0]?.report_name?.toLowerCase() } px-1 xl:px-2 py-1 uppercase rounded-full whitespace-nowrap`}>{ reportName[0].report_name }</span> 
                       <span className="text-xs font-semibold leading-6">+ { reportName.length - 1 } others</span>
                     </>
                   : reportName.length === 2 ?
                     <>
-                      <span className={`text-xs text-white ${ reportName[0]?.report_name.toLowerCase() } px-3 py-1 uppercase rounded-full whitespace-nowrap`}>{ reportName[0].report_name }</span> 
+                      <span className={`text-xs text-white ${ reportName[0]?.report_name?.toLowerCase() } px-1 xl:px-2 py-1 uppercase rounded-full whitespace-nowrap`}>{ reportName[0].report_name }</span> 
                       <span className="text-xs font-semibold leading-6">+ 1 other</span>
                     </>
-                  :  <span className={`text-xs text-white ${ reportName[0]?.report_name.toLowerCase() } px-3 py-1 uppercase rounded-full whitespace-nowrap`}>{ reportName[0].report_name }</span> 
+                  : reportName.length > 0 ? <span className={`text-xs text-white ${ reportName[0]?.report_name?.toLowerCase() } px-1 xl:px-2 py-1 uppercase rounded-full whitespace-nowrap`}>{ reportName[0]?.report_name }</span>
+                  : <span>No reports</span> 
                 }
             </td>
             <td className="grid justify-center grid-flow-col gap-5 px-6 py-3 text-center max-h-16 justify-items-center">

@@ -42,11 +42,12 @@ export const Form = ({ handleCloseForm }) => {
 
           <div className="relative flex flex-col py-3 mb-7">
             <label className="pb-2 font-semibold text-gray-700 first-letter:uppercase">Emails</label>
-            {email.length > 0 && email.map((email, index) => (
+            {email.length > 0 && email.map(({ partner_email, partner_email_id }, index) => (
               <FormInputEmail
-                key={`${email}+${index}`}
+                key={`${partner_email}+${index}`}
                 index={index}
-                inputValue={email}
+                inputValue={partner_email}
+                emailId={partner_email_id}
                 setErrorForm={setErrorForm}
                 handleSaveEmail={handleSaveEmail}
               >

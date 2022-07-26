@@ -56,7 +56,7 @@ export const partnersSlice = createSlice({
     setCurrentPage: (state, action) => {
       state.currentPage = action.payload;
     },
-    sortBypartnerName: (state) => {
+    sortByName: (state) => {
       state.namedSort = !state.namedSort;
       state.activedSort = false;
       state.partners = [...state.partners].sort((a, b) => {
