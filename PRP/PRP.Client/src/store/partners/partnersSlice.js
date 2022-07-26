@@ -21,10 +21,10 @@ export const partnersSlice = createSlice({
       state.isLoading = action.payload;
     },
     addPartner: (state, action) => {
-      const { client_id, partner_id, partner_name, partner_emails, partner_active, partner_report_types } = action.payload;
+      const { client_id, partner_id, partner_name, partner_emails, active, partner_report_types } = action.payload;
       const partner = state.partners.find(item => item.partnerId === partner_id);
       if (partner) {
-        partner.active = partner_active;
+        partner.active = active;
         partner.clientId = client_id;
         partner.email = partner_emails;
         partner.partnerId = partner_id;

@@ -8,7 +8,7 @@ export const TableBody = ({ tbodyItems, tbodyTrStyles, tbodyTrColors, tbodyTrGri
   return (
     <tbody>
       {
-        tbodyItems.map(({ id, clientId, partnerId, partnerName, email = [ { partner_email: ""} ], active, reportName = [] }) => (
+        tbodyItems.map(({ id, clientId, partnerId, partnerName, email = [{ partner_email: "" }], active, reportName = [] }) => (
           <tr
             key={`${partnerName}-${partnerId}`}
             className={`border-b border-gray-200 h-14 md:h-16 table-partner-item select-none ${tbodyTrStyles || trStylesDefault} ${tbodyTrColors || trColorsDefault} ${tbodyTrGridStyles || ''}`}
@@ -21,9 +21,9 @@ export const TableBody = ({ tbodyItems, tbodyTrStyles, tbodyTrColors, tbodyTrGri
               onDoubleClick={() => handleEditPartner({ id, clientId, partnerId, partnerName, email, active, reportName })}
               className="hidden max-h-full px-6 py-3 overflow-hidden text-left cursor-pointer xl:grid"
             >
-              { email?.map(({ partner_email }, index) => index < 2 && (
+              {email?.map(({ partner_email }, index) => index < 2 && (
                 <span key={`${partner_email}+${index}`} className="h-5 truncate">{partner_email ?? ''}</span>
-              )) }
+              ))}
             </td>
             <td
               onDoubleClick={() => handleEditPartner({ id, clientId, partnerId, partnerName, email, active, reportName })}
@@ -31,21 +31,32 @@ export const TableBody = ({ tbodyItems, tbodyTrStyles, tbodyTrColors, tbodyTrGri
             >{active ? 'Yes' : 'No'}</td>
             <td
               onDoubleClick={() => handleEditPartner({ id, clientId, partnerId, partnerName, email, active, reportName })}
-              className="justify-center hidden grid-flow-col gap-2 px-6 py-3 text-center cursor-pointer max-h-16 lg:grid justify-items-center reports"
+              className="relative justify-center hidden grid-flow-col gap-2 px-6 py-3 text-center cursor-pointer max-h-16 lg:grid justify-items-center reports group"
             >
-              { reportName.length >= 3 ?
-                    <>
-                      <span className={`text-xs text-white ${ reportName[0]?.report_name?.toLowerCase() } px-1 xl:px-2 py-1 uppercase rounded-full whitespace-nowrap`}>{ reportName[0].report_name }</span> 
-                      <span className="text-xs font-semibold leading-6">+ { reportName.length - 1 } others</span>
-                    </>
-                  : reportName.length === 2 ?
-                    <>
-                      <span className={`text-xs text-white ${ reportName[0]?.report_name?.toLowerCase() } px-1 xl:px-2 py-1 uppercase rounded-full whitespace-nowrap`}>{ reportName[0].report_name }</span> 
-                      <span className="text-xs font-semibold leading-6">+ 1 other</span>
-                    </>
-                  : reportName.length > 0 ? <span className={`text-xs text-white ${ reportName[0]?.report_name?.toLowerCase() } px-1 xl:px-2 py-1 uppercase rounded-full whitespace-nowrap`}>{ reportName[0]?.report_name }</span>
-                  : <span>No reports</span> 
-                }
+              {reportName.length >= 3 ?
+                <>
+                  <span className={`text-xs text-white ${reportName[0]?.report_name?.toLowerCase()} px-1 xl:px-2 py-1 uppercase rounded-full whitespace-nowrap`}>{reportName[0].report_name}</span>
+                  <span className="text-xs font-semibold leading-6">+ {reportName.length - 1} others</span>
+                </>
+                : reportName.length === 2 ?
+                  <>
+                    <span className={`text-xs text-white ${reportName[0]?.report_name?.toLowerCase()} px-1 xl:px-2 py-1 uppercase rounded-full whitespace-nowrap`}>{reportName[0].report_name}</span>
+                    <span className="text-xs font-semibold leading-6">+ 1 other</span>
+                  </>
+                  : reportName.length > 0 ? <span className={`text-xs text-white ${reportName[0]?.report_name?.toLowerCase()} px-1 xl:px-2 py-1 uppercase rounded-full whitespace-nowrap`}>{reportName[0]?.report_name}</span>
+                    : <span>No reports</span>
+              }
+
+              { reportName.length > 1 &&
+                <div className="absolute invisible max-w-xs overflow-hidden text-xs font-semibold text-center uppercase transition-opacity duration-500 ease-in-out rounded-md shadow-md opacity-0 w-52 group-hover:opacity-100 group-hover:visible left-2/4 top-2/4 -translate-x-2/4 -translate-y-2/4">
+                  { reportName.map(({ report_name }, index) => (
+                    <span
+                      key={`${report_name}-${index}`}
+                      className={`block w-full p-2 text-white tooltip-${ report_name.toLowerCase() }`}
+                    >{ report_name }</span>
+                  ))}
+                </div>
+              }
             </td>
             <td className="grid justify-center grid-flow-col gap-5 px-6 py-3 text-center max-h-16 justify-items-center">
               <PencilAltIcon

@@ -1,18 +1,14 @@
 export const cardLinks = [
   {
-    title: 'POD',
-    description: 'Dolor sit nulla reprehenderit sunt qui culpa. Pariatur minim incididunt dolor do. Lorem nostrud reprehenderit culpa in sunt cillum.',
+    title: 'SCAN REPORT',
+    description: 'Returns all package scans collected on the previous day.',
   },
   {
-    title: 'SCAN AUDIT',
-    description: 'Commodo reprehenderit voluptate magna nisi non laborum irure sunt sit. Eu ullamco in reprehenderit culpa.',
+    title: 'POD REPORT',
+    description: 'Returns delivery data for all orders completed the previous day.',
   },
   {
-    title: 'EXCEPTION',
-    description: 'Reprehenderit minim pariatur ut elit nisi fugiat cillum laborum labore aute. Ex laborum sit eiusmod officia commodo.',
-  },
-  {
-    title: 'API',
-    description: 'Consequat minim incididunt enim et enim qui eu commodo sint ipsum elit. Lorem nostrud in sunt cillum.',
+    title: 'EXCEPTION REPORT',
+    description: 'Returns data for exceptions logged on orders the previous day.',
   }
 ]

@@ -25,19 +25,23 @@ a {
   background-color: rgba(75, 85, 99, 0.15);
 }
 
-.table-partner-item .reports span.pod {
+.table-partner-item .reports span.pod,
+.table-partner-item .reports .tooltip-pod {
   background-color: #343434;
 }
 
-.table-partner-item .reports span.clear {
+.table-partner-item .reports span.clear,
+.table-partner-item .reports .tooltip-clear {
   background-color: #3C8DB9;
 }
 
-.table-partner-item .reports span.scan {
+.table-partner-item .reports span.scan,
+.table-partner-item .reports .tooltip-scan {
   background-color: #9C7A97;
 }
 
-.table-partner-item .reports span.exception {
+.table-partner-item .reports span.exception,
+.table-partner-item .reports .tooltip-exception {
   background-color: #EE964B;
 }
 
@@ -93,5 +97,9 @@ a {
   .home__hero-image {
     height: 528px;
     width: 528px;
+  }
+
+  .home__cards-containers {
+    height: 528px;
   }
 }
