@@ -66,6 +66,7 @@ namespace PRP.Service.Api.Repository
             }
             return null;
         }
+
         public async Task<IEnumerable<GetPartnerDto>> GetPartners(int filter)
         {
             List<PartnerDetail> partners = new();
@@ -74,26 +75,27 @@ namespace PRP.Service.Api.Repository
                 partners = await _db.Partners.FromSqlRaw("EXEC [dbo].[sp_GetPartners]").ToListAsync();
                 if (partners == null)
                     return null;
-
-                IEnumerable<GetPartnerDto> result = partners.Select(p => new GetPartnerDto
+                List<GetPartnerDto> result = partners.GroupBy(p => p.partner_id).Select(g => new GetPartnerDto
                 {
-                    id = p.id,
-                    client_id = p.client_id,
-                    partner_id = p.partner_id,
-                    partner_name = p.partner_name,
-                    partner_active = p.partner_active,
+                    id = g.FirstOrDefault().id,
+                    client_id = g.FirstOrDefault().client_id,
+                    partner_id = g.FirstOrDefault().partner_id,
+                    partner_name = g.FirstOrDefault().partner_name,
+                    partner_active = g.First().partner_active,
 
-                    partner_report_types =  partners.GroupBy(g => g.partner_id).DistinctBy(d => d.FirstOrDefault().report_type_id).Select(x => new PartnerReportType
+                    partner_report_types = g.DistinctBy(d => d.report_type_id).Select(p => new PartnerReportType
                     {
-                        report_type_id = x.FirstOrDefault().report_type_id,
-                        report_name = x.FirstOrDefault().report_name,
-                        active = x.FirstOrDefault().report_active
-                    }).ToList(),
+                        report_type_id = p.report_type_id,
+                        report_name = p.report_name,
+                        active = p.report_active
+                    }),
 
-                    partner_emails = GetPartnerEmails(p.partner_id).Result.ToList(),
-
-                    partner_report_time = p.partner_report_time
-                }).DistinctBy(d => d.partner_id);
+                    partner_report_time = g.FirstOrDefault().partner_report_time
+                }).ToList();
+                for (int i = 0; i < result.Count(); i++)
+                {
+                    result[i].partner_emails = GetPartnerEmails(result[i].partner_id).Result.ToList();
+                }
                 if (filter > -1)
                     result = result.Where(p => p.partner_active == filter).ToList();
                 return result;
