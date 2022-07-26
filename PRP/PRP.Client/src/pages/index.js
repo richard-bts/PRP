@@ -12,7 +12,7 @@ export default function Home() {
         <section className="flex flex-col items-center justify-between px-5 xl:gap-20 gap-14 xl:flex-row xl:justify-center">
           <div className="relative w-72 h-72 home__hero-image">
             <Image
-              src="/img/img_box.svg"
+              src="/img/wallpaper.jpg"
               layout="fill"
               alt="Box image"
               title="Box image"
