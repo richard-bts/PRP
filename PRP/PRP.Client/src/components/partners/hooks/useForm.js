@@ -22,7 +22,7 @@ export const useForm = () => {
 
   const dispatch = useAppDispatch();
   const { activePartner } = useAppSelector(state => state.partners);
-  const { id, clientId, partnerId, partnerName, email, active, reportName } = activePartner || initialPartnerState;
+  const { clientId, partnerId, partnerName, email, active, reportName } = activePartner || initialPartnerState;
   const [isActivePartner, setIsActivePartner] = useState(active);
   const [emailEdited, setEmailEdited] = useState([]);
   const [newEmail, setNewEmail] = useState([]);
@@ -36,14 +36,13 @@ export const useForm = () => {
   const [reportTypes, setReportTypes] = useState([...mergeReportObjects]);
   const [errorForm, setErrorForm] = useState(errorFormInitialState);
   const [formData, setFormData] = useState({
-    id: id || Math.floor(Math.random() * 1000000),
-    clientId: clientId || Math.floor(Math.random() * 1000000),
+    clientId: clientId || '',
     partnerId: partnerId || Math.floor(Math.random() * 1000000),
     partnerName: partnerName || '',
     email: !email?.length ? [{ partner_id: partnerId, partner_email: '' }] : [...email],
   });
 
-  const isValidConditions = formData?.partnerName?.match(regexName) && formData?.partnerName?.length !== 0;
+  const isValidConditions = formData?.partnerName?.length !== 0;
   const [isValidData, setIsValidData] = useState(isValidConditions);
 
   const handleTypeReport = (value, typeName) => {
@@ -79,19 +78,19 @@ export const useForm = () => {
   }
 
   const handleFormChange = (e) => {
-    const { name, value } = e.target;
-    if (name === 'partnerName' && !value.match(regexName)) {
+    const { companyName, clientID } = e;
+    if (!companyName.length) {
       setErrorForm({
         ...errorForm,
         partnerName: {
           error: true,
-          errorMessage: 'Name must contain only letters'
+          errorMessage: 'Company name is required'
         }
       });
       return;
     }
 
-    const isValidConditions = formData?.partnerName?.match(regexName) && formData?.partnerName?.length > 2;
+    const isValidConditions = companyName.length > 2;
 
     if (isValidConditions) {
       setIsValidData(true);
@@ -99,13 +98,13 @@ export const useForm = () => {
       setIsValidData(false);
     }
 
-    setErrorForm({ ...errorForm, [name]: { error: false, errorMessage: '' } });
-    setFormData({ ...formData, [name]: value });
+    setErrorForm({ ...errorForm, partnerName: { error: false, errorMessage: '' } });
+    setFormData({ ...formData, partnerName: companyName, clientId: clientID });
 
   }
 
   const handleSubmitForm = async () => {
-    const { partnerId, partnerName, email } = formData;
+    const { partnerId, partnerName, email, clientId } = formData;
     if ((!partnerName.length || partnerName.length < 3)) {
       setErrorForm({
         ...errorForm,
@@ -122,6 +121,7 @@ export const useForm = () => {
     setErrorForm(errorFormInitialState);
     const emailsNoEmpty = email.filter(item => item.partner_email.length > 0);
     let partner = {
+      client_id: clientId,
       partner_id: partnerId,
       partner_emails: emailsNoEmpty,
       partner_name: partnerName,

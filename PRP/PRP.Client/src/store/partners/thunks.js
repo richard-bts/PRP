@@ -7,8 +7,8 @@ import { addPartner } from './partnersSlice';
 export const getPartnerEmail = async(partnerId) => {
   const response = await fetchPartnerQuery(`getpartneremails?partnerID=${partnerId}`);
   const body = await response.json();
-  const { result } = body;
-  return result;
+  const { data } = body;
+  return data;
 }
 
 /* ADD PARTNER EMAIL */
@@ -39,8 +39,8 @@ export const getEmails = async() => {
 
 export const getPartners = createAsyncThunk("partners/getPartners", async() => {
   const response = await fetchPartnerQuery('partners');
-  const { result } = await response.json();
-  return result;
+  const { data } = await response.json();
+  return data;
 });
 
 /* GET A SPECIFIC PARTNER */
@@ -91,12 +91,12 @@ export const addNewPartner = createAsyncThunk("partners/addNewPartner", async(pa
   const response = await fetchPartner('create-partner', undefined, { ...data, partner_emails: partner_emails[0].partner_email }, 'POST');
   const body = await response.json();
   
-  if(body.isSuccess) {
+  if(body.success) {
     await partner_emails.forEach((email, index) => (!!email && index > 0) && addPartnerEmail({
-      partner_id: body.result[0].partner_id, 
+      partner_id: body.data[0].partner_id, 
       partner_email: email.partner_email
     }));
-    dispatch(addPartner({ ...partnerToAdd, partner_id: body.result.partner_id, client_id: body.result.client_id, id: body.result.id }));
+    dispatch(addPartner({ ...partnerToAdd, partner_id: body.data.partner_id, client_id: body.data.client_id, id: body.data.id }));
     return true;
   } else {
     console.log(body)
@@ -111,7 +111,7 @@ export const editCurrentPartner = createAsyncThunk("partners/editCurrentPartner"
   const finalReports = partner_report_types.filter(report => report.active !== 'undefined');
   const response = await fetchPartner('update-partner', undefined, data, 'PUT');
   const body = await response.json();
-  if(body.isSuccess) {
+  if(body.success) {
     await partner_emails.forEach(email => !!email.partner_email_id ? 
       editPartnerEmail({
         partner_id: email.partner_id,
@@ -121,7 +121,7 @@ export const editCurrentPartner = createAsyncThunk("partners/editCurrentPartner"
       })
     : 
       addPartnerEmail({
-        partner_id: body.result[0].partner_id, 
+        partner_id: body.data[0].partner_id, 
         partner_email: email.partner_email
       })
     )
