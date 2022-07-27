@@ -2,10 +2,9 @@
 {
     public class PartnerResponseDto<T>
     {
-        public int Count { get; set; }
-        public bool IsSuccess { get; set; } = true;
-        public IEnumerable<T>? Result { get; set; }
-        public string DisplayMessage { get; set; } = "";
-        public List<string>? ErrorMessages { get; set; }
+        public IEnumerable<T>? data { get; set; }
+        public string msg { get; set; } = "";
+        public int count { get; set; }
+        public bool success { get; set; } = true;
     }
 }

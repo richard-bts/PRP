@@ -231,16 +231,18 @@ try
 
         try
         {
-            response.Result = await PartnerRepository.GetPartner(partner_id);
-            response.Count = response.Result.Count();
-            Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"GetPartner api called successfully...");
+            response.data = await PartnerRepository.GetPartner(partner_id);
+            response.count = response.data.Count();
+            response.msg = "success";
+            Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"parnter api called successfully...");
         }
         catch (Exception ex)
         {
-            response.IsSuccess = false;
-            response.ErrorMessages = new List<string>() { ex.ToString() };
-            Log.Logger.ForContext("Component", "PRP.Service.Api").Error("{Message}", $"GetPartner api call failed. " +
-                                    $"Error Message: {response.ErrorMessages}");
+            response.count = 0;
+            response.success = false;
+            response.msg = ex.ToString();
+            Log.Logger.ForContext("Component", "PRP.Service.Api").Error("{Message}", $"partner api call failed. " +
+                                    $"Error Message: {response.msg}");
         }
 
         return response;
@@ -253,16 +255,18 @@ try
 
         try
         {
-            response.Result = await PartnerRepository.GetPartners(-1);
-            response.Count = response.Result.Count();
-            Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"GetPartners api called successfully...");
+            response.data = await PartnerRepository.GetPartners(-1);
+            response.count = response.data.Count();
+            response.msg = "success";
+            Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"partners api called successfully...");
         }
         catch (Exception ex)
         {
-            response.IsSuccess = false;
-            response.ErrorMessages = new List<string>() { ex.ToString() };
-            Log.Logger.ForContext("Component", "PRP.Service.Api").Error("{Message}", $"GetPartners api call failed. " +
-                                    $"Error Message: {response.ErrorMessages}");
+            response.count = 0;
+            response.success = false;
+            response.msg = ex.ToString();
+            Log.Logger.ForContext("Component", "PRP.Service.Api").Error("{Message}", $"partners api call failed. " +
+                                    $"Error Message: {response.msg}");
         }
 
         return response;
@@ -275,16 +279,18 @@ try
 
         try
         {
-            response.Result = await PartnerRepository.GetPartners(1);
-            response.Count = response.Result.Count();
-            Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"GetPartners api called successfully...");
+            response.data = await PartnerRepository.GetPartners(1);
+            response.count = response.data.Count();
+            response.msg = "success";
+            Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"active-partners api called successfully...");
         }
         catch (Exception ex)
         {
-            response.IsSuccess = false;
-            response.ErrorMessages = new List<string>() { ex.ToString() };
-            Log.Logger.ForContext("Component", "PRP.Service.Api").Error("{Message}", $"GetPartners api call failed. " +
-                                    $"Error Message: {response.ErrorMessages}");
+            response.count = 0;
+            response.success = false;
+            response.msg = ex.ToString();
+            Log.Logger.ForContext("Component", "PRP.Service.Api").Error("{Message}", $"active-partners api call failed. " +
+                                    $"Error Message: {response.msg}");
         }
 
         return response;
@@ -297,16 +303,18 @@ try
 
         try
         {
-            response.Result = await PartnerRepository.GetPartners(0);
-            response.Count = response.Result.Count();
-            Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"GetPartners api called successfully...");
+            response.data = await PartnerRepository.GetPartners(0);
+            response.count = response.data.Count();
+            response.msg = "success";
+            Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"inactive-partners api called successfully...");
         }
         catch (Exception ex)
         {
-            response.IsSuccess = false;
-            response.ErrorMessages = new List<string>() { ex.ToString() };
-            Log.Logger.ForContext("Component", "PRP.Service.Api").Error("{Message}", $"GetPartners api call failed. " +
-                                    $"Error Message: {response.ErrorMessages}");
+            response.count = 0;
+            response.success = false;
+            response.msg = ex.ToString();
+            Log.Logger.ForContext("Component", "PRP.Service.Api").Error("{Message}", $"inactive-partners api call failed. " +
+                                    $"Error Message: {response.msg}");
         }
 
         return response;
@@ -319,16 +327,18 @@ try
 
         try
         {
-            response.Result = await PartnerRepository.AddPartner(partner);
-            response.Count = response.Result.Count();
-            Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"AddPartner api called successfully...");
+            response.data = await PartnerRepository.AddPartner(partner);
+            response.count = response.data.Count();
+            response.msg = "success";
+            Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"create-partner api called successfully...");
         }
         catch (Exception ex)
         {
-            response.IsSuccess = false;
-            response.ErrorMessages = new List<string>() { ex.ToString() };
-            Log.Logger.ForContext("Component", "PRP.Service.Api").Error("{Message}", $"AddPartner api call failed. " +
-                                    $"Error Message: {response.ErrorMessages}");
+            response.count = 0;
+            response.success = false;
+            response.msg = ex.ToString();
+            Log.Logger.ForContext("Component", "PRP.Service.Api").Error("{Message}", $"create-partner api call failed. " +
+                                    $"Error Message: {response.msg}");
         }
 
         return response;
@@ -340,16 +350,18 @@ try
 
         try
         {
-            response.Result = await PartnerRepository.EditPartner(partner);
-            response.Count = response.Result.Count();
-            Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"EditPartner api called successfully...");
+            response.data = await PartnerRepository.EditPartner(partner);
+            response.count = response.data.Count();
+            response.msg = "success";
+            Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"update-partner api called successfully...");
         }
         catch (Exception ex)
         {
-            response.IsSuccess = false;
-            response.ErrorMessages = new List<string>() { ex.ToString() };
-            Log.Logger.ForContext("Component", "PRP.Service.Api").Error("{Message}", $"EditPartner api call failed. " +
-                                    $"Error Message: {response.ErrorMessages}");
+            response.count = 0;
+            response.success = false;
+            response.msg = ex.ToString();
+            Log.Logger.ForContext("Component", "PRP.Service.Api").Error("{Message}", $"update-partner api call failed. " +
+                                    $"Error Message: {response.msg}");
         }
 
         return response;
@@ -361,16 +373,18 @@ try
 
         try
         {
-            response.Result = await PartnerRepository.GetPartnerEmails(partnerID);
-            response.Count = response.Result.Count();
-            Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"GetPartnerEmails api called successfully...");
+            response.data = await PartnerRepository.GetPartnerEmails(partnerID);
+            response.count = response.data.Count();
+            response.msg = "success";
+            Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"partner-emails api called successfully...");
         }
         catch (Exception ex)
         {
-            response.IsSuccess = false;
-            response.ErrorMessages = new List<string>() { ex.ToString() };
-            Log.Logger.ForContext("Component", "PRP.Service.Api").Error("{Message}", $"GetPartnerEmails api call failed. " +
-                                    $"Error Message: {response.ErrorMessages}");
+            response.count = 0;
+            response.success = false;
+            response.msg = ex.ToString();
+            Log.Logger.ForContext("Component", "PRP.Service.Api").Error("{Message}", $"partner-emails api call failed. " +
+                                    $"Error Message: {response.msg}");
         }
 
         return response;
@@ -382,16 +396,18 @@ try
 
         try
         {
-            response.Result = await PartnerRepository.AddPartnerEmail(partner);
-            response.Count = response.Result.Count();
-            Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"AddPartnerEmail api called successfully...");
+            response.data = await PartnerRepository.AddPartnerEmail(partner);
+            response.count = response.data.Count();
+            response.msg = "success";
+            Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"add-partner-email api called successfully...");
         }
         catch (Exception ex)
         {
-            response.IsSuccess = false;
-            response.ErrorMessages = new List<string>() { ex.ToString() };
-            Log.Logger.ForContext("Component", "PRP.Service.Api").Error("{Message}", $"AddPartnerEmail api call failed. " +
-                                    $"Error Message: {response.ErrorMessages}");
+            response.count = 0;
+            response.success = false;
+            response.msg = ex.ToString();
+            Log.Logger.ForContext("Component", "PRP.Service.Api").Error("{Message}", $"add-partner-email api call failed. " +
+                                    $"Error Message: {response.msg}");
         }
 
         return response;
@@ -403,16 +419,18 @@ try
 
         try
         {
-            response.Result = await PartnerRepository.EditPartnerEmail(partner);
-            response.Count = response.Result.Count();
-            Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"EditPartnerEmail api called successfully...");
+            response.data = await PartnerRepository.EditPartnerEmail(partner);
+            response.count = response.data.Count();
+            response.msg = "success";
+            Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"update-partner-email api called successfully...");
         }
         catch (Exception ex)
         {
-            response.IsSuccess = false;
-            response.ErrorMessages = new List<string>() { ex.ToString() };
+            response.count = 0;
+            response.success = false;
+            response.msg = ex.ToString();
             Log.Logger.ForContext("Component", "PRP.Service.Api").Error("{Message}", $"EditPartnerEmail api call failed. " +
-                                    $"Error Message: {response.ErrorMessages}");
+                                    $"Error Message: {response.msg}");
         }
 
         return response;
@@ -420,19 +438,22 @@ try
 
     app.MapPut("remove-partner-email", async ([FromServices] IPartnerRepository PartnerRepository, int emailId) =>
     {
-        ResponseDto response = new();
+        PartnerResponseDto<bool> response = new();
 
         try
         {
-            response.Result = await PartnerRepository.RemovePartnerEmail(emailId);
-            Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"EditPartnerEmail api called successfully...");
+            response.data = new List<bool>() { await PartnerRepository.RemovePartnerEmail(emailId) };
+            response.count = response.data.Count();
+            response.msg = "success";
+            Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"remove-partner-email api called successfully...");
         }
         catch (Exception ex)
         {
-            response.IsSuccess = false;
-            response.ErrorMessages = new List<string>() { ex.ToString() };
-            Log.Logger.ForContext("Component", "PRP.Service.Api").Error("{Message}", $"EditPartnerReportType api call failed. " +
-                                    $"Error Message: {response.ErrorMessages}");
+            response.count = 1;
+            response.success = false;
+            response.msg = ex.ToString();
+            Log.Logger.ForContext("Component", "PRP.Service.Api").Error("{Message}", $"remove-partner-email api call failed. " +
+                                    $"Error Message: {response.msg}");
         }
 
         return response;
@@ -444,16 +465,18 @@ try
 
         try
         {
-            response.Result = await PartnerRepository.EditPartnerReportType(partner);
-            response.Count = response.Result.Count();
-            Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"EditPartnerEmail api called successfully...");
+            response.data = await PartnerRepository.EditPartnerReportType(partner);
+            response.count = response.data.Count();
+            response.msg = "success";
+            Log.Logger.ForContext("Component", "PRP.Service.Api").Information("{Message}", $"update-partner-report-type api called successfully...");
         }
         catch (Exception ex)
         {
-            response.IsSuccess = false;
-            response.ErrorMessages = new List<string>() { ex.ToString() };
-            Log.Logger.ForContext("Component", "PRP.Service.Api").Error("{Message}", $"EditPartnerReportType api call failed. " +
-                                    $"Error Message: {response.ErrorMessages}");
+            response.count = 0;
+            response.success = false;
+            response.msg = ex.ToString();
+            Log.Logger.ForContext("Component", "PRP.Service.Api").Error("{Message}", $"update-partner-report-type api call failed. " +
+                                    $"Error Message: {response.msg}");
         }
 
         return response;
