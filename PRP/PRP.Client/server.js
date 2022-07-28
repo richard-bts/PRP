@@ -8,6 +8,18 @@ const port = 3000;
 const app = next({ dev, hostname, port });
 const handle = app.getRequestHandler();
 
+// function redirectTrailingSlash(req, res, next) {
+//   let paths = req.url.split("?")
+//   let path = paths[0], query = null;
+//   if (paths.length > 1)
+//     query = paths.slice(1, paths.length).join("?")
+
+//   if (path.substr(-1) === '/' && path.length > 1)
+//     res.redirect(301, path.slice(0, -1) + ((query) ? ('?' + query) : ''));
+//   else
+//     next();
+// }
+
 app.prepare().then(() => {
   createServer(async (req, res) => {
     try {
@@ -30,4 +42,6 @@ app.prepare().then(() => {
     if (err) throw err
     console.log(`> Ready on http://${hostname}:${port}`);
   });
+  // express()
+  //   .use(redirectTrailingSlash);
 });

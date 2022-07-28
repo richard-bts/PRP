@@ -6,13 +6,21 @@ export const navLinks = [
   {
     to: '/partners',
     label: 'Partners'
-  }
+  },
   // {
-  //   to: '/reports',
-  //   label: 'Reports'
+  //   to: '/Xcelerator/CDLPRPClient/',
+  //   label: 'Home'
   // },
   // {
-  //   to: '/partners/add-partner',
-  //   label: 'Add Partner'
+  //   to: '/Xcelerator/CDLPRPClient/partners',
+  //   label: 'Partners'
+  // }
+  // {
+  //   to: process.env.NODE_ENV === 'production' ? '/Xcelerator/CDLPRPClient/' : '/',
+  //   label: 'Home'
+  // },
+  // {
+  //   to: process.env.NODE_ENV === 'production' ? '/Xcelerator/CDLPRPClient/partners' : '/partners',
+  //   label: 'Partners'
   // }
 ];

@@ -1,58 +1,32 @@
 import PropTypes from 'prop-types';
-import { useEffect, useRef, useState, Fragment } from 'react';
+import { useEffect, useState, Fragment, memo } from 'react';
 import { Combobox, Transition } from '@headlessui/react';
 import { CheckIcon, SelectorIcon } from '@heroicons/react/solid';
 import { FormInputError } from './FormInputError';
+import { getCompanysName } from '../../store/partners/thunks';
+import { useAppDispatch, useAppSelector } from '../../store';
 
-export const FormInput = ({ placeholder, errorMessage, error, handleFormChange }) => {
-  const [companyList, setCompanyList] = useState([]);
+export const FormInput = ({ value, placeholder, errorMessage, error, handleFormChange }) => {
+  const dispatch = useAppDispatch();
+  const { isLoading, companyNamesOptions } = useAppSelector( state => state.partners );
+  const [selected, setSelected] = useState({ companyName: value });
   const [query, setQuery] = useState('');
-  const [selected, setSelected] = useState('');
-  const [loading, setLoading] = useState(false);
-  const isListEmpty = useRef(true);
-  const [filteredCompanies, setFilteredCompanies] = useState([]);
 
-  const handleFilterCompanies = () => {
-    setLoading(true);
-    setFilteredCompanies(() =>
-      query === ''
-        ? companyList
-        : companyList.filter((company) =>
-          company.companyName
-            .toLowerCase()
-            .replace(/\s+/g, '')
-            .includes(query.toLowerCase().replace(/\s+/g, ''))
-        ))
-    setLoading(false);
-  }
-
-  const getCompanyName = async () => {
-    setLoading(true);
-    const url = `http://172.24.32.132/Xcelerator/CDLPRP/api/report/GetCompanyName?Name=${query}`
-    const response = await fetch(url);
-    const { result } = await response.json();
-    setCompanyList(result);
-    setLoading(false);
-    isListEmpty.current = false;
-  }
+  const fetchCompanies = async () => {
+    await dispatch(getCompanysName(query));
+  };
 
   useEffect(() => {
-    if (isListEmpty.current === false) return;
-    getCompanyName();
-  }, [query]);
-
-  useEffect(() => {
-    handleFilterCompanies();
+    if(query < 2) return;
+    fetchCompanies();
   }, [query]);
 
   const handleInputChange = (e) => {
     setSelected(e);
     handleFormChange(e);
-  }
-
+  };
 
   return (
-
     <div className="w-full top-16">
       <label className="pb-2 font-semibold text-gray-700 first-letter:uppercase">Partner name</label>
       <Combobox value={selected} onChange={ e => handleInputChange(e) }>
@@ -63,6 +37,7 @@ export const FormInput = ({ placeholder, errorMessage, error, handleFormChange }
               displayValue={(company) => company.companyName}
               onChange={(event) => setQuery(event.target.value)}
               placeholder={placeholder}
+              autoComplete="off"
             />
             <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
               <SelectorIcon
@@ -79,13 +54,13 @@ export const FormInput = ({ placeholder, errorMessage, error, handleFormChange }
             afterLeave={() => setQuery('')}
           >
             <Combobox.Options className="absolute w-full py-1 mt-1 overflow-auto text-base bg-gray-200 rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-              { loading && <div className="text-center">Loading...</div> }
-
-              { !loading && filteredCompanies.length === 0 && query !== '' ? (
+              { isLoading && <div className="w-10 h-10 mx-auto my-3 border-2 border-indigo-500 border-dashed rounded-full animate-spin border-t-transparent"></div> }
+              
+              { !isLoading && (!companyNamesOptions.length || query.length < 2) ? (
                 <div className="relative px-4 py-2 text-gray-700 cursor-default select-none">
-                  Nothing found.
+                  Nothing found
                 </div>
-              ) : ( !loading && filteredCompanies.map((company) => (
+              ) : ( !isLoading && companyNamesOptions.map((company) => (
                   <Combobox.Option
                     key={company.clientID}
                     className={({ active }) =>
@@ -128,6 +103,7 @@ export const FormInput = ({ placeholder, errorMessage, error, handleFormChange }
 };
 
 FormInput.propTypes = {
+  value: PropTypes.string,
   handleFormChange: PropTypes.func.isRequired,
   errorMessage: PropTypes.string.isRequired,
   error: PropTypes.bool.isRequired,

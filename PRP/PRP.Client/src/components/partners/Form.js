@@ -31,6 +31,7 @@ export const Form = ({ handleCloseForm }) => {
           <h2 className="mb-6 text-2xl font-semibold text-center uppercase">Partner data</h2>
 
           <FormInput
+            value={name}
             placeholder="Partner name"
             handleFormChange={handleFormChange}
             errorMessage={errorForm.partnerName.errorMessage}

@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { fetchPartner, fetchPartnerQuery } from '../../shared/helpers/fetch';
-import { addPartner } from './partnersSlice';
+import { addPartner, setCompanyNamesOptions, setLoading } from './partnersSlice';
 
 /* GET PARTNER EMAIL */
 
@@ -16,6 +16,7 @@ export const getPartnerEmail = async(partnerId) => {
 export const addPartnerEmail = async(data) => {
   const response = await fetchPartner('add-partner-email', undefined, data, 'POST');
   const body = await response.json();
+  console.log(body);
   return body;
 }
 
@@ -24,6 +25,7 @@ export const addPartnerEmail = async(data) => {
 export const editPartnerEmail = async(data) => {
   const response = await fetchPartner('update-partner-email', undefined, data, 'PUT');
   const body = await response.json();
+  console.log(body);
   return body;
 }
 
@@ -75,6 +77,17 @@ export const getReportTypes = async() => {
   return body;
 }
 
+/* GET COMPANY NAME LIST */
+
+export const getCompanysName = createAsyncThunk("partners/getCompanysName", async(name, { dispatch }) => {
+  dispatch(setLoading(true));
+  const url = `https://testx.cdldelivers.com/Xcelerator/CDLPRP/api/report/GetCompanyName?Name=${name}`
+  const response = await fetch(url);
+  const { result } = await response.json();
+  dispatch(setLoading(false));
+  dispatch(setCompanyNamesOptions(result));
+});
+
 /* EDIT REPORT TYPES */
 
 export const editReportTypes = async(data) => {
@@ -99,7 +112,6 @@ export const addNewPartner = createAsyncThunk("partners/addNewPartner", async(pa
     dispatch(addPartner({ ...partnerToAdd, partner_id: body.data.partner_id, client_id: body.data.client_id, id: body.data.id }));
     return true;
   } else {
-    console.log(body)
     return false;
   }
 });
@@ -111,6 +123,7 @@ export const editCurrentPartner = createAsyncThunk("partners/editCurrentPartner"
   const finalReports = partner_report_types.filter(report => report.active !== 'undefined');
   const response = await fetchPartner('update-partner', undefined, data, 'PUT');
   const body = await response.json();
+  console.log(body);
   if(body.success) {
     await partner_emails.forEach(email => !!email.partner_email_id ? 
       editPartnerEmail({

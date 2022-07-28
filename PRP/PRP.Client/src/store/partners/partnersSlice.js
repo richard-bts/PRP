@@ -4,13 +4,14 @@ import { getPartners } from './thunks';
 const initialState = {
   activePartner: {},
   activedSort: false,
+  companyNamesOptions: [],
+  currentPage: 1,
   error: false,
-  isLoading: false,
+  isLoading: true,
   namedSort: false,
   openForm: false,
-  currentPage: 1,
-  partnersPerPage: 15,
-  partners: [] 
+  partners: [],
+  partnersPerPage: 15
 };
 
 export const partnersSlice = createSlice({
@@ -99,6 +100,9 @@ export const partnersSlice = createSlice({
         }
         return 0;
       });
+    },
+    setCompanyNamesOptions: (state, action) => {
+      state.companyNamesOptions = action.payload;
     }
   },
   extraReducers: (builder) => {
@@ -127,6 +131,6 @@ export const partnersSlice = createSlice({
   },
 });
 
-export const { setLoading, addPartner, setPartnersPerPage, setCurrentPage, setActivePartner, filterPartners, setOpenForm, sortByName, sortByActive } = partnersSlice.actions;
+export const { setLoading, addPartner, setPartnersPerPage, setCurrentPage, setActivePartner, filterPartners, setOpenForm, sortByName, sortByActive, setCompanyNamesOptions } = partnersSlice.actions;
 
 export default partnersSlice.reducer;

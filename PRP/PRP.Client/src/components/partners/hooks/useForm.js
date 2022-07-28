@@ -143,7 +143,11 @@ export const useForm = () => {
         alertPopup('Error saving partner data', 'error');
       }
     } else {
-      const { partner_id, ...rest } = partner;
+      const { 
+        partner_id, 
+        active: partner_active,
+        ...rest
+      } = partner;
       const { payload } = await dispatch(addNewPartner(rest));
       if (payload) {
         alertPopup('Partner data successfully saved');
