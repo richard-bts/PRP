@@ -65,7 +65,7 @@ load_dotenv()
 app = Flask(__name__)
 
 # Database 
-driver = 'SQL Server'
+driver = 'ODBC Driver 17 for SQL Server'
 user_name = os.getenv("USER_NAME")
 server = os.getenv("SERVER_NAME")
 db_name = os.getenv("DB_NAME")
@@ -720,4 +720,4 @@ def internal_error(exception):
     return render_template('500.html'), 500
 
 if __name__ == "__main__":
-    app.run()
+    app.run(port=6001)
