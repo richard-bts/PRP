@@ -71,7 +71,8 @@ server = os.getenv("SERVER_NAME")
 db_name = os.getenv("DB_NAME")
 password = os.getenv("DB_PASS")
 
-app.config["SQLALCHEMY_DATABASE_URI"] = f"mssql+pymssql://{user_name}:{password}@{server}/{db_name}"
+# app.config["SQLALCHEMY_DATABASE_URI"] = f"mssql+pymssql://{user_name}:{password}@{server}/{db_name}"
+app.config["SQLALCHEMY_DATABASE_URI"] = f"mssql+pymssql://{user_name}:{password}@{server}:1433/{db_name}"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # configuration of mail
 app.config['MAIL_SERVER']='smtp.gmail.com'
@@ -187,7 +188,7 @@ def get_partner(partner_id):
         success = False 
         msg = err.args[0]
     return (partner, success, msg)
-
+print('*** TEST')
 def get_all_partners(): 
     partners = []
     success = False,
@@ -721,4 +722,4 @@ def internal_error(exception):
     return render_template('500.html'), 500
 
 if __name__ == "__main__":
-    app.run()
+    app.run(port=1433)
