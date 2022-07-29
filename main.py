@@ -71,7 +71,7 @@ server = os.getenv("SERVER_NAME")
 db_name = os.getenv("DB_NAME")
 password = os.getenv("DB_PASS")
 
-app.config["SQLALCHEMY_DATABASE_URI"] = f"mssql+pyodbc://{user_name}:{password}@{server}/{db_name}?driver={driver}"
+app.config["SQLALCHEMY_DATABASE_URI"] = f"mssql+pymssql://{user_name}:{password}@{server}/{db_name}"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # configuration of mail
 app.config['MAIL_SERVER']='smtp.gmail.com'
