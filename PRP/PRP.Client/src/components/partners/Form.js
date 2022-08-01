@@ -9,10 +9,11 @@ import { FormInputEmail } from './FormInputEmail';
 import { ButtonIcon } from '../../shared/components/ButtonIcon';
 import { FormInputError } from './FormInputError';
 import { ButtonComponent } from './ButtonComponent';
+import { ReportTime } from './ReportTime';
 
 export const Form = ({ handleCloseForm }) => {
 
-  const { name, email, handleTypeReport, handleFormChange, handleSubmitForm, handleAddEmail, handleSaveEmail, isActivePartner, setIsActivePartner, errorForm, isValidData, reportName, setErrorForm, handleRemoveEmail } = useForm(handleCloseForm);
+  const { name, email, handleTypeReport, handleFormChange, handleSubmitForm, handleAddEmail, handleSaveEmail, isActivePartner, setIsActivePartner, errorForm, isValidData, reportName, setErrorForm, handleRemoveEmail, handleChangeDateTime, reportDate } = useForm(handleCloseForm);
   let [isOpen, setIsOpen] = useState(false);
 
   const submitForm = (e) => {
@@ -98,15 +99,23 @@ export const Form = ({ handleCloseForm }) => {
             }
           </div>
 
+          <div className="flex flex-col py-3">
+            <label className="pb-2 font-semibold text-gray-700">Report time</label>
+            <ReportTime
+              handleChangeDateTime={ handleChangeDateTime }
+              reportDate={ reportDate }
+            />
+          </div>
+
           <div className="grid grid-cols-2 gap-3 mt-2">
             <button
               className={`${isValidData ? 'bg-indigo-500 hover:bg-indigo-600' : 'bg-indigo-500 opacity-50 cursor-default'} rounded p-3 font-medium text-white transition-colors duration-300`}
               type="submit"
             >Save</button>
-            
+
             <ButtonComponent
               buttonText="Cancel"
-              handleClick={ handleCloseForm }
+              handleClick={handleCloseForm}
             />
           </div>
         </form>

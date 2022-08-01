@@ -1,9 +1,9 @@
-import dayjs from "dayjs";
-import { useState } from "react";
-import { initialPartnerState, reportTypesTest } from "../../../shared/data";
-import { alertPopup } from "../../../shared/helpers/alertPopup";
-import { setActivePartner, useAppDispatch, useAppSelector } from "../../../store";
-import { addNewPartner, editCurrentPartner } from "../../../store/partners/thunks";
+import { useState } from 'react';
+import moment from 'moment';
+import { initialPartnerState, reportTypesTest } from '../../../shared/data';
+import { alertPopup } from '../../../shared/helpers/alertPopup';
+import { setActivePartner, useAppDispatch, useAppSelector } from '../../../store';
+import { addNewPartner, editCurrentPartner } from '../../../store/partners/thunks';
 
 const errorFormInitialState = {
   partnerName: {
@@ -16,16 +16,18 @@ const errorFormInitialState = {
   }
 }
 
-const regexName = /^[A-zÀ-ÿ ]*$/;
+const initialTime = moment().minutes(0).seconds(0).add(1, 'hours');
 
 export const useForm = () => {
 
   const dispatch = useAppDispatch();
   const { activePartner } = useAppSelector(state => state.partners);
-  const { clientId, partnerId, partnerName, email, active, reportName } = activePartner || initialPartnerState;
+  const { clientId, partnerId, partnerName, email, active, reportName, reportTime } = activePartner || initialPartnerState;
   const [isActivePartner, setIsActivePartner] = useState(active);
   const [emailEdited, setEmailEdited] = useState([]);
   const [newEmail, setNewEmail] = useState([]);
+  const [deletedEmails, setDeletedEmails] = useState([]);
+  const [ reportDate, setReportDate ] = useState( reportTime ? new Date(reportTime) : initialTime.toDate() );
   const mergeReportObjects = reportTypesTest.map(report => {
     const reportObject = reportName?.find(item => item?.report_name === report?.report_name);
     return {
@@ -56,12 +58,26 @@ export const useForm = () => {
     ));
   };
 
+  const handleChangeDateTime = (date) => {
+    if (date <= initialTime) return;
+    setReportDate(date);
+  }
+
   const handleAddEmail = () => {
     setFormData({ ...formData, email: [...formData.email, { partner_id: partnerId, partner_email: '' }] });
   }
 
   const handleRemoveEmail = (index) => {
     setFormData({ ...formData, email: formData.email.filter((_, i) => i !== index) });
+    setDeletedEmails( prev => {
+      const emailId = formData.email[index].partner_email_id;
+      if(emailId) {
+        const findEmail = formData.email.find(email => email.partner_email_id === emailId);
+        return [...prev, findEmail];
+      } else {
+        return prev;
+      }
+    })
   }
 
   const handleSaveEmail = (e, index, emailId) => {
@@ -126,7 +142,7 @@ export const useForm = () => {
       partner_emails: emailsNoEmpty,
       partner_name: partnerName,
       partner_report_types: [...reportTypes],
-      partner_report_time: dayjs().format(),
+      partner_report_time: moment(reportDate).format(),
       partner_active: isActivePartner
     };
     setFormData(initialPartnerState);
@@ -136,7 +152,7 @@ export const useForm = () => {
         ...rest,
         active: partner_active
       };
-      const { payload } = await dispatch(editCurrentPartner({ partnerToEdit, emailEdited }));
+      const { payload } = await dispatch(editCurrentPartner({ partnerToEdit, deletedEmails }));
       if(payload) {
         alertPopup('Partner data successfully saved');
       } else {
@@ -173,6 +189,8 @@ export const useForm = () => {
     setErrorForm,
     handleRemoveEmail,
     errorForm,
-    isValidData
+    isValidData,
+    handleChangeDateTime,
+    reportDate
   };
 };

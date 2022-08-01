@@ -22,7 +22,7 @@ export const partnersSlice = createSlice({
       state.isLoading = action.payload;
     },
     addPartner: (state, action) => {
-      const { client_id, partner_id, partner_name, partner_emails, active, partner_report_types } = action.payload;
+      const { client_id, partner_id, partner_name, partner_emails, active, partner_report_types, partner_report_time } = action.payload;
       const partner = state.partners.find(item => item.partnerId === partner_id);
       if (partner) {
         partner.active = active;
@@ -30,16 +30,17 @@ export const partnersSlice = createSlice({
         partner.email = partner_emails;
         partner.partnerId = partner_id;
         partner.partnerName = partner_name;
-        partner.reportName = partner_report_types;
+        partner.reportName = partner_report_types,
+        partner.reportTime = partner_report_time
       } else {
-        const { partner_emails, partner_name, partner_report_types, partner_active, partner_id, client_id, id } = action.payload;
+        const { partner_emails, partner_name, partner_report_time, partner_report_types, partner_active, partner_id, client_id } = action.payload;
         state.partners.push({
           clientId: client_id,
-          id,
           active: partner_active,
           email: partner_emails,
           partnerId: partner_id,
           partnerName: partner_name,
+          reportTime: partner_report_time,
           reportName: partner_report_types
         });
       }
@@ -120,6 +121,7 @@ export const partnersSlice = createSlice({
             partnerName: partner.partner_name,
             email: partner.partner_emails,
             active: partner.partner_active,
+            reportTime: partner.partner_report_time,
             reportName: partner.partner_report_types
           };
         });

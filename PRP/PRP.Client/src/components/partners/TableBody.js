@@ -8,7 +8,7 @@ export const TableBody = ({ tbodyItems, tbodyTrStyles, tbodyTrColors, tbodyTrGri
   return (
     <tbody>
       {
-        tbodyItems.map(({ id, clientId, partnerId, partnerName, email = [{ partner_email: "" }], active, reportName = [] }) => (
+        tbodyItems.map(({ id, clientId, partnerId, partnerName, email = [{ partner_email: "" }], active, reportName = [], reportTime }) => (
           <tr
             key={`${partnerName}-${partnerId}`}
             className={`border-b border-gray-200 h-14 md:h-16 table-partner-item select-none ${tbodyTrStyles || trStylesDefault} ${tbodyTrColors || trColorsDefault} ${tbodyTrGridStyles || ''}`}
@@ -62,7 +62,7 @@ export const TableBody = ({ tbodyItems, tbodyTrStyles, tbodyTrColors, tbodyTrGri
               <PencilAltIcon
                 className="w-6 h-6 text-gray-700 transition-colors duration-300 cursor-pointer hover:text-cyan-600"
                 title="Edit"
-                onClick={() => handleEditPartner({ id, clientId, partnerId, partnerName, email, active, reportName })}
+                onClick={() => handleEditPartner({ id, clientId, partnerId, partnerName, email, active, reportName, reportTime })}
               />
             </td>
           </tr>

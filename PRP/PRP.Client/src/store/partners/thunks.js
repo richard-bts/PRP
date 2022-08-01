@@ -16,7 +16,6 @@ export const getPartnerEmail = async(partnerId) => {
 export const addPartnerEmail = async(data) => {
   const response = await fetchPartner('add-partner-email', undefined, data, 'POST');
   const body = await response.json();
-  console.log(body);
   return body;
 }
 
@@ -25,7 +24,14 @@ export const addPartnerEmail = async(data) => {
 export const editPartnerEmail = async(data) => {
   const response = await fetchPartner('update-partner-email', undefined, data, 'PUT');
   const body = await response.json();
-  console.log(body);
+  return body;
+}
+
+/* REMOVE PARTNER EMAIL */
+
+export const deletePartnerEmail = async(emailId) => {
+  const response = await fetchPartnerQuery(`remove-partner-email?emailId=${emailId}`, 'PUT');
+  const body = await response.json();
   return body;
 }
 
@@ -118,12 +124,11 @@ export const addNewPartner = createAsyncThunk("partners/addNewPartner", async(pa
 
 /* EDIT A PARTNER */
 
-export const editCurrentPartner = createAsyncThunk("partners/editCurrentPartner", async({ partnerToEdit, emailEdited }, { dispatch }) => {
+export const editCurrentPartner = createAsyncThunk("partners/editCurrentPartner", async({ partnerToEdit, deletedEmails }, { dispatch }) => {
   const { partner_report_types, partner_emails, ...data } = partnerToEdit;
   const finalReports = partner_report_types.filter(report => report.active !== 'undefined');
   const response = await fetchPartner('update-partner', undefined, data, 'PUT');
   const body = await response.json();
-  console.log(body);
   if(body.success) {
     await partner_emails.forEach(email => !!email.partner_email_id ? 
       editPartnerEmail({
@@ -143,6 +148,7 @@ export const editCurrentPartner = createAsyncThunk("partners/editCurrentPartner"
       report_type_id: typeReport.report_type_id,
       active: typeReport.active
     }));
+    await deletedEmails.forEach(email => deletePartnerEmail(email.partner_email_id));
     dispatch(addPartner(partnerToEdit));
     return true;
   } else {

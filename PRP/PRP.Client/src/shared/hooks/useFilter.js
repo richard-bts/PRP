@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { setCurrentPage, useAppDispatch, useAppSelector } from "../../store";
+import { setCurrentPage, useAppDispatch, useAppSelector } from '../../store';
 
 export const useFilter = () => {
 
