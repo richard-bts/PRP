@@ -12,7 +12,9 @@ const nextConfig = {
     loader: 'akamai',
     path: isProd ? prodPath : '/',
   },
-  // basePath: isProd ? prodPath : ''
+  env: {
+    linksPath: isProd ? prodPath : '',
+  }
 }
 
 module.exports = nextConfig

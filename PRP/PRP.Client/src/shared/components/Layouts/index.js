@@ -10,6 +10,13 @@ export const Layout = ({ children, headTitle }) => {
       <Head>
         <title>{`Partner Reporting Package - ${ headTitle }`}</title>
         <meta name="description" content="CDL Last Mile partner reporting package" />
+        <link rel="apple-touch-icon" sizes="152x152" href={`${process.env.linksPath}/apple-touch-icon.png`} />
+        <link rel="icon" type="image/png" sizes="32x32" href={`${process.env.linksPath}/favicon-32x32.png`} />
+        <link rel="icon" type="image/png" sizes="16x16" href={`${process.env.linksPath}/favicon-16x16.png`} />
+        <link rel="manifest" href={`${process.env.linksPath}/site.webmanifest`} />
+        <link rel="mask-icon" href={`${process.env.linksPath}/safari-pinned-tab.svg`} color="#5bbad5" />
+        <meta name="msapplication-TileColor" content="#da532c" />
+        <meta name="theme-color" content="#ffffff" />
       </Head>
 
       <Header />
