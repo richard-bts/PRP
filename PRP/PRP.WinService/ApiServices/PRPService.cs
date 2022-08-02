@@ -29,7 +29,7 @@ namespace PRP.WinService.ApiServices
             return await this.SendAsync(new ApiRequest()
             {
                 Data = inputDate,
-                Url =  $"{_Configuration.GetSection("ServiceUrl:PRP.Service.Api").Value}api/report/GetPODReport?inputDate={inputDate}&clientID={clientID}"
+                Url =  $"{_Configuration.GetSection("ServiceUrl:PRP.Service.Api").Value}GetPODReport?inputDate={inputDate}&clientID={clientID}"
             });           
         }
         public async Task<ResponseDto?> GetScanReport(DateTime inputDate, int clientID)
@@ -37,7 +37,7 @@ namespace PRP.WinService.ApiServices
             return await this.SendAsync(new ApiRequest()
             {
                 Data = inputDate,
-                Url = $"{_Configuration.GetSection("ServiceUrl:PRP.Service.Api").Value}api/report/GetScanReport?inputDate={inputDate}&clientID={clientID}"
+                Url = $"{_Configuration.GetSection("ServiceUrl:PRP.Service.Api").Value}GetScanReport?inputDate={inputDate}&clientID={clientID}"
             });
         }
         public async Task<ResponseDto?> GetExceptionReport(DateTime inputDate, int clientID)
@@ -45,14 +45,14 @@ namespace PRP.WinService.ApiServices
             return await this.SendAsync(new ApiRequest()
             {
                 Data = inputDate,
-                Url = $"{_Configuration.GetSection("ServiceUrl:PRP.Service.Api").Value}api/report/GetExceptionReport?inputDate={inputDate}&clientID={clientID}"
+                Url = $"{_Configuration.GetSection("ServiceUrl:PRP.Service.Api").Value}GetExceptionReport?inputDate={inputDate}&clientID={clientID}"
             });
         }
         public async Task<ResponseDto?> GetPartners()
         {
             return await this.SendAsync(new ApiRequest()
             {
-                Url = $"{_Configuration.GetSection("ServiceUrl:PRP.Service.Api").Value}api/partner/GetPartners"
+                Url = $"{_Configuration.GetSection("ServiceUrl:PRP.Service.Api").Value}GetPartners"
             });
 
         }
@@ -61,7 +61,7 @@ namespace PRP.WinService.ApiServices
             return await this.SendAsync(new ApiRequest()
             {
                 Data = partnerID,
-                Url = $"{_Configuration.GetSection("ServiceUrl:PRP.Service.Api").Value}api/report/GetPartnerEmails?partnerId={partnerID}"
+                Url = $"{_Configuration.GetSection("ServiceUrl:PRP.Service.Api").Value}GetPartnerEmails?partnerId={partnerID}"
             });
 
         }

@@ -191,8 +191,7 @@ namespace PRP.WinService.Report
                 {
                     
 
-                    if (!string.IsNullOrEmpty(content))
-                    {
+                    
                         list = JsonConvert.DeserializeObject<List<ScanReportDto>>(content);
                         if (list != null && CreateScanCSVFileAndNotifyByEmail(list, pd.ClientId, pd.PartnerId) & list.Count>0 )
                         {
@@ -200,7 +199,7 @@ namespace PRP.WinService.Report
                                 $"SCAN Report: Client {content.Substring(1, 20)}........{content.Substring(content.Length - 20, 20)}");
                             return true;
                         }
-                    }
+                    
                 }
                 else
                 {
