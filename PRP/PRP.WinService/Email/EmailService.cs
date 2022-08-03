@@ -97,33 +97,33 @@ namespace PRP.WinService.Email
                 mimeMessage.To.Clear();
                 mimeMessage.Cc.Clear();
 
-                List<MimeMessage?> emails = new List<MimeMessage?>();
+                //List<MimeMessage?> emails = new List<MimeMessage?>();
 
-                using (var emailPopClient = new Pop3Client() )
-                {
-                    emailPopClient.Connect(configuration.GetSection("EmailSettings:Server").Value, 995, true);
-                    emailPopClient.AuthenticationMechanisms.Remove("XOATH2");
-                    emailPopClient.Authenticate(configuration.GetSection("EmailSettings:User").Value, configuration.GetSection("EmailSettings:Password").Value);
+                //using (var emailPopClient = new Pop3Client() )
+                //{
+                //    emailPopClient.Connect(configuration.GetSection("EmailSettings:Server").Value, 995, true);
+                //    emailPopClient.AuthenticationMechanisms.Remove("XOATH2");
+                //    emailPopClient.Authenticate(configuration.GetSection("EmailSettings:User").Value, configuration.GetSection("EmailSettings:Password").Value);
 
-                    for (int nCount= 0; nCount<emailPopClient.Count;nCount++)
-                    {
-                        var message = emailPopClient.GetMessage(nCount);
+                //    for (int nCount= 0; nCount<emailPopClient.Count;nCount++)
+                //    {
+                //        var message = emailPopClient.GetMessage(nCount);
                         
-                        if (message.Attachments.Count() >0)
-                        {
-                            foreach(MimePart attachment in message.Attachments)
-                            {
-                              //  Console.WriteLine(attachment.FileName);
-                            }
-                        }
+                //        if (message.Attachments.Count() >0)
+                //        {
+                //            foreach(MimePart attachment in message.Attachments)
+                //            {
+                //              //  Console.WriteLine(attachment.FileName);
+                //            }
+                //        }
 
-                        //var emailMessage = new MimeMessage
-                        //{
-                        //    Body = new TextPart(TextFormat.Html) { Text = message.HtmlBody },
-                        //    Subject = message.Subject,
-                        //};
-                    }
-                }
+                //        //var emailMessage = new MimeMessage
+                //        //{
+                //        //    Body = new TextPart(TextFormat.Html) { Text = message.HtmlBody },
+                //        //    Subject = message.Subject,
+                //        //};
+                //    }
+                //}
 
                 client.Disconnect(true);
 

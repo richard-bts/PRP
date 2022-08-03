@@ -183,7 +183,7 @@ namespace PRP.WinService.Report
             {
                 List<PODReportDto>? list = new();
 
-                var response = _PRPService.GetPODReport(DateTime.Now, pd.client_id);;
+                var response = _PRPService.GetPODReport(DateTime.Now.AddDays(-1), pd.client_id);;
 
                 string? content = String.Empty;
 
@@ -193,7 +193,8 @@ namespace PRP.WinService.Report
                 if (response != null && response.Result != null && !string.IsNullOrEmpty(content))
                 {
                     list = JsonConvert.DeserializeObject<List<PODReportDto>>(content);
-                    if (list != null && CreatePodCSVFileAndNotifyByEmail(list, pd))
+                if (list.Count == 0) { return false; }
+                if (list != null && CreatePodCSVFileAndNotifyByEmail(list, pd))
                     {
                         Log.Logger.ForContext("Component", "PRP.WinService").Information("{Message}",
                             $"POD Report: Client {content.Substring(1, 20)}........{content.Substring(content.Length - 20, 20)}");
@@ -213,18 +214,19 @@ namespace PRP.WinService.Report
             {
                 List<ScanReportDto>? list = new();
 
-                var response = _PRPService.GetScanReport(DateTime.Now, pd.client_id);
+                var response = _PRPService.GetScanReport(DateTime.Now.AddDays(-1), pd.client_id);
                 string? content = String.Empty;
                 if (response != null && response.Result != null && response.Result.Result != null)
                     content = Convert.ToString(response.Result.Result);
 
-                if (response != null && response.Result != null && !string.IsNullOrEmpty(content))
+                if (response != null && response.Result != null && !string.IsNullOrEmpty(content) )
                 {
 
 
 
                     list = JsonConvert.DeserializeObject<List<ScanReportDto>>(content);
-                    if (list != null && CreateScanCSVFileAndNotifyByEmail(list, pd) & list.Count > 0)
+                    if(list.Count == 0) { return false; }
+                    if (list != null && CreateScanCSVFileAndNotifyByEmail(list, pd) )
                     {
                         Log.Logger.ForContext("Component", "PRP.WinService").Information("{Message}",
                             $"SCAN Report: Client {content.Substring(1, 20)}........{content.Substring(content.Length - 20, 20)}");
@@ -250,7 +252,7 @@ namespace PRP.WinService.Report
             {
                 List<ExceptionReportDto>? list = new();
 
-                var response = _PRPService.GetExceptionReport(DateTime.Now, pd.client_id);
+                var response = _PRPService.GetExceptionReport(DateTime.Now.AddDays(-1), pd.client_id);
                 if (response != null && response.Result != null)
                 {
                     string? content = Convert.ToString(response.Result.Result);
@@ -258,6 +260,7 @@ namespace PRP.WinService.Report
                     if (!string.IsNullOrEmpty(content))
                     {
                         list = JsonConvert.DeserializeObject<List<ExceptionReportDto>>(content);
+                        if (list.Count == 0) { return false; }
                         if (list != null && CreateExceptionCSVFileAndNotifyByEmail(list, pd))
                         {
                             Log.Logger.ForContext("Component", "PRP.WinService").Information("{Message}",
@@ -285,7 +288,9 @@ namespace PRP.WinService.Report
             {
                 try
                 {
-                    DateTime timeNow = DateTime.Now;
+                if (list.Count == 0)
+                { return false; }
+                DateTime timeNow = DateTime.Now;
 
                     string hour = timeNow.Hour.ToString();
                     string minute = timeNow.Minute.ToString();
@@ -333,6 +338,8 @@ namespace PRP.WinService.Report
         {
             try
             {
+                if (list.Count == 0)
+                { return false; }
                 DateTime timeNow = DateTime.Now;
 
                 string hour = timeNow.Hour.ToString();
@@ -379,6 +386,8 @@ namespace PRP.WinService.Report
         {
             try
             {
+                if (list.Count == 0)
+                { return false; }
                 DateTime timeNow = DateTime.Now;
 
                 string hour = timeNow.Hour.ToString();

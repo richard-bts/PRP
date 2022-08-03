@@ -50,11 +50,11 @@ namespace PRP.WinService
                     DateNow = DateTime.Now;
                     foreach (var partner in response.data)
                     {
-                        if ((partner.partner_report_time.Year <= DateNow.Year) & (partner.partner_report_time.Month <= DateNow.Month) & (partner.partner_report_time.Date <= DateNow.Date) & (partner.partner_report_time.Hour == DateNow.Hour) & (partner.partner_report_time.Minute == DateNow.Minute))
-                        {
+                        //if ((partner.partner_report_time.Year <= DateNow.Year) & (partner.partner_report_time.Month <= DateNow.Month) & (partner.partner_report_time.Date <= DateNow.Date) & (partner.partner_report_time.Hour == DateNow.Hour) & (partner.partner_report_time.Minute == DateNow.Minute))
+                        //{
                             _produceReport.GenerateAllReportsFor(partner);
                             Log.Logger.ForContext("Component", "PRP.WinService").Information("{Message}", $"Service is Sending email ...");
-                        }
+                        //}
                     }
                     await Task.Delay(TimeSpan.FromSeconds(30), stoppingToken);
 

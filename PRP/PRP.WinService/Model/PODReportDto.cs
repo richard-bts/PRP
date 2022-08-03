@@ -6,7 +6,7 @@ namespace PRP.WinService.Model
     {
         public int clientID { get; set; }
         [Key]
-        public decimal OrderTrackingID { get; set; }
+        public string OrderTrackingID { get; set; }
         public string? ClientRefNo { get; set; }
         public string? Barcode { get; set; } 
         public string? DCoName { get; set; }

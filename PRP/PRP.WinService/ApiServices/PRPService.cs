@@ -30,7 +30,7 @@ namespace PRP.WinService.ApiServices
             return await this.SendAsync(new ApiRequest()
             {
                 Data = inputDate,
-                Url =  $"{_Configuration.GetSection("ServiceUrl:PRP.Service.Api").Value}api/report/GetPODReport?inputDate={inputDate}&clientID={clientID}"
+                Url =  $"{_Configuration.GetSection("ServiceUrl:PRP.Service.Api").Value}api/report/GetPODReport?inputDate={inputDate.Year}-{inputDate.Month}-{inputDate.Day}&clientID={clientID}"
             });           
         }
         public async Task<ResponseDto?> GetScanReport(DateTime inputDate, int clientID)
@@ -38,7 +38,7 @@ namespace PRP.WinService.ApiServices
             return await this.SendAsync(new ApiRequest()
             {
                 Data = inputDate,
-                Url = $"{_Configuration.GetSection("ServiceUrl:PRP.Service.Api").Value}api/report/GetScanReport?inputDate={inputDate}&clientID={clientID}"
+                Url = $"{_Configuration.GetSection("ServiceUrl:PRP.Service.Api").Value}api/report/GetScanReport?inputDate={inputDate.Year}-{inputDate.Month}-{inputDate.Day}&clientID={clientID}"
             });
         }
         public async Task<ResponseDto?> GetExceptionReport(DateTime inputDate, int clientID)
@@ -46,7 +46,7 @@ namespace PRP.WinService.ApiServices
             return await this.SendAsync(new ApiRequest()
             {
                 Data = inputDate,
-                Url = $"{_Configuration.GetSection("ServiceUrl:PRP.Service.Api").Value}api/report/GetExceptionReport?inputDate={inputDate}&clientID={clientID}"
+                Url = $"{_Configuration.GetSection("ServiceUrl:PRP.Service.Api").Value}api/report/GetExceptionReport?inputDate={inputDate.Year}-{inputDate.Month}-{inputDate.Day}&clientID={clientID}"
             });
         }
         public async Task<PartnerResponseDto<GetPartnerDto>?> GetPartners()
