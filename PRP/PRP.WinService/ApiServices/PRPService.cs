@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using PRP.WinService.Model;
+using PRP.Domain.Models;
+using PRP.Domain.Models.Dto;
 using PRP.WinService;
 using Newtonsoft.Json;
 
@@ -29,7 +30,7 @@ namespace PRP.WinService.ApiServices
             return await this.SendAsync(new ApiRequest()
             {
                 Data = inputDate,
-                Url =  $"{_Configuration.GetSection("ServiceUrl:PRP.Service.Api").Value}GetPODReport?inputDate={inputDate}&clientID={clientID}"
+                Url =  $"{_Configuration.GetSection("ServiceUrl:PRP.Service.Api").Value}api/report/GetPODReport?inputDate={inputDate}&clientID={clientID}"
             });           
         }
         public async Task<ResponseDto?> GetScanReport(DateTime inputDate, int clientID)
@@ -37,7 +38,7 @@ namespace PRP.WinService.ApiServices
             return await this.SendAsync(new ApiRequest()
             {
                 Data = inputDate,
-                Url = $"{_Configuration.GetSection("ServiceUrl:PRP.Service.Api").Value}GetScanReport?inputDate={inputDate}&clientID={clientID}"
+                Url = $"{_Configuration.GetSection("ServiceUrl:PRP.Service.Api").Value}api/report/GetScanReport?inputDate={inputDate}&clientID={clientID}"
             });
         }
         public async Task<ResponseDto?> GetExceptionReport(DateTime inputDate, int clientID)
@@ -45,26 +46,18 @@ namespace PRP.WinService.ApiServices
             return await this.SendAsync(new ApiRequest()
             {
                 Data = inputDate,
-                Url = $"{_Configuration.GetSection("ServiceUrl:PRP.Service.Api").Value}GetExceptionReport?inputDate={inputDate}&clientID={clientID}"
+                Url = $"{_Configuration.GetSection("ServiceUrl:PRP.Service.Api").Value}api/report/GetExceptionReport?inputDate={inputDate}&clientID={clientID}"
             });
         }
-        public async Task<ResponseDto?> GetPartners()
+        public async Task<PartnerResponseDto<GetPartnerDto>?> GetPartners()
         {
-            return await this.SendAsync(new ApiRequest()
+            return await this.SendAsync1(new ApiRequest()
             {
-                Url = $"{_Configuration.GetSection("ServiceUrl:PRP.Service.Api").Value}GetPartners"
+                Url = $"{_Configuration.GetSection("ServiceUrl:PRP.Service.Api").Value}partners"
             });
 
         }
-        public async Task<ResponseDto?> GetPartnerEmails(int partnerID)
-        {
-            return await this.SendAsync(new ApiRequest()
-            {
-                Data = partnerID,
-                Url = $"{_Configuration.GetSection("ServiceUrl:PRP.Service.Api").Value}GetPartnerEmails?partnerId={partnerID}"
-            });
-
-        }
+       
         #endregion
     }
 }

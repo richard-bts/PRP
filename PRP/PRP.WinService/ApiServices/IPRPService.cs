@@ -1,4 +1,5 @@
-﻿using PRP.WinService.Model;
+﻿
+using PRP.Domain.Models.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +13,8 @@ namespace PRP.WinService.ApiServices
         public Task<ResponseDto?> GetPODReport(DateTime inputDate, int clientID);
         public Task<ResponseDto?> GetScanReport(DateTime inputDate, int clientID);
         public Task<ResponseDto?> GetExceptionReport(DateTime inputDate, int clientID);
-        public Task<ResponseDto?> GetPartners();
-        public Task<ResponseDto?> GetPartnerEmails(int partnerID);
+        public Task<PartnerResponseDto<GetPartnerDto>?> GetPartners();
+       
 
     }
 }

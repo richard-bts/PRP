@@ -1,4 +1,5 @@
-﻿using PRP.WinService.Model;
+﻿using PRP.Domain.Models;
+using PRP.Domain.Models.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,6 @@ namespace PRP.WinService.ApiServices
     {
         ResponseDto? responseModel { get; set; }
         Task<ResponseDto?> SendAsync(ApiRequest apiRequest);
+        Task<PartnerResponseDto<GetPartnerDto>?> SendAsync1(ApiRequest apiRequest);
     }
 }

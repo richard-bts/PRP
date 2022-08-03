@@ -1,4 +1,5 @@
-﻿using PRP.WinService.Model;
+﻿using PRP.Domain.Models;
+using PRP.Domain.Models.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +28,55 @@ namespace PRP.WinService.ApiServices
         public void Dispose()
         {
             GC.SuppressFinalize(true);
+        }
+        
+
+         public async Task<PartnerResponseDto<GetPartnerDto>?> SendAsync1(ApiRequest apiRequest)
+        {
+            try
+            {
+                HttpRequestMessage message = new HttpRequestMessage();
+                message.Headers.Add("Accept", "application/jason");
+
+                if (apiRequest.Url != null)
+                    message.RequestUri = new Uri(apiRequest.Url);
+
+                _httpClient.DefaultRequestHeaders.Clear();
+
+                if (apiRequest.Data != null)
+                {
+                    message.Content = new StringContent(
+                        JsonConvert.SerializeObject(new { inputDate = apiRequest.Data }),
+                        Encoding.UTF8,
+                        "application/json");
+                    message.Method = HttpMethod.Get;
+
+                }
+                HttpResponseMessage? apiResponse = null;
+                PartnerResponseDto<GetPartnerDto>? apiReponseDto = null;
+
+                apiResponse = await _httpClient.SendAsync(message);
+
+                if (apiResponse != null)
+                {
+                    var apiContent = await apiResponse.Content.ReadAsStringAsync();
+                    apiReponseDto = JsonConvert.DeserializeObject<PartnerResponseDto<GetPartnerDto>>(apiContent);
+                }
+                return apiReponseDto;
+            }
+            catch (Exception ex)
+            {
+                var dto = new ResponseDto()
+                {
+                    DisplayMessage = "Error",
+                    ErrorMessages = new List<string> { ex.Message.ToString() }
+
+                };
+                PartnerResponseDto<GetPartnerDto>? apiReponseDto = null;
+                var res = JsonConvert.SerializeObject(dto);
+                apiReponseDto = JsonConvert.DeserializeObject<PartnerResponseDto<GetPartnerDto>?>(res);
+                return apiReponseDto;
+            }
         }
         public async Task<ResponseDto?> SendAsync(ApiRequest apiRequest)
         {

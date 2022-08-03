@@ -1,4 +1,5 @@
-﻿using PRP.WinService.Model;
+﻿using PRP.Domain.Models;
+using PRP.Domain.Models.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,9 @@ namespace PRP.WinService.Report
     public interface IProduceReport
     {
         //public bool GenerateAllReports();
-        public bool GenerateAllReportsFor(PartnerDetailDto pd);
-        public bool GeneratePODReport(PartnerDetailDto pd);
-        public bool GenerateScanReport(PartnerDetailDto pd);
-        public bool GenerateExceptionReport(PartnerDetailDto pd);
+        public bool GenerateAllReportsFor(GetPartnerDto pd);
+        public bool GeneratePODReport(GetPartnerDto pd);
+        //public bool GenerateScanReport(GetPartnerDto pd);
+        //public bool GenerateExceptionReport(GetPartnerDto pd);
     }
 }

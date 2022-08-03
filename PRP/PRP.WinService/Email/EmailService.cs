@@ -4,6 +4,7 @@ using Microsoft.Exchange.WebServices.Data;
 using MimeKit;
 using MimeKit.Text;
 using Newtonsoft.Json;
+using PRP.Domain.Models.Dto;
 using PRP.WinService.ApiServices;
 using PRP.WinService.Model;
 using System;
@@ -31,7 +32,7 @@ namespace PRP.WinService.Email
         #endregion
 
         #region Public Methods
-        bool IEmailService.SendEmail(string filename, int clientID, string reportTitle, int PartnerId)
+        bool IEmailService.SendEmail(string filename, string reportTitle, GetPartnerDto Partner)
         {
             IConfiguration configuration = (IConfiguration)new ConfigurationBuilder()
             .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
@@ -52,28 +53,20 @@ namespace PRP.WinService.Email
                 string testUser = configuration.GetSection("EmailSettings:TestUser").Value;
                 string testUserEmailID = configuration.GetSection("EmailSettings:TestUserEmailID").Value;
                 var mimeMessage = new MimeMessage();
-                mimeMessage.Subject = $"PRP - {reportTitle} ({clientID})";
+                mimeMessage.Subject = $"PRP - {reportTitle} ({Partner.client_id})";
                 mimeMessage.From.Add(new MailboxAddress(mimeMessage.Subject, testUserEmailID));
 
 
-                List<PartnerEmailDto>? PartnerEmailList = new();
+              
 
-                var response = _PRPService.GetPartnerEmails(PartnerId);
-
-                string? content = String.Empty;
-
-                if (response != null && response.Result != null && response.Result.Result != null)
-                    content = Convert.ToString(response.Result.Result);
-
-                if (response != null && response.Result != null && !string.IsNullOrEmpty(content))
+                
+                if (Partner.partner_emails.Count() >0)
                 {
-                    PartnerEmailList = JsonConvert.DeserializeObject<List<PartnerEmailDto>>(content);
-                }
-
-                if (PartnerEmailList != null)
-                {
-                    foreach (PartnerEmailDto email in PartnerEmailList)
-                        mimeMessage.To.Add(new MailboxAddress(email.Email, email.Email));
+                    foreach (var email in Partner.partner_emails)
+                        if (email.active == 1)
+                        {
+                            mimeMessage.To.Add(new MailboxAddress(email.partner_email, email.partner_email));
+                        }
                 }
 
                // mimeMessage.To.Add(new MailboxAddress(testUser, testUserEmailID));
@@ -82,7 +75,7 @@ namespace PRP.WinService.Email
 
                 BodyBuilder builder = new BodyBuilder();
 
-                builder.HtmlBody = $"<h3>Please find the attached for the report.</h3><p><h5>Report type:{reportTitle}({clientID})</h5></p>";
+                builder.HtmlBody = $"<h3>Please find the attached for the report.</h3><p><h5>Report type:{reportTitle}({Partner.client_id})</h5></p>";
 
                 builder.Attachments.Add(filename);
 

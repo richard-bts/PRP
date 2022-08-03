@@ -20,4 +20,8 @@
     <PackageReference Include="Serilog.Sinks.Seq" Version="5.1.1" />
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PRP.Service.DomainLayer\PRP.Service.Domain.csproj" />
+  </ItemGroup>
 </Project>

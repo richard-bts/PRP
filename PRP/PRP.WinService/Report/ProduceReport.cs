@@ -1,7 +1,8 @@
 ﻿using Newtonsoft.Json;
+using PRP.Domain.Models;
+using PRP.Domain.Models.Dto;
 using PRP.WinService.ApiServices;
-using PRP.WinService.Email;
-using PRP.WinService.Model;
+using PRP.WinService.Email; 
 using PRP.WinService.Report;
 using Serilog;
 using System;
@@ -37,10 +38,38 @@ namespace PRP.WinService.Report
         #region Public Methods
 
 
-        public bool GenerateAllReportsFor(PartnerDetailDto PartnersList)
+        public bool GenerateAllReportsFor(GetPartnerDto PartnersList)
         {
             try
             {
+                string dir = _Configuration.GetSection("EmailSettings:FileLocation").Value;
+                if (!Directory.Exists(dir))
+                {
+                    Directory.CreateDirectory(dir);
+                }
+                else
+                {
+                    CleanUpTempDir();
+                }
+
+                foreach (var PartnerRaport in PartnersList.partner_report_types)
+                {
+                    if((PartnerRaport.report_name == "POD Report") & (PartnerRaport.active == 1))
+                    {
+                        GeneratePODReport(PartnersList);
+                        
+                    }
+                    if ((PartnerRaport.report_name == "Exception Report") & (PartnerRaport.active == 1))
+                    {
+                        GenerateExceptionReport(PartnersList);
+                        
+                    }
+                    if ((PartnerRaport.report_name == "Scan Report") & (PartnerRaport.active == 1))
+                    {
+                        GenerateScanReport(PartnersList);
+                        
+                    }
+                }
 
                 //List<PartnerDetailDto>? PartnersList = new ();
 
@@ -55,151 +84,153 @@ namespace PRP.WinService.Report
                 //{
                 //    PartnersList = JsonConvert.DeserializeObject<List<PartnerDetailDto>>(content);
                 //}
-                string dir = _Configuration.GetSection("EmailSettings:FileLocation").Value;
-                if (!Directory.Exists(dir))
-                {
-                    Directory.CreateDirectory(dir);
-                }
-                else
-                {
-                    CleanUpTempDir();
-                }
+                //string dir = _Configuration.GetSection("EmailSettings:FileLocation").Value;
+                //if (!Directory.Exists(dir))
+                //{
+                //    Directory.CreateDirectory(dir);
+                //}
+                //else
+                //{
+                //    CleanUpTempDir();
+                //}
 
-                if (PartnersList != null)
-                {
-                   
-                    //foreach (PartnerDetailDto pd in PartnersList)
-                    //{
-                    switch (PartnersList.ReportName)
-                    {
-                        case "POD":
-                            GeneratePODReport(PartnersList);
-                            break;
-                        case "EXCEPTION":
-                            GenerateExceptionReport(PartnersList);
-                            break;
-                        case "SCAN":
-                            GenerateScanReport(PartnersList);
-                            break;
-                   // }
-                    }
-                }
+
+                //if (Partner != null)
+                //{
+
+                //foreach (PartnerDetailDto pd in PartnersList)
+                //{
+                // switch (PartnersList.report_name)
+                // {
+                //     case "POD":
+                //         GeneratePODReport(PartnersList);
+                //         break;
+                //     case "EXCEPTION":
+                //         GenerateExceptionReport(PartnersList);
+                //         break;
+                //     case "SCAN":
+                //         GenerateScanReport(PartnersList);
+                //         break;
+                //// }
+                // }
+                //    }
+                return true;
             }
             catch (Exception)
             {
-                return false;
+                //    return false;
             }
             return true;
-        }
-        //public bool GenerateAllReports()
-        //{
-        //    try
-        //    {
-
-        //        List<PartnerDetailDto>? PartnersList = new();
-
-        //        var response = _PRPService.GetPartners();
-
-        //        string? content = String.Empty;
-
-        //        if (response != null && response.Result != null && response.Result.Result != null)
-        //            content = Convert.ToString(response.Result.Result);
-
-        //        if (response != null && response.Result != null && !string.IsNullOrEmpty(content))
-        //        {
-        //            PartnersList = JsonConvert.DeserializeObject<List<PartnerDetailDto>>(content);
-        //        }
-        //        
-
-                
-        //        if (!Directory.Exists(dir))
-        //        {
-        //            Directory.CreateDirectory(dir);
-        //        }
-        //        else { 
-        //            CleanUpTempDir();
-        //        }
- 
-
-
-        //        if (PartnersList != null)
-        //        {
-                   
-        //            foreach (PartnerDetailDto pd in PartnersList)
-        //            {
-        //                switch (pd.ReportName)
-        //                {
-        //                    case "POD":
-        //                        GeneratePODReport(pd);
-        //                        break;
-        //                    case "EXCEPTION":
-        //                        GenerateExceptionReport(pd);
-        //                        break;
-        //                    case "SCAN":
-        //                        GenerateScanReport(pd);
-        //                        break;
-        //                }
-        //            }
-        //        }                
-        //    }
-        //    catch (Exception)
-        //    {
-        //        return false;
-        //    }
-        //    return true;
-        //}
-        public bool GeneratePODReport(PartnerDetailDto pd)
-        {           
-            List<PODReportDto>? list = new();
-           
-            var response = _PRPService.GetPODReport(DateTime.Now, pd.ClientId);
-
-            string? content = String.Empty;
-
-            if (response != null && response.Result  != null && response.Result.Result != null)
-                content = Convert.ToString(response.Result.Result);
-
-            if (response != null && response.Result != null && !string.IsNullOrEmpty(content))
-            {
-                list = JsonConvert.DeserializeObject<List<PODReportDto>>(content);
-                if (list!= null && CreatePodCSVFileAndNotifyByEmail(list, pd.ClientId, pd.PartnerId))
-                {
-                    Log.Logger.ForContext("Component", "PRP.WinService").Information("{Message}", 
-                        $"POD Report: Client {content.Substring(1, 20)}........{content.Substring(content.Length - 20, 20)}");
-                    return true;
-                }
             }
-            else
+            //public bool GenerateAllReports()
+            //{
+            //    try
+            //    {
+
+            //        List<PartnerDetailDto>? PartnersList = new();
+
+            //        var response = _PRPService.GetPartners();
+
+            //        string? content = String.Empty;
+
+            //        if (response != null && response.Result != null && response.Result.Result != null)
+            //            content = Convert.ToString(response.Result.Result);
+
+            //        if (response != null && response.Result != null && !string.IsNullOrEmpty(content))
+            //        {
+            //            PartnersList = JsonConvert.DeserializeObject<List<PartnerDetailDto>>(content);
+            //        }
+            //        
+
+
+            //        if (!Directory.Exists(dir))
+            //        {
+            //            Directory.CreateDirectory(dir);
+            //        }
+            //        else { 
+            //            CleanUpTempDir();
+            //        }
+
+
+
+            //        if (PartnersList != null)
+            //        {
+
+            //            foreach (PartnerDetailDto pd in PartnersList)
+            //            {
+            //                switch (pd.ReportName)
+            //                {
+            //                    case "POD":
+            //                        GeneratePODReport(pd);
+            //                        break;
+            //                    case "EXCEPTION":
+            //                        GenerateExceptionReport(pd);
+            //                        break;
+            //                    case "SCAN":
+            //                        GenerateScanReport(pd);
+            //                        break;
+            //                }
+            //            }
+            //        }                
+            //    }
+            //    catch (Exception)
+            //    {
+            //        return false;
+            //    }
+            //    return true;
+            //}
+            public bool GeneratePODReport(GetPartnerDto pd)
             {
+                List<PODReportDto>? list = new();
+
+                var response = _PRPService.GetPODReport(DateTime.Now, pd.client_id);;
+
+                string? content = String.Empty;
+
+                if (response != null && response.Result != null && response.Result.Result != null)
+                    content = Convert.ToString(response.Result.Result);
+
+                if (response != null && response.Result != null && !string.IsNullOrEmpty(content))
+                {
+                    list = JsonConvert.DeserializeObject<List<PODReportDto>>(content);
+                    if (list != null && CreatePodCSVFileAndNotifyByEmail(list, pd))
+                    {
+                        Log.Logger.ForContext("Component", "PRP.WinService").Information("{Message}",
+                            $"POD Report: Client {content.Substring(1, 20)}........{content.Substring(content.Length - 20, 20)}");
+                        return true;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+
                 return false;
             }
-
-            return false;
-        }
-        public bool GenerateScanReport(PartnerDetailDto pd)
+        public bool GenerateScanReport(GetPartnerDto pd)
         {
             try
             {
                 List<ScanReportDto>? list = new();
 
-                var response = _PRPService.GetScanReport(DateTime.Now, pd.ClientId);
+                var response = _PRPService.GetScanReport(DateTime.Now, pd.client_id);
                 string? content = String.Empty;
                 if (response != null && response.Result != null && response.Result.Result != null)
                     content = Convert.ToString(response.Result.Result);
 
                 if (response != null && response.Result != null && !string.IsNullOrEmpty(content))
                 {
-                    
 
-                    
-                        list = JsonConvert.DeserializeObject<List<ScanReportDto>>(content);
-                        if (list != null && CreateScanCSVFileAndNotifyByEmail(list, pd.ClientId, pd.PartnerId) & list.Count>0 )
-                        {
-                            Log.Logger.ForContext("Component", "PRP.WinService").Information("{Message}", 
-                                $"SCAN Report: Client {content.Substring(1, 20)}........{content.Substring(content.Length - 20, 20)}");
-                            return true;
-                        }
-                    
+
+
+                    list = JsonConvert.DeserializeObject<List<ScanReportDto>>(content);
+                    if (list != null && CreateScanCSVFileAndNotifyByEmail(list, pd) & list.Count > 0)
+                    {
+                        Log.Logger.ForContext("Component", "PRP.WinService").Information("{Message}",
+                            $"SCAN Report: Client {content.Substring(1, 20)}........{content.Substring(content.Length - 20, 20)}");
+                        return true;
+                    }
+
                 }
                 else
                 {
@@ -213,13 +244,13 @@ namespace PRP.WinService.Report
                 throw;
             }
         }
-        public bool GenerateExceptionReport(PartnerDetailDto pd)
+        public bool GenerateExceptionReport(GetPartnerDto pd)
         {
             try
             {
                 List<ExceptionReportDto>? list = new();
 
-                var response = _PRPService.GetExceptionReport(DateTime.Now, pd.ClientId);
+                var response = _PRPService.GetExceptionReport(DateTime.Now, pd.client_id);
                 if (response != null && response.Result != null)
                 {
                     string? content = Convert.ToString(response.Result.Result);
@@ -227,9 +258,9 @@ namespace PRP.WinService.Report
                     if (!string.IsNullOrEmpty(content))
                     {
                         list = JsonConvert.DeserializeObject<List<ExceptionReportDto>>(content);
-                        if (list != null && CreateExceptionCSVFileAndNotifyByEmail(list, pd.ClientId, pd.PartnerId))
+                        if (list != null && CreateExceptionCSVFileAndNotifyByEmail(list, pd))
                         {
-                            Log.Logger.ForContext("Component", "PRP.WinService").Information("{Message}", 
+                            Log.Logger.ForContext("Component", "PRP.WinService").Information("{Message}",
                                 $"EXCEPTION Report: Client {content.Substring(1, 20)}........{content.Substring(content.Length - 20, 20)}");
                             return true;
                         }
@@ -250,55 +281,55 @@ namespace PRP.WinService.Report
         #endregion
 
         #region PrivateMethods
-        private bool CreatePodCSVFileAndNotifyByEmail(List<PODReportDto> list, int clientID, int PartnerId)
-        {
-            try
-            {                
-                DateTime timeNow = DateTime.Now;
-
-                string hour = timeNow.Hour.ToString();
-                string minute = timeNow.Minute.ToString();
-                string second = timeNow.Second.ToString();
-                string millisecond = timeNow.Millisecond.ToString();
-
-                string filename = $"{clientID}_POD Report_{hour}_{minute}_{second}_{millisecond}.csv";
-                string dir = _Configuration.GetSection("EmailSettings:FileLocation").Value;
-
-                string fullpath = $"{dir}{filename}";
-                
-                using (StreamWriter sw = new StreamWriter(fullpath))
+        private bool CreatePodCSVFileAndNotifyByEmail(List<PODReportDto> list, GetPartnerDto Partner)
+            {
+                try
                 {
-                    string header = "OrderTrackingID,ClientRefNo,RefNo,DCoName,DContact,DStreet,DStreet2,DCity,DState,DZip,PODcompletionTime";
+                    DateTime timeNow = DateTime.Now;
 
-                    sw.WriteLine(header);
+                    string hour = timeNow.Hour.ToString();
+                    string minute = timeNow.Minute.ToString();
+                    string second = timeNow.Second.ToString();
+                    string millisecond = timeNow.Millisecond.ToString();
 
-                    foreach (PODReportDto dto in list)
+                    string filename = $"{Partner.client_id}_POD Report_{hour}_{minute}_{second}_{millisecond}.csv";
+                    string dir = _Configuration.GetSection("EmailSettings:FileLocation").Value;
+
+                    string fullpath = $"{dir}{filename}";
+
+                    using (StreamWriter sw = new StreamWriter(fullpath))
                     {
-                        string row = $"{dto.OrderTrackingID},{dto.ClientRefNo},{dto.Barcode},{dto.DCoName},{dto.DContact}," +
-                                     $"{dto.DStreet},{dto.DStreet2},{dto.DCity},{dto.DState},{dto.DZip},{dto.PODcompletionTime}";
-                        sw.WriteLine(row);
+                        string header = "OrderTrackingID,ClientRefNo,RefNo,DCoName,DContact,DStreet,DStreet2,DCity,DState,DZip,PODcompletionTime";
+
+                        sw.WriteLine(header);
+
+                        foreach (PODReportDto dto in list)
+                        {
+                            string row = $"{dto.OrderTrackingID},{dto.ClientRefNo},{dto.Barcode},{dto.DCoName},{dto.DContact}," +
+                                         $"{dto.DStreet},{dto.DStreet2},{dto.DCity},{dto.DState},{dto.DZip},{dto.PODcompletionTime}";
+                            sw.WriteLine(row);
+                        }
                     }
+
+                    if (!_EmailService.SendEmail(fullpath, "POD Report", Partner))
+                    {
+                        Log.Logger.ForContext("Component", "PRP.WinService").Information("{Message}", $"Email is not sent");
+                    }
+                    else
+                    {
+                        Log.Logger.ForContext("Component", "PRP.WinService").Information("{Message}", $"Email sent sucessfully.");
+                    }
+
+                    return true;
                 }
-            
-                if(!_EmailService.SendEmail(fullpath, clientID, "POD Report", PartnerId))
+                catch (Exception e)
                 {
-                    Log.Logger.ForContext("Component", "PRP.WinService").Information("{Message}", $"Email is not sent");
-                }
-                else
-                {
-                    Log.Logger.ForContext("Component", "PRP.WinService").Information("{Message}", $"Email sent sucessfully.");
+                    Log.Logger.ForContext("Component", "PRP.WinService").Warning("{Message}", e);
+                    throw;
                 }
 
-                return true;
             }
-            catch (Exception e)
-            {
-                Log.Logger.ForContext("Component", "PRP.WinService").Warning("{Message}", e);
-                throw;
-            }
-
-        }
-        private bool CreateScanCSVFileAndNotifyByEmail(List<ScanReportDto> list, int clientID, int PartnerId)
+        private bool CreateScanCSVFileAndNotifyByEmail(List<ScanReportDto> list, GetPartnerDto Partner)
         {
             try
             {
@@ -309,7 +340,7 @@ namespace PRP.WinService.Report
                 string second = timeNow.Second.ToString();
                 string millisecond = timeNow.Millisecond.ToString();
 
-                string filename = $"{clientID}_SCAN Report_{hour}_{minute}_{second}_{millisecond}.csv";
+                string filename = $"{Partner.client_id}_SCAN Report_{hour}_{minute}_{second}_{millisecond}.csv";
                 string dir = _Configuration.GetSection("EmailSettings:FileLocation").Value;
 
                 string fullpath = $"{dir}{filename}";
@@ -327,7 +358,7 @@ namespace PRP.WinService.Report
                     }
                 }
 
-                if (!_EmailService.SendEmail(fullpath, clientID, "SCAN Report", PartnerId))
+                if (!_EmailService.SendEmail(fullpath, "SCAN Report", Partner))
                 {
                     Log.Logger.ForContext("Component", "PRP.WinService").Information("{Message}", $"Email is not sent");
                 }
@@ -344,7 +375,7 @@ namespace PRP.WinService.Report
                 throw;
             }
         }
-        private bool CreateExceptionCSVFileAndNotifyByEmail(List<ExceptionReportDto> list, int clientID, int PartnerId)
+        private bool CreateExceptionCSVFileAndNotifyByEmail(List<ExceptionReportDto> list, GetPartnerDto Partner)
         {
             try
             {
@@ -355,7 +386,7 @@ namespace PRP.WinService.Report
                 string second = timeNow.Second.ToString();
                 string millisecond = timeNow.Millisecond.ToString();
 
-                string filename = $"{clientID}_EXCEPTION Report_{hour}_{minute}_{second}_{millisecond}.csv";
+                string filename = $"{Partner.client_id}_EXCEPTION Report_{hour}_{minute}_{second}_{millisecond}.csv";
                 string dir = _Configuration.GetSection("EmailSettings:FileLocation").Value;
 
                 string fullpath = $"{dir}{filename}";
@@ -374,7 +405,7 @@ namespace PRP.WinService.Report
                     }
                 }
 
-                if (!_EmailService.SendEmail(fullpath, clientID, "EXCEPTION Report", PartnerId))
+                if (!_EmailService.SendEmail(fullpath, "EXCEPTION Report", Partner))
                 {
                     Log.Logger.ForContext("Component", "PRP.WinService").Information("{Message}", $"Email is not sent");
                 }
@@ -394,10 +425,10 @@ namespace PRP.WinService.Report
         private void CleanUpTempDir()
         {
             try
-            {               
+            {
                 string fullpath = _Configuration.GetSection("EmailSettings:FileLocation").Value;
 
-                foreach (FileInfo fi in new DirectoryInfo(fullpath).GetFiles() )
+                foreach (FileInfo fi in new DirectoryInfo(fullpath).GetFiles())
                 {
                     fi.Delete();
                 }
