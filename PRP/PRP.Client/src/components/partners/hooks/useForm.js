@@ -16,7 +16,7 @@ const errorFormInitialState = {
   }
 }
 
-const initialTime = moment().minutes(0).seconds(0).add(1, 'hours');
+const initialTime = moment();
 
 export const useForm = () => {
 
@@ -27,7 +27,7 @@ export const useForm = () => {
   const [emailEdited, setEmailEdited] = useState([]);
   const [newEmail, setNewEmail] = useState([]);
   const [deletedEmails, setDeletedEmails] = useState([]);
-  const [ reportDate, setReportDate ] = useState( reportTime ? new Date(reportTime) : initialTime.toDate() );
+  const [ reportDate, setReportDate ] = useState( !!reportTime ? new Date(reportTime) : initialTime.toDate() );
   const mergeReportObjects = reportTypesTest.map(report => {
     const reportObject = reportName?.find(item => item?.report_name === report?.report_name);
     return {
@@ -59,7 +59,7 @@ export const useForm = () => {
   };
 
   const handleChangeDateTime = (date) => {
-    if (date <= initialTime) return;
+    // if (date <= initialTime) return;
     setReportDate(date);
   }
 
