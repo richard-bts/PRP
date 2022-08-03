@@ -13,7 +13,7 @@ namespace PRP.WinService.Report
         //public bool GenerateAllReports();
         public bool GenerateAllReportsFor(GetPartnerDto pd);
         public bool GeneratePODReport(GetPartnerDto pd);
-        //public bool GenerateScanReport(GetPartnerDto pd);
-        //public bool GenerateExceptionReport(GetPartnerDto pd);
+        public bool GenerateScanReport(GetPartnerDto pd);
+        public bool GenerateExceptionReport(GetPartnerDto pd);
     }
 }

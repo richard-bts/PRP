@@ -1,4 +1,5 @@
 using Microsoft.Extensions.Logging;
+using PRP.Domain.Models.Dto;
 using PRP.WinService.ApiServices;
 using PRP.WinService.Email;
 using PRP.WinService.Model;
@@ -35,23 +36,24 @@ namespace PRP.WinService.Tests
         public void GeneratePODReport_SendEmail_Test()
         {
             bool bResult = false;
-                bResult = _produceReport.GeneratePODReport(new PartnerDetailDto { });
+                bResult = _produceReport.GeneratePODReport(new GetPartnerDto { });
             Assert.True(bResult);
         }
 
         [Fact]
         public void GenerateScanReport_SendEmail_Test()
         {
-            bool bResult = _produceReport.GenerateScanReport(new PartnerDetailDto { });
+            bool bResult = _produceReport.GenerateScanReport(new GetPartnerDto { });
             Assert.False(bResult);
         }
 
         [Fact]
         public void GenerateExceptionReport_SendEmail_Test()
         {
-            bool bResult = _produceReport.GenerateExceptionReport(new PartnerDetailDto { });
+            bool bResult = _produceReport.GenerateExceptionReport(new GetPartnerDto { });
             Assert.True(bResult);
         }
+        //[Fact]
         //[Fact]
         //public void GenerateAllReports_SendEmail_Test()
         //{

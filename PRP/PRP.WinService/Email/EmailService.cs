@@ -57,7 +57,8 @@ namespace PRP.WinService.Email
                 mimeMessage.From.Add(new MailboxAddress(mimeMessage.Subject, testUserEmailID));
 
 
-              
+              if(Partner.partner_emails ==null)
+                { return false; }
 
                 
                 if (Partner.partner_emails.Count() >0)
