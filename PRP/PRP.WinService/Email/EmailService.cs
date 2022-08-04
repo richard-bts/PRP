@@ -38,24 +38,25 @@ namespace PRP.WinService.Email
             .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
             .AddEnvironmentVariables()
             .Build();
-
+            string server = configuration.GetSection("EmailSettings:Server").Value;
+            int port =Convert.ToInt32(configuration.GetSection("EmailSettings:Port").Value);
 
             using (var client = new MailKit.Net.Smtp.SmtpClient())
             {
                 client.ServerCertificateValidationCallback += new System.Net.Security.RemoteCertificateValidationCallback(ValidateCertificate);
                 client.SslProtocols = System.Security.Authentication.SslProtocols.Tls12;
                
-                client.Connect(configuration.GetSection("EmailSettings:Server").Value, 465, SecureSocketOptions.Auto);
+                client.Connect(server, port, SecureSocketOptions.Auto);
                 
                 client.Authenticate(configuration.GetSection("EmailSettings:User").Value, configuration.GetSection("EmailSettings:Password").Value);
 
 
-                string testUser = configuration.GetSection("EmailSettings:TestUser").Value;
-                string testUserEmailID = configuration.GetSection("EmailSettings:TestUserEmailID").Value;
+                string User = configuration.GetSection("EmailSettings:Userinfo").Value;
+                string UserEmailID = configuration.GetSection("EmailSettings:User").Value;
                 var mimeMessage = new MimeMessage();
                 mimeMessage.Subject = $"PRP - {reportTitle} ({Partner.client_id})";
-                mimeMessage.From.Add(new MailboxAddress(mimeMessage.Subject, testUserEmailID));
-
+                mimeMessage.From.Add(new MailboxAddress(mimeMessage.Subject, UserEmailID));
+                
 
               if(Partner.partner_emails ==null)
                 { return false; }

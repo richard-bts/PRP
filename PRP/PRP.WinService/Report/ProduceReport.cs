@@ -226,7 +226,7 @@ namespace PRP.WinService.Report
 
                     list = JsonConvert.DeserializeObject<List<ScanReportDto>>(content);
                     if(list.Count == 0) { return false; }
-                    if (list != null && CreateScanCSVFileAndNotifyByEmail(list, pd) )
+                   if (list != null && CreateScanCSVFileAndNotifyByEmail(list, pd) )
                     {
                         Log.Logger.ForContext("Component", "PRP.WinService").Information("{Message}",
                             $"SCAN Report: Client {content.Substring(1, 20)}........{content.Substring(content.Length - 20, 20)}");
@@ -377,8 +377,10 @@ namespace PRP.WinService.Report
                 return true;
 
             }
-            catch (Exception)
+           catch (Exception e)
             {
+                Console.WriteLine($"Error with send email {e}");
+                Log.Logger.ForContext("Component", "PRP.WinService").Warning("{Message}", e);
                 throw;
             }
         }
