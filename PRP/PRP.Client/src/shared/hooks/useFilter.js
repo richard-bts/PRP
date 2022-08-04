@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { setCurrentPage, useAppDispatch, useAppSelector } from '../../store';
 
 export const useFilter = () => {
@@ -38,6 +38,10 @@ export const useFilter = () => {
     );
     dispatch(setCurrentPage(1));
   };
+
+  useEffect(() => {
+    handleSearch(searchText);
+  }, [partners]);
 
   return {
     currentPage,
