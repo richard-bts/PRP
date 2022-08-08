@@ -3,10 +3,10 @@ import { navLinks } from '../data';
 
 export const Navbar = () => {
   return (
-    <nav className="hidden md:block">
+    <nav className="relative hidden mx-auto md:block navbar">
       <Links
         navItems={ navLinks }
-        classStyles="px-4 transition duration-300 hover:text-black font-medium"
+        classStyles="px-4 transition duration-300 hover:text-white font-medium"
       />
     </nav>
   );

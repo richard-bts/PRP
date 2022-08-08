@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import { ChevronDoubleLeftIcon, ChevronDoubleRightIcon } from '@heroicons/react/solid';
 
 export const Pagination = ({ partnersPerPage, totalPartners, handleChangePage, currentPage }) => {
 
@@ -12,35 +11,39 @@ export const Pagination = ({ partnersPerPage, totalPartners, handleChangePage, c
     pageNumbers.push(i+1);
   };
 
-  if(!nextAvailable && !prevAvailable) {
-    return null;
-  }
-
   return (
-    <div className="grid justify-center grid-flow-col gap-3 mt-10 justify-items-center pagination">
-        <button
-          className={`grid items-center grid-flow-col gap-1 px-4 py-2 rounded shadow-md ${ prevAvailable ? 'bg-white' : 'bg-gray-100 text-gray-500 cursor-default' }`}
-          onClick={ () => prevAvailable ? handleChangePage(currentPage - 1) : null }
-        >
-          <ChevronDoubleLeftIcon className="w-4 h-4 text-gray-500" />
-          <span>Prev</span>
-        </button>
+    <div className="grid items-center justify-center mt-5 gap-y-5 md:grid-flow-col md:justify-between justify-items-center pagination">
+
+      <span className="current-pagination">Showing { currentPage * 10 > totalPartners ? totalPartners : currentPage * 10 } of { totalPartners }</span>
+
       {
-        pageNumbers.map( number => (
+        !nextAvailable && !prevAvailable ?
+          null
+        : 
+        <div className="flex items-center gap-2 pagination_buttons">
           <button
-            key={ number }
-            className={`${ currentPage === number ? 'current-page cursor-default bg-indigo-600 text-white' : currentPage === (number - 1) ? 'bg-white next-page' : 'bg-white' } ${ (number > (currentPage + 2)) || (number < (currentPage - 2)) ? 'hidden' : ''  } px-4 py-2 rounded shadow-md pagination-item`}
-            onClick={ () => handleChangePage(number) }
-          >{ number }</button>
-        ))
+            className="grid items-center grid-flow-col gap-1 px-4 py-2 text-base raleway-bl"
+            onClick={ () => prevAvailable ? handleChangePage(currentPage - 1) : null }
+          >
+            <span>Previous</span>
+          </button>
+        {
+          pageNumbers.map( number => (
+            <button
+              key={ number }
+              className={`raleway-bl text-base w-6 h-6 leading-5 ${ currentPage === number ? 'current-page cursor-default bg-black text-white rounded-sm' : currentPage === (number - 1) ? 'bg-white next-page' : 'bg-white' } ${ (number > (currentPage + 2)) || (number < (currentPage - 2)) ? 'hidden' : ''  } pagination-item`}
+              onClick={ () => handleChangePage(number) }
+            >{ number }</button>
+          ))
+        }
+        <button
+          className="grid items-center grid-flow-col gap-1 px-4 py-2 text-base raleway-bl"
+          onClick={ () => nextAvailable ? handleChangePage(currentPage + 1) : null }
+        >
+          <span>Next</span>
+        </button>
+        </div>
       }
-      <button
-        className={`grid items-center grid-flow-col gap-1 px-4 py-2 rounded shadow-md ${ nextAvailable ? 'bg-white' : 'bg-gray-100 text-gray-500 cursor-default' }`}
-        onClick={ () => nextAvailable ? handleChangePage(currentPage + 1) : null }
-      >
-        <span>Next</span>
-        <ChevronDoubleRightIcon className="w-4 h-4 text-gray-500" />
-      </button>
     </div>
   );
 };

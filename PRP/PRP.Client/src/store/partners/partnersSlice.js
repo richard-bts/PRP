@@ -11,7 +11,7 @@ const initialState = {
   namedSort: false,
   openForm: false,
   partners: [],
-  partnersPerPage: 15
+  partnersPerPage: 10
 };
 
 export const partnersSlice = createSlice({
@@ -80,11 +80,9 @@ export const partnersSlice = createSlice({
         return 0;
       });
     },
-    sortByActive: (state) => {
-      state.activedSort = !state.activedSort;
-      state.namedSort = false;
+    sortByActive: (state, action) => {
       state.partners = [...state.partners].sort((a, b) => {
-        if (!state.activedSort) {
+        if (!action.payload) {
           if (a.active < b.active) {
             return -1;
           }

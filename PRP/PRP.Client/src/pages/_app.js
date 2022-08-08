@@ -9,7 +9,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <Provider store={store}>
       <NextNProgress
-        color="linear-gradient(90deg, rgba(170,166,242,1) 0%, rgba(79,70,229,1) 40%, rgba(79,70,229,1) 100%)"
+        color="linear-gradient(90deg, rgba(0, 190, 124, 1) 0%, rgba(3, 222, 145,1) 40%, rgba(3, 222, 145,1) 100%)"
         height={3}
       />
       <Component {...pageProps} />

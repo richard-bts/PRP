@@ -9,16 +9,19 @@ export default function Home() {
       headTitle="Home"
     >
       <main className="my-10 landing">
-        <section className="flex flex-col items-center justify-between px-5 xl:gap-20 gap-14 xl:flex-row xl:justify-center">
-          <div className="relative w-72 h-72 home__hero-image">
-            <Image
-              className="rounded-lg img-home"
-              src="/img/box.jpg"
-              layout="fill"
-              alt="Box image"
-              title="Box image"
-              priority="true"
-            />
+        <section className="flex flex-col items-center w-full gap-20 px-5">
+          <div className="flex flex-col items-center w-full gap-32 text-center justify-evenly xl:flex-row">
+            <h1 className="home_text raleway-eb">Manage all reports and partners in one place</h1>
+            <div className="relative h-56 w-72 home__hero-image xl:w-auto xl:h-auto">
+              <Image
+                className="img-home"
+                src="/img/hero_img.svg"
+                layout="fill"
+                alt="Box image"
+                title="Box image"
+                priority="true"
+              />
+            </div>
           </div>
 
           <HomeCardContainer

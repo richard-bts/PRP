@@ -5,19 +5,19 @@ export const tableHeadPartners = [
     stylesClasses: "px-5 py-2	text-left"
   },
   {
-    label: "Email",
-    stylesClasses: "px-5 py-2	text-left hidden xl:block"
+    label: "Email Address",
+    stylesClasses: "px-5 py-2	text-left hidden lg:block"
   },
   {
-    label: "Active",
+    label: "Status",
     stylesClasses: "px-5 py-2	text-center hidden sm:block"
   },
   {
     label: "Report Types",
-    stylesClasses: "px-5 py-2	text-center hidden lg:block"
+    stylesClasses: "px-5 py-2	text-center hidden 2xl:block"
   },
   {
-    label: "Actions",
+    label: "Action",
     stylesClasses: "px-5 py-2	text-center"
   }
 ]

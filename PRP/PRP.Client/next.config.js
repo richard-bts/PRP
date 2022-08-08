@@ -4,15 +4,17 @@ const prodPath = '/Xcelerator/CDLPRPClient'
 
 const nextConfig = {
   reactStrictMode: true,
-  assetPrefix: isProd ? prodPath : './',
+  assetPrefix: isProd ? prodPath : '/',
   eslint: {
     ignoreDuringBuilds: true,
   },
   images: {
     loader: 'akamai',
-    path: isProd ? prodPath : './',
+    path: isProd ? prodPath : '/',
   },
-  basePath: isProd ? prodPath : '',
+  env: {
+    linksPath: isProd ? prodPath : '',
+  }
 }
 
 module.exports = nextConfig

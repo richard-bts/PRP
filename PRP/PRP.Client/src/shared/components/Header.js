@@ -15,19 +15,18 @@ export const Header = () => {
   }, [router.pathname]);
 
   return (
-    <header className="h-20">
-      <div className="container flex items-center justify-between h-full p-5 md:p-0 md:px-4">
+    <header className="sticky top-0 z-10 md:top-auto md:static md:z-auto header-tag primary-blue">
+      <div className="container flex items-center h-full min-w-full p-5 md:p-0 md:px-4">
         { isActive ?
           <a className="flex items-center gap-3 cursor-default">
             <Image
               alt='Last Mile Logo'
               className="w-16"
-              width={100}
-              height={30}
+              width={106}
+              height={50}
               src='/img/last_mile_logo.png'
               title="Last-Mile-Logo"
             />
-            <p className="hidden font-bold md:inline-block">Partner Reporting Package</p>
           </a>
           :
           <Link href={`${navLinks[0].to}`}>
@@ -35,12 +34,11 @@ export const Header = () => {
               <Image
                 alt='Last Mile Logo'
                 className="w-16"
-                width={100}
-                height={30}
+                width={106}
+                height={50}
                 src='/img/last_mile_logo.png'
                 title="Last-Mile-Logo"
               />
-              <p className="hidden font-bold md:inline-block">Partner Reporting Package</p>
             </a>
           </Link>
         }

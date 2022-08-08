@@ -23,11 +23,11 @@ export const useForm = () => {
   const dispatch = useAppDispatch();
   const { activePartner } = useAppSelector(state => state.partners);
   const { clientId, partnerId, partnerName, email, active, reportName, reportTime } = activePartner || initialPartnerState;
-  const [isActivePartner, setIsActivePartner] = useState(active);
+  const [isActivePartner, setIsActivePartner] = useState(active || 0);
   const [emailEdited, setEmailEdited] = useState([]);
   const [newEmail, setNewEmail] = useState([]);
   const [deletedEmails, setDeletedEmails] = useState([]);
-  const [ reportDate, setReportDate ] = useState( !!reportTime ? new Date(moment.utc(reportTime).format()) : initialTime.toDate() );
+  const [ reportDate, setReportDate ] = useState( !!reportTime ? new Date(reportTime) : initialTime.toDate() );
   const mergeReportObjects = reportTypesTest.map(report => {
     const reportObject = reportName?.find(item => item?.report_name === report?.report_name);
     return {
@@ -142,7 +142,7 @@ export const useForm = () => {
       partner_emails: emailsNoEmpty,
       partner_name: partnerName,
       partner_report_types: [...reportTypes],
-      partner_report_time: moment.utc(reportDate).format(),
+      partner_report_time: moment(reportDate).format(),
       partner_active: isActivePartner
     };
     setFormData(initialPartnerState);

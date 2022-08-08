@@ -4,7 +4,7 @@ import { HomeCardItem } from './';
 export const HomeCardContainer = ({ items }) => {
   return (
 
-    <div className="grid content-between min-h-full gap-4 grid-row-3 home__cards-containers">
+    <div className="flex flex-col content-between min-h-full gap-6 grid-row-3 home__cards-containers xl:flex-row">
       {
         items.map((item) => (
           <HomeCardItem

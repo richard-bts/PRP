@@ -3,10 +3,8 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { ConfirmPopup } from './ConfirmPopup';
 import { Form } from '../../components/partners/Form';
-import { useAppDispatch, useAppSelector } from '../../store';
-import { removeCurrentPartner } from '../../store/partners/thunks';
+import { useAppSelector } from '../../store';
 import { TableBody as TableBodyPartners } from '../../components/partners';
-import { alertPopup } from '../helpers/alertPopup';
 
 export const Table = (
   {
@@ -24,7 +22,6 @@ export const Table = (
   }
 ) => {
 
-  const dispatch = useAppDispatch();
   const { openForm } = useAppSelector( state => state.partners );
   const [isOpen, setIsOpen] = useState(false);
   const [partnerToRemove, setPartnerToRemove] = useState({

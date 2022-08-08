@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 
 export const PageTitle = ({ title }) => {
   return (
-    <h2 className="text-2xl font-bold uppercase">{ title }</h2>
+    <h2 className="text-xl font-bold table_text-black">{ title }</h2>
   );
 };
 

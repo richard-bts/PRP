@@ -30,10 +30,10 @@ export const FormInputEmail = ({ children, index, inputValue, setErrorForm, hand
 
   return (
     <>
-      <div className="grid grid-flow-col">
+      <div className={`${ index > 0 ? 'pt-3' : ''} grid items-center email_container`}>
         <input
           type="email"
-          className="p-2 mb-3 bg-gray-100 rounded-lg shadow outline-none focus:bg-gray-200"
+          className="p-2 outline-none form_input form__partner-input"
           placeholder={`Email ${index + 1}`}
           name={email}
           value={email}
@@ -43,10 +43,11 @@ export const FormInputEmail = ({ children, index, inputValue, setErrorForm, hand
         />
         { children && children }
       </div>
-      <FormInputError
-        errorMessage={emailError.errorMessage}
-        error={emailError.error}
-      />
+      
+      { emailError.error && <FormInputError
+              errorMessage={emailError.errorMessage}
+              error={emailError.error}
+            /> }
     </>
   );
 };

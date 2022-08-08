@@ -1,12 +1,12 @@
 import getStore from '../../store/store';
-import { PlusSmIcon } from '@heroicons/react/solid';
+import { ChevronDownIcon, PlusSmIcon } from '@heroicons/react/solid';
 import { tableHeadPartners } from '../../shared/data';
 import { SearchBar } from '../../components/partners';
 import { useFilter } from '../../shared/hooks/useFilter';
 import { getPartners } from '../../store/partners/thunks';
 import { setActivePartner, setOpenForm, useAppDispatch } from '../../store';
-import { SelectPartnersPerPage } from '../../components/partners/SelectPartnersPerPage';
 import { Layout, Table, PageTitle, Pagination, ButtonIcon } from '../../shared/components';
+import { FilterByStatusButton } from '../../components/partners/FilterByStatusButton';
 
 const Partners = () => {
   const { currentPage, searchText, setSearchText, partnersLength, currentPartners, handleSearch, handleChangePage, partnersPerPage } =  useFilter();
@@ -26,34 +26,35 @@ const Partners = () => {
     <Layout
       headTitle="Partners"
     >
-      <section className="flex flex-col items-center justify-between gap-6 px-5 mt-10 mb-10 lg:flex-row md:px-0 md:mb-16">
-        <PageTitle title="Partners page" />
+      <section className="relative flex flex-col items-center justify-between gap-6 px-5 mt-10 mb-10 xl:mt-24 lg:flex-row md:px-0 md:mb-10 filter_bar">
+        <PageTitle title="Partners List" />
         
-        <div className="flex flex-col gap-4 md:flex-row md:justify-end md:gap-10">
+        <div className="flex flex-col w-full gap-4 md:w-auto md:flex-row md:justify-evenly md:gap-10">
           <SearchBar
             handleSearch={ handleSearch }
             setSearchText={ setSearchText }
             searchText={ searchText }
           />
-          <SelectPartnersPerPage />
+          <FilterByStatusButton />
           <ButtonIcon
-            btnLabel="Add partner"
-            labelStyles="hidden xl:inline-block"
-            btnStyles="rounded-full xl:rounded xl:static xl:bottom-0 xl:right-0 fixed bottom-4 right-4 h-14 w-14 xl:h-auto xl:w-auto"
+            btnLabel="Add New Partner"
+            labelStyles="hidden xl:inline-block text-lg raleway-b"
+            btnColors="primary-blue hover:opacity-90 transition duration-300 ease-in-out"
+            btnStyles="rounded-full xl:rounded-lg xl:static xl:bottom-0 xl:right-0 fixed bottom-4 right-4 w-14 xl:h-auto xl:w-auto"
             onClick={ () => dispatch(setOpenForm(true))}
           >
-            <PlusSmIcon className="text-white w-7 h-7 md:w-6 md:h-6" />
+            <PlusSmIcon className="text-white w-7 h-7 md:w-6 md:h-6 xl:hidden" />
           </ButtonIcon>
         </div>
       </section>
 
       <main className="mb-20">
         <Table
-          tableStyles="w-full table-auto min-w-full max-w-fit shadow-md"
+          tableStyles="w-full table-auto min-w-full max-w-fit"
           theadItems={ tableHeadPartners }
-          theadTrGridStyles="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 items-center"
+          theadTrGridStyles="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 justify-evenly 2xl:grid-cols-[183px_270px_100px_487px_88px] items-center"
           tbodyItems={ currentPartners }
-          tbodyTrGridStyles="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 items-center"
+          tbodyTrGridStyles="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 justify-evenly 2xl:grid-cols-[183px_270px_100px_487px_88px]"
           handleCloseForm={ handleCloseForm }
           handleEditPartner={ handleEditPartner }
         />

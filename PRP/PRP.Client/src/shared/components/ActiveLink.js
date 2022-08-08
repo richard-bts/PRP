@@ -6,7 +6,7 @@ export const ActiveLink = ({ label, href, stylesClass, navPath }) => {
   const router = useRouter();
 
   const [isActive, setIsActive] = useState(router.pathname === navPath);
-  const activeStyles = isActive ? 'text-black cursor-default' : 'text-slate-400';
+  const activeStyles = isActive ? 'md:text-white raleway-eb cursor-default' : 'nav_link-inactive';
 
   const handleClick = (event) => {
     event.preventDefault();

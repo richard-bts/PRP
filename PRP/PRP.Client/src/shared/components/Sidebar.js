@@ -6,7 +6,7 @@ import { hideSidebar, showSidebar, useAppDispatch, useAppSelector } from '../../
 export const Sidebar = () => {
   const { isOpen } = useAppSelector( state => state.sidebar);
   const dispatch = useAppDispatch();
-  const genericHamburgerLine = `h-1 w-6 my-1 rounded-full bg-black transition ease transform duration-300`;
+  const genericHamburgerLine = `h-1 w-6 my-1 rounded-full bg-white transition ease transform duration-300`;
 
   const handleIsOpen = () => {
     isOpen ? dispatch( hideSidebar() ) : dispatch( showSidebar() );

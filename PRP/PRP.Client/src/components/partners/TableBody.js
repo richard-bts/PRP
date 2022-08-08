@@ -2,60 +2,45 @@ import PropTypes from 'prop-types';
 import { PencilAltIcon } from '@heroicons/react/solid';
 
 const trColorsDefault = 'text-gray-600 bg-white';
-const trStylesDefault = 'text-sm leading-normal md:h-12';
+const trStylesDefault = 'text-sm leading-normal';
 
 export const TableBody = ({ tbodyItems, tbodyTrStyles, tbodyTrColors, tbodyTrGridStyles, handleEditPartner }) => {
   return (
     <tbody>
       {
-        tbodyItems.map(({ id, clientId, partnerId, partnerName, email = [{ partner_email: "" }], active, reportName = [], reportTime }) => (
+        tbodyItems.map(({ id, clientId, partnerId, partnerName, email = [{ partner_email: "" }], active, reportName = [], reportTime }, index) => (
           <tr
             key={`${partnerName}-${partnerId}`}
-            className={`border-b border-gray-200 h-14 md:h-16 table-partner-item select-none ${tbodyTrStyles || trStylesDefault} ${tbodyTrColors || trColorsDefault} ${tbodyTrGridStyles || ''}`}
+            className={`h-20 items-center lg:items-start pt-3 xl:pt-6 table-partner-item select-none ${tbodyTrStyles || trStylesDefault} ${tbodyTrColors || trColorsDefault} ${tbodyTrGridStyles || ''}`}
           >
             <td
               onDoubleClick={() => handleEditPartner({ id, clientId, partnerId, partnerName, email, active, reportName })}
-              className="px-6 py-3 font-semibold text-left cursor-pointer max-h-16 whitespace-nowrap"
-            >{partnerName}</td>
+              className="px-6 text-base text-left truncate cursor-pointer raleway-m max-h-16 table_text-black"
+              title={partnerName}
+            ><span className="mr-5 table_text-black">{index + 1}</span> {partnerName}</td>
             <td
               onDoubleClick={() => handleEditPartner({ id, clientId, partnerId, partnerName, email, active, reportName })}
-              className="hidden max-h-full px-6 py-3 overflow-hidden text-left cursor-pointer xl:grid"
+              className="hidden max-h-full px-6 text-left cursor-pointer lg:grid"
             >
-              {email?.map(({ partner_email }, index) => index < 2 && (
-                <span key={`${partner_email}+${index}`} className="h-5 truncate">{partner_email ?? ''}</span>
+              {email?.map(({ partner_email }, index) => index < 3 && (
+                <span key={`${partner_email}+${index}`} className="h-5 mb-1 text-base truncate table_text-black">{partner_email ?? ''}</span>
               ))}
             </td>
             <td
               onDoubleClick={() => handleEditPartner({ id, clientId, partnerId, partnerName, email, active, reportName })}
-              className="hidden px-6 py-3 font-medium text-center cursor-pointer max-h-16 sm:block"
-            >{active ? 'Yes' : 'No'}</td>
+              className="hidden px-6 text-center cursor-pointer max-h-16 sm:block"
+            >{active ? <span className="block w-20 mx-auto text-base leading-8 text-center uppercase status active raleway-sb">Active</span> : <span className="block mx-auto text-base leading-8 text-center uppercase status inactive raleway-sb">Inactive</span>}</td>
             <td
               onDoubleClick={() => handleEditPartner({ id, clientId, partnerId, partnerName, email, active, reportName })}
-              className="relative justify-center hidden grid-flow-col gap-2 px-6 py-3 text-center cursor-pointer max-h-16 lg:grid justify-items-center reports group"
+              className="relative justify-start hidden grid-flow-col gap-1 px-6 text-center cursor-pointer max-h-16 2xl:grid justify-items-center reports group"
             >
-              {reportName.length >= 3 ?
+              { reportName.length > 0 ?
                 <>
-                  <span className={`text-xs text-white ${reportName[0]?.report_name?.toLowerCase()} px-1 xl:px-2 py-1 uppercase rounded-full whitespace-nowrap`}>{reportName[0].report_name}</span>
-                  <span className="text-xs font-semibold leading-6">+ {reportName.length - 1} others</span>
-                </>
-                : reportName.length === 2 ?
-                  <>
-                    <span className={`text-xs text-white ${reportName[0]?.report_name?.toLowerCase()} px-1 xl:px-2 py-1 uppercase rounded-full whitespace-nowrap`}>{reportName[0].report_name}</span>
-                    <span className="text-xs font-semibold leading-6">+ 1 other</span>
-                  </>
-                  : reportName.length > 0 ? <span className={`text-xs text-white ${reportName[0]?.report_name?.toLowerCase()} px-1 xl:px-2 py-1 uppercase rounded-full whitespace-nowrap`}>{reportName[0]?.report_name}</span>
-                    : <span>No reports</span>
-              }
-
-              { reportName.length > 1 &&
-                <div className="absolute invisible max-w-xs overflow-hidden text-xs font-semibold text-center uppercase transition-opacity duration-500 ease-in-out rounded-md shadow-md opacity-0 w-52 group-hover:opacity-100 group-hover:visible left-2/4 top-2/4 -translate-x-2/4 -translate-y-2/4">
                   { reportName.map(({ report_name }, index) => (
-                    <span
-                      key={`${report_name}-${index}`}
-                      className={`block w-full p-2 text-white tooltip-${ report_name.toLowerCase() }`}
-                    >{ report_name }</span>
+                    <span key={`${report_name}+${index}`} className={`text-base text-white px-1 2xl:px-3 py-1 uppercase rounded-full whitespace-nowrap table__report-type ${report_name?.toLowerCase()}`}>{report_name}</span>
                   ))}
-                </div>
+                </>
+                : <span>No reports</span>
               }
             </td>
             <td className="grid justify-center grid-flow-col gap-5 px-6 py-3 text-center max-h-16 justify-items-center">

@@ -28,23 +28,17 @@ export const FormInput = ({ value, placeholder, errorMessage, error, handleFormC
 
   return (
     <div className="w-full top-16">
-      <label className="pb-2 font-semibold text-gray-700 first-letter:uppercase">Partner name</label>
+      <label className="pb-2 pl-4 text-sm text-gray-700 first-letter:uppercase">Partners Name</label>
       <Combobox value={selected} onChange={ e => handleInputChange(e) }>
         <div className="relative z-50 mt-1">
-          <div className="relative w-full overflow-hidden text-left rounded-lg shadow-md cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
+          <div className="relative w-full overflow-hidden text-left cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
             <Combobox.Input
-              className="w-full h-10 py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 bg-gray-100 border-none outline-none focus:ring-0 focus:bg-gray-200"
+              className="w-full py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 border-none outline-none form__partner-input form_input focus:ring-0"
               displayValue={(company) => company.companyName}
               onChange={(event) => setQuery(event.target.value)}
               placeholder={placeholder}
               autoComplete="off"
             />
-            <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
-              <SelectorIcon
-                className="w-5 h-5 text-gray-400"
-                aria-hidden="true"
-              />
-            </Combobox.Button>
           </div>
           <Transition
             as={Fragment}
