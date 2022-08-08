@@ -134,6 +134,13 @@ namespace PRP.Service.Api.Repository
                         },
                         new SqlParameter()
                         {
+                            ParameterName="@partnerActive",
+                            SqlDbType = System.Data.SqlDbType.DateTime,
+                            Direction = System.Data.ParameterDirection.Input,
+                            Value = partner.partner_active
+                        },
+                        new SqlParameter()
+                        {
                             ParameterName="@partnerId",
                             SqlDbType = System.Data.SqlDbType.Int,
                             Direction = System.Data.ParameterDirection.Output
@@ -144,13 +151,15 @@ namespace PRP.Service.Api.Repository
                     {
                         try
                         {
-                            await _db.Database.ExecuteSqlRawAsync("EXEC [dbo].[sp_AddPartner] @clientId, @partnerName, @reportTime, @partnerId out", param);
-                            int partnerId = (int)param[3].Value;
+                            await _db.Database.ExecuteSqlRawAsync("EXEC [dbo].[sp_AddPartner] @clientId, @partnerName, @reportTime, @partnerActive, @partnerId out", param);
+                            int partnerId = (int)param[4].Value;
                             for(int i = 0; i < partner.partner_report_types.Count; i++)
                             {
                                 await AddPartnerReport(partnerId, partner.partner_report_types[i].report_type_id, partner.partner_report_types[i].active);
                             };
-                            await AddPartnerEmail(new PartnerEmailDto() { partner_id = partnerId, partner_email = partner.partner_emails });
+                            if (partner.partner_emails != null)
+                                await AddPartnerEmail(new PartnerEmailDto() { partner_id = partnerId, partner_email = partner.partner_emails });
+
                             return await GetPartner(partnerId);
                         }
                         catch (Exception)
