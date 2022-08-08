@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PRPApi;
 using PRP.Service.Api.DbContexts;
-using PRP.Service.Api.Models.Dto;
+using PRP.Domain.Models.Dto;
 using PRP.Service.Api.Repository;
 using Serilog;
 

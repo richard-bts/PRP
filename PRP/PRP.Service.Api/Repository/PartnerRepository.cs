@@ -2,8 +2,8 @@
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using PRP.Service.Api.DbContexts;
-using PRP.Service.Api.Models;
-using PRP.Service.Api.Models.Dto;
+using PRP.Domain.Models;
+using PRP.Domain.Models.Dto;
 
 namespace PRP.Service.Api.Repository
 {
@@ -75,23 +75,24 @@ namespace PRP.Service.Api.Repository
                 partners = await _db.Partners.FromSqlRaw("EXEC [dbo].[sp_GetPartners]").ToListAsync();
                 if (partners == null)
                     return null;
-                List<GetPartnerDto> result = partners.GroupBy(p => p.partner_id).Select(g => new GetPartnerDto
-                {
-                    id = g.FirstOrDefault().id,
-                    client_id = g.FirstOrDefault().client_id,
-                    partner_id = g.FirstOrDefault().partner_id,
-                    partner_name = g.FirstOrDefault().partner_name,
-                    partner_active = g.First().partner_active,
-
-                    partner_report_types = g.DistinctBy(d => d.report_type_id).Select(p => new PartnerReportType
+                List<GetPartnerDto> result = partners.GroupBy(p => p.partner_id)
+                    .Select(g => new GetPartnerDto
                     {
-                        report_type_id = p.report_type_id,
-                        report_name = p.report_name,
-                        active = p.report_active
-                    }),
+                        id = g.FirstOrDefault().id,
+                        client_id = g.FirstOrDefault().client_id,
+                        partner_id = g.FirstOrDefault().partner_id,
+                        partner_name = g.FirstOrDefault().partner_name,
+                        partner_active = g.First().partner_active,
 
-                    partner_report_time = g.FirstOrDefault().partner_report_time
-                }).ToList();
+                        partner_report_types = g.DistinctBy(d => d.report_type_id).Select(p => new PartnerReportType
+                        {
+                            report_type_id = p.report_type_id,
+                            report_name = p.report_name,
+                            active = p.report_active
+                        }).ToList(),
+
+                        partner_report_time = g.FirstOrDefault().partner_report_time
+                    }).ToList();
                 for (int i = 0; i < result.Count(); i++)
                 {
                     result[i].partner_emails = GetPartnerEmails(result[i].partner_id).Result.ToList();

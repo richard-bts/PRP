@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PRP.Service.Api.Models;
-using PRP.Service.Api.Models.Dto;
+using PRP.Domain.Models;
 
 namespace PRP.Service.Api.DbContexts
 {

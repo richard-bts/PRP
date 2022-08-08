@@ -1,4 +1,4 @@
-﻿using PRP.Service.Api.Models.Dto;
+﻿using PRP.Domain.Models.Dto;
 namespace PRP.Service.Api.Repository
 {
     public interface IReportRepository

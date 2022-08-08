@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using PRP.Service.Api.Models;
-using PRP.Service.Api.Models.Dto;
+using PRP.Domain.Models;
+using PRP.Domain.Models.Dto;
 using Microsoft.EntityFrameworkCore;
 using PRP.Service.Api.DbContexts;
 using Microsoft.Data.SqlClient;
