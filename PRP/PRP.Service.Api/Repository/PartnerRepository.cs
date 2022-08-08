@@ -135,7 +135,7 @@ namespace PRP.Service.Api.Repository
                         new SqlParameter()
                         {
                             ParameterName="@partnerActive",
-                            SqlDbType = System.Data.SqlDbType.DateTime,
+                            SqlDbType = System.Data.SqlDbType.TinyInt,
                             Direction = System.Data.ParameterDirection.Input,
                             Value = partner.partner_active
                         },
