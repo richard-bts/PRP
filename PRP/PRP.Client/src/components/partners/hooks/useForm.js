@@ -32,7 +32,7 @@ export const useForm = () => {
     const reportObject = reportName?.find(item => item?.report_name === report?.report_name);
     return {
       ...report,
-      active: reportObject?.active
+      active: !!reportObject?.active ? reportObject.active : 0
     }
   });
   const [reportTypes, setReportTypes] = useState([...mergeReportObjects]);
@@ -172,7 +172,7 @@ export const useForm = () => {
       }
     }
     setIsActivePartner(0);
-    setActivePartner({});
+    dispatch(setActivePartner({}));
   }
 
   return {
