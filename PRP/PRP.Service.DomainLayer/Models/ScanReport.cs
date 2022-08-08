@@ -8,7 +8,7 @@ namespace PRP.Domain.Models
         public int clientID { get; set; }
         [Key]
         [Column(TypeName = "decimal(14,6)")]
-        public string? OrderTrackingID { get; set; }
+        public decimal OrderTrackingID { get; set; }
         public string? ClientRefNo { get; set; }
         public string? SCANcode { get; set; }
         public string? SCANlocation { get; set; }
