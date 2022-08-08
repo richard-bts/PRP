@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.VisualStudio.TestPlatform.TestHost;
 using PRP.Service.Api.DbContexts;
-using PRP.Service.Api.Models.Dto;
+using PRP.Domain.Models.Dto;
 using PRP.Service.Api.Repository;
 using PRPApi;
 using System;
