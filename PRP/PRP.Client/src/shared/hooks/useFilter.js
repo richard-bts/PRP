@@ -1,13 +1,15 @@
-import { useState } from 'react';
-import { setCurrentPage, useAppDispatch, useAppSelector } from "../../store";
+import { useEffect, useState } from 'react';
+import { setCurrentPage, useAppDispatch, useAppSelector } from '../../store';
 
 export const useFilter = () => {
 
   const { partners, partnersPerPage, currentPage } = useAppSelector( state => state.partners );
   const finalPartners = partners.map( partner => {
+    const deleteRepetedReports = partner?.reportName.filter((obj, index, self) => self.findIndex(t => t?.report_name === obj?.report_name) === index)
     return {
       ...partner,
-      email: partner.email?.split(','),
+      email: partner.email,
+      reportName: deleteRepetedReports.filter( report => !!report.active ),
     }
   });
   const dispatch = useAppDispatch();
@@ -36,6 +38,10 @@ export const useFilter = () => {
     );
     dispatch(setCurrentPage(1));
   };
+
+  useEffect(() => {
+    handleSearch(searchText);
+  }, [partners]);
 
   return {
     currentPage,

@@ -5,12 +5,13 @@ export const Links = ({ navItems, classStyles }) => {
   return (
     <>    
       {
-        navItems.map(({ to, label }) => (
+        navItems.map(({ to, label, navPath }) => (
           <ActiveLink
             key={ label }
             href={ to }
             label={ label }
             stylesClass={ classStyles }
+            navPath={ navPath }
           />
         ))
       }

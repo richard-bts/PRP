@@ -4,7 +4,7 @@ import { HomeCardItem } from './';
 export const HomeCardContainer = ({ items }) => {
   return (
 
-    <div className="grid grid-cols-1 gap-4 md:gap-12 md:grid-cols-2">
+    <div className="grid content-between min-h-full gap-4 grid-row-3 home__cards-containers">
       {
         items.map((item) => (
           <HomeCardItem

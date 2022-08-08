@@ -9,10 +9,11 @@ import { FormInputEmail } from './FormInputEmail';
 import { ButtonIcon } from '../../shared/components/ButtonIcon';
 import { FormInputError } from './FormInputError';
 import { ButtonComponent } from './ButtonComponent';
+import { ReportTime } from './ReportTime';
 
 export const Form = ({ handleCloseForm }) => {
 
-  const { name, email, handleTypeReport, handleFormChange, handleSubmitForm, handleAddEmail, handleSaveEmail, isActivePartner, setIsActivePartner, errorForm, isValidData, reportName, setErrorForm, handleRemoveEmail } = useForm(handleCloseForm);
+  const { name, email, handleTypeReport, handleFormChange, handleSubmitForm, handleAddEmail, handleSaveEmail, isActivePartner, setIsActivePartner, errorForm, isValidData, reportName, setErrorForm, handleRemoveEmail, handleChangeDateTime, reportDate } = useForm(handleCloseForm);
   let [isOpen, setIsOpen] = useState(false);
 
   const submitForm = (e) => {
@@ -31,10 +32,8 @@ export const Form = ({ handleCloseForm }) => {
           <h2 className="mb-6 text-2xl font-semibold text-center uppercase">Partner data</h2>
 
           <FormInput
-            inputType="text"
-            inputName="partnerName"
-            placeholder="Partner name"
             value={name}
+            placeholder="Partner name"
             handleFormChange={handleFormChange}
             errorMessage={errorForm.partnerName.errorMessage}
             error={errorForm.partnerName.error}
@@ -42,11 +41,12 @@ export const Form = ({ handleCloseForm }) => {
 
           <div className="relative flex flex-col py-3 mb-7">
             <label className="pb-2 font-semibold text-gray-700 first-letter:uppercase">Emails</label>
-            {email.length > 0 && email.map((email, index) => (
+            {email.length > 0 && email.map(({ partner_email, partner_email_id }, index) => (
               <FormInputEmail
-                key={`${email}+${index}`}
+                key={`${partner_email}+${index}`}
                 index={index}
-                inputValue={email}
+                inputValue={partner_email}
+                emailId={partner_email_id}
                 setErrorForm={setErrorForm}
                 handleSaveEmail={handleSaveEmail}
               >
@@ -99,15 +99,23 @@ export const Form = ({ handleCloseForm }) => {
             }
           </div>
 
+          <div className="flex flex-col py-3">
+            <label className="pb-2 font-semibold text-gray-700">Report time</label>
+            <ReportTime
+              handleChangeDateTime={ handleChangeDateTime }
+              reportDate={ reportDate }
+            />
+          </div>
+
           <div className="grid grid-cols-2 gap-3 mt-2">
             <button
               className={`${isValidData ? 'bg-indigo-500 hover:bg-indigo-600' : 'bg-indigo-500 opacity-50 cursor-default'} rounded p-3 font-medium text-white transition-colors duration-300`}
               type="submit"
             >Save</button>
-            
+
             <ButtonComponent
               buttonText="Cancel"
-              handleClick={ handleCloseForm }
+              handleClick={handleCloseForm}
             />
           </div>
         </form>

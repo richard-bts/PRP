@@ -1,18 +1,12 @@
 export const navLinks = [
   {
-    to: '/',
+    to: `${process.env.linksPath}/`,
+    navPath: `/`,
     label: 'Home'
   },
   {
-    to: '/partners',
+    to: `${process.env.linksPath}/partners`,
+    navPath: `/partners`,
     label: 'Partners'
   }
-  // {
-  //   to: '/reports',
-  //   label: 'Reports'
-  // },
-  // {
-  //   to: '/partners/add-partner',
-  //   label: 'Add Partner'
-  // }
 ];

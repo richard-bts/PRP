@@ -8,11 +8,12 @@ export default function Home() {
     <Layout
       headTitle="Home"
     >
-      <main className="my-10 main">
-        <section className="flex flex-col items-center justify-between px-5 lg:gap-20 gap-14 lg:flex-row lg:justify-center">
+      <main className="my-10 landing">
+        <section className="flex flex-col items-center justify-between px-5 xl:gap-20 gap-14 xl:flex-row xl:justify-center">
           <div className="relative w-72 h-72 home__hero-image">
             <Image
-              src="/img/img_box.svg"
+              className="rounded-lg img-home"
+              src="/img/box.jpg"
               layout="fill"
               alt="Box image"
               title="Box image"

@@ -1,8 +1,8 @@
-import { Fragment } from "react";
-import { partnersPerPage as partnerData } from "../../shared/data";
+import { Fragment } from 'react';
+import { partnersPerPage as partnerData } from '../../shared/data';
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, SelectorIcon } from '@heroicons/react/solid'
-import { setPartnersPerPage, useAppDispatch, useAppSelector } from "../../store";
+import { setPartnersPerPage, useAppDispatch, useAppSelector } from '../../store';
 
 export const SelectPartnersPerPage = () => {
   const { partnersPerPage } = useAppSelector( state => state.partners );

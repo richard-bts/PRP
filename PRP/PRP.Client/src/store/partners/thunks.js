@@ -1,23 +1,20 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { fetchPartner, fetchPartnerQuery } from '../../shared/helpers/fetch';
-import { addPartner } from './partnersSlice';
-
-const baseURL = 'http://172.24.32.132/Xcelerator/CDLPRP';
-
+import { addPartner, setCompanyNamesOptions, setLoading } from './partnersSlice';
 
 /* GET PARTNER EMAIL */
 
 export const getPartnerEmail = async(partnerId) => {
-  const response = await fetchPartnerQuery(baseURL, `getpartneremails?partnerID=${partnerId}`);
+  const response = await fetchPartnerQuery(`getpartneremails?partnerID=${partnerId}`);
   const body = await response.json();
-  const { result } = body;
-  return result;
+  const { data } = body;
+  return data;
 }
 
 /* ADD PARTNER EMAIL */
 
 export const addPartnerEmail = async(data) => {
-  const response = await fetchPartner(baseURL, 'add-partner-email', undefined, data, 'POST');
+  const response = await fetchPartner('add-partner-email', undefined, data, 'POST');
   const body = await response.json();
   return body;
 }
@@ -25,7 +22,15 @@ export const addPartnerEmail = async(data) => {
 /* EDIT PARTNER EMAIL */
 
 export const editPartnerEmail = async(data) => {
-  const response = await fetchPartner(baseURL, 'update-partner-email', undefined, data, 'PUT');
+  const response = await fetchPartner('update-partner-email', undefined, data, 'PUT');
+  const body = await response.json();
+  return body;
+}
+
+/* REMOVE PARTNER EMAIL */
+
+export const deletePartnerEmail = async(emailId) => {
+  const response = await fetchPartnerQuery(`remove-partner-email?emailId=${emailId}`, 'PUT');
   const body = await response.json();
   return body;
 }
@@ -33,7 +38,7 @@ export const editPartnerEmail = async(data) => {
 /* GET ALL THE PARTNER EMAILS */
 
 export const getEmails = async() => {
-  const response = await fetchPartnerQuery(baseURL, 'getemails');
+  const response = await fetchPartnerQuery('getemails');
   const body = await response.json();
   return body;
 }
@@ -41,15 +46,15 @@ export const getEmails = async() => {
 /* GET ALL THE PARTNERS */
 
 export const getPartners = createAsyncThunk("partners/getPartners", async() => {
-  const response = await fetchPartnerQuery(baseURL, 'partners');
-  const { result } = await response.json();
-  return result;
+  const response = await fetchPartnerQuery('partners');
+  const { data } = await response.json();
+  return data;
 });
 
 /* GET A SPECIFIC PARTNER */
 
 export const getOnePartner = async(partnerId) => {
-  const response = await fetchPartnerQuery(baseURL, `partner?partner_id=${partnerId}`);
+  const response = await fetchPartnerQuery(`partner?partner_id=${partnerId}`);
   const body = await response.json();
   return body;
 }
@@ -57,7 +62,7 @@ export const getOnePartner = async(partnerId) => {
 /* GET ALL ACTIVE PARTNER */
 
 export const getActivePartners = async() => {
-  const response = await fetchPartnerQuery(baseURL, 'active-partners');
+  const response = await fetchPartnerQuery('active-partners');
   const body = await response.json();
   return body;
 }
@@ -65,7 +70,7 @@ export const getActivePartners = async() => {
 /* GET ALL INACTIVE PARTNER */
 
 export const getInactivePartners = async() => {
-  const response = await fetchPartnerQuery(baseURL, 'inactive-partners');
+  const response = await fetchPartnerQuery('inactive-partners');
   const body = await response.json();
   return body;
 }
@@ -73,15 +78,26 @@ export const getInactivePartners = async() => {
 /* GET REPORT TYPES */
 
 export const getReportTypes = async() => {
-  const response = await fetchPartnerQuery(baseURL, 'report-types');
+  const response = await fetchPartnerQuery('report-types');
   const body = await response.json();
   return body;
 }
 
+/* GET COMPANY NAME LIST */
+
+export const getCompanysName = createAsyncThunk("partners/getCompanysName", async(name, { dispatch }) => {
+  dispatch(setLoading(true));
+  const url = `https://testx.cdldelivers.com/Xcelerator/CDLPRP/api/report/GetCompanyName?Name=${name}`
+  const response = await fetch(url);
+  const { result } = await response.json();
+  dispatch(setLoading(false));
+  dispatch(setCompanyNamesOptions(result));
+});
+
 /* EDIT REPORT TYPES */
 
 export const editReportTypes = async(data) => {
-  const response = await fetchPartnerQuery(baseURL, 'update-partner-report-type', undefined, data, 'PUT');
+  const response = await fetchPartner('update-partner-report-type', undefined, data, 'PUT');
   const body = await response.json();
   return body;
 }
@@ -90,30 +106,50 @@ export const editReportTypes = async(data) => {
 /* ADD A PARTNER */
 
 export const addNewPartner = createAsyncThunk("partners/addNewPartner", async(partnerToAdd, { dispatch }) => {
-  const response = await fetchPartner(baseURL, 'create-partner', undefined, partnerToAdd, 'POST');
+  const { partner_emails, ...data } = partnerToAdd;
+  const response = await fetchPartner('create-partner', undefined, { ...data, partner_emails: partner_emails[0].partner_email }, 'POST');
   const body = await response.json();
-  if(body.isSuccess) {
-    console.log(body)
-    dispatch(addPartner({ ...partnerToAdd, partner_id: body.result.partner_id, client_id: body.result.client_id, id: body.result.id }));
+  
+  if(body.success) {
+    await partner_emails.forEach((email, index) => (!!email && index > 0) && addPartnerEmail({
+      partner_id: body.data[0].partner_id, 
+      partner_email: email.partner_email
+    }));
+    dispatch(addPartner({ ...partnerToAdd, partner_id: body.data.partner_id, client_id: body.data.client_id, id: body.data.id }));
     return true;
   } else {
-    console.log(body)
     return false;
   }
 });
 
 /* EDIT A PARTNER */
 
-export const editCurrentPartner = createAsyncThunk("partners/editCurrentPartner", async(partnerToEdit, { dispatch }) => {
-  const { partner_emails, partner_report_types, ...data } = partnerToEdit;
-  const response = await fetchPartner(baseURL, 'update-partner', undefined, data, 'PUT');
+export const editCurrentPartner = createAsyncThunk("partners/editCurrentPartner", async({ partnerToEdit, deletedEmails }, { dispatch }) => {
+  const { partner_report_types, partner_emails, ...data } = partnerToEdit;
+  const finalReports = partner_report_types.filter(report => report.active !== 'undefined');
+  const response = await fetchPartner('update-partner', undefined, data, 'PUT');
   const body = await response.json();
-  if(body.isSuccess) {
+  if(body.success) {
+    await partner_emails.forEach(email => !!email.partner_email_id ? 
+      editPartnerEmail({
+        partner_id: email.partner_id,
+        partner_email_id: email.partner_email_id,
+        email: email.partner_email,
+        active: email.active
+      })
+    : 
+      addPartnerEmail({
+        partner_id: body.data[0].partner_id, 
+        partner_email: email.partner_email
+      })
+    )
+    await finalReports.forEach(typeReport => editReportTypes({
+      partner_id: partnerToEdit.partner_id,
+      report_type_id: typeReport.report_type_id,
+      active: typeReport.active
+    }));
+    await deletedEmails.forEach(email => deletePartnerEmail(email.partner_email_id));
     dispatch(addPartner(partnerToEdit));
-    await editPartnerEmail({ partner_id: data.partner_id, partner_email: partner_emails });
-    // await partner_report_types.forEach(({ report_type_id, active }) => {
-    //   editReportTypes({ partner_id: data.partner_id, report_type_id, active })
-    // });
     return true;
   } else {
     return false;

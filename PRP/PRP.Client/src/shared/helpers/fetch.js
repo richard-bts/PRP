@@ -1,15 +1,17 @@
-export const fetchPartnerQuery = (baseUrl, endpoint, method = 'GET') => {
+const baseURL = 'https://testx.cdldelivers.com/Xcelerator/CDLPRP';
 
-  const url = `${baseUrl}/${endpoint}`;
+export const fetchPartnerQuery = (endpoint, method = 'GET') => {
+
+  const url = `${baseURL}/${endpoint}`;
   return fetch(url, {
     method
   });
 
 };
 
-export const fetchPartner = (baseUrl, endpoint, headers = { 'Content-type': 'application/json' }, data, method = 'GET') => {
+export const fetchPartner = (endpoint, headers = { 'Content-type': 'application/json' }, data, method = 'GET') => {
 
-  const url = `${baseUrl}/${endpoint}`;
+  const url = `${baseURL}/${endpoint}`;
 
   return fetch(url, {
     method,

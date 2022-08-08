@@ -1,9 +1,9 @@
-import dayjs from "dayjs";
-import { useState } from "react";
-import { initialPartnerState, reportTypesTest } from "../../../shared/data";
-import { alertPopup } from "../../../shared/helpers/alertPopup";
-import { setActivePartner, useAppDispatch, useAppSelector } from "../../../store";
-import { addNewPartner, editCurrentPartner } from "../../../store/partners/thunks";
+import { useState } from 'react';
+import moment from 'moment';
+import { initialPartnerState, reportTypesTest } from '../../../shared/data';
+import { alertPopup } from '../../../shared/helpers/alertPopup';
+import { setActivePartner, useAppDispatch, useAppSelector } from '../../../store';
+import { addNewPartner, editCurrentPartner } from '../../../store/partners/thunks';
 
 const errorFormInitialState = {
   partnerName: {
@@ -16,25 +16,35 @@ const errorFormInitialState = {
   }
 }
 
-const regexName = /^[A-zÀ-ÿ ]*$/;
+const initialTime = moment();
 
 export const useForm = () => {
 
   const dispatch = useAppDispatch();
   const { activePartner } = useAppSelector(state => state.partners);
-  const { id, clientId, partnerId, partnerName, email, active, reportName } = activePartner || initialPartnerState;
+  const { clientId, partnerId, partnerName, email, active, reportName, reportTime } = activePartner || initialPartnerState;
   const [isActivePartner, setIsActivePartner] = useState(active);
-  const [reportTypes, setReportTypes] = useState([...reportName]);
+  const [emailEdited, setEmailEdited] = useState([]);
+  const [newEmail, setNewEmail] = useState([]);
+  const [deletedEmails, setDeletedEmails] = useState([]);
+  const [ reportDate, setReportDate ] = useState( !!reportTime ? new Date(moment.utc(reportTime).format()) : initialTime.toDate() );
+  const mergeReportObjects = reportTypesTest.map(report => {
+    const reportObject = reportName?.find(item => item?.report_name === report?.report_name);
+    return {
+      ...report,
+      active: reportObject?.active
+    }
+  });
+  const [reportTypes, setReportTypes] = useState([...mergeReportObjects]);
   const [errorForm, setErrorForm] = useState(errorFormInitialState);
   const [formData, setFormData] = useState({
-    id: id || Math.floor(Math.random() * 1000000),
-    clientId: clientId || Math.floor(Math.random() * 1000000),
+    clientId: clientId || '',
     partnerId: partnerId || Math.floor(Math.random() * 1000000),
     partnerName: partnerName || '',
-    email: !email?.length ? [''] : [...email],
+    email: !email?.length ? [{ partner_id: partnerId, partner_email: '' }] : [...email],
   });
 
-  const isValidConditions = formData?.partnerName?.match(regexName) && formData?.partnerName?.length !== 0;
+  const isValidConditions = formData?.partnerName?.length !== 0;
   const [isValidData, setIsValidData] = useState(isValidConditions);
 
   const handleTypeReport = (value, typeName) => {
@@ -45,39 +55,58 @@ export const useForm = () => {
         }
         return item;
       })
-    )
-    );
+    ));
   };
 
+  const handleChangeDateTime = (date) => {
+    // if (date <= initialTime) return;
+    setReportDate(date);
+  }
+
   const handleAddEmail = () => {
-    setFormData({ ...formData, email: [...formData.email, ''] });
+    setFormData({ ...formData, email: [...formData.email, { partner_id: partnerId, partner_email: '' }] });
   }
 
   const handleRemoveEmail = (index) => {
-    setFormData({ ...formData, email: [...formData.email.slice(0, index), ...formData.email.slice(index + 1)] });
+    setFormData({ ...formData, email: formData.email.filter((_, i) => i !== index) });
+    setDeletedEmails( prev => {
+      const emailId = formData.email[index].partner_email_id;
+      if(emailId) {
+        const findEmail = formData.email.find(email => email.partner_email_id === emailId);
+        return [...prev, findEmail];
+      } else {
+        return prev;
+      }
+    })
   }
 
-  const handleSaveEmail = (e, index) => {
+  const handleSaveEmail = (e, index, emailId) => {
     const { value } = e.target;
-    const newEmail = [...formData.email];
-    newEmail[index] = value;
-    setFormData({ ...formData, email: newEmail });
+    const newValue = [...formData.email];
+    newValue[index] = { ...newValue[index], partner_email: value };
+    setFormData({ ...formData, email: newValue });
+    if (emailId) {
+      const { partner_email, ...rest } = formData.email.find(item => item.partner_email_id === emailId);
+      setEmailEdited([...emailEdited, { ...rest, email: value }]);
+    } else {
+      setNewEmail([...newEmail, { partner_id: partnerId, partner_email: value }]);
+    }
   }
 
   const handleFormChange = (e) => {
-    const { name, value } = e.target;
-    if (name === 'partnerName' && !value.match(regexName)) {
+    const { companyName, clientID } = e;
+    if (!companyName.length) {
       setErrorForm({
         ...errorForm,
         partnerName: {
           error: true,
-          errorMessage: 'Name must contain only letters'
+          errorMessage: 'Company name is required'
         }
       });
       return;
     }
 
-    const isValidConditions = formData?.partnerName?.match(regexName) && formData?.partnerName?.length > 2;
+    const isValidConditions = companyName.length > 2;
 
     if (isValidConditions) {
       setIsValidData(true);
@@ -85,13 +114,13 @@ export const useForm = () => {
       setIsValidData(false);
     }
 
-    setErrorForm({ ...errorForm, [name]: { error: false, errorMessage: '' } });
-    setFormData({ ...formData, [name]: value });
+    setErrorForm({ ...errorForm, partnerName: { error: false, errorMessage: '' } });
+    setFormData({ ...formData, partnerName: companyName, clientId: clientID });
 
   }
 
   const handleSubmitForm = async () => {
-    const { id, clientId, partnerId, partnerName, email } = formData;
+    const { partnerId, partnerName, email, clientId } = formData;
     if ((!partnerName.length || partnerName.length < 3)) {
       setErrorForm({
         ...errorForm,
@@ -106,13 +135,14 @@ export const useForm = () => {
       return;
     }
     setErrorForm(errorFormInitialState);
-    const emailsNoEmpty = email.filter(item => item.length > 0).join(',');
+    const emailsNoEmpty = email.filter(item => item.partner_email.length > 0);
     let partner = {
+      client_id: clientId,
       partner_id: partnerId,
       partner_emails: emailsNoEmpty,
       partner_name: partnerName,
       partner_report_types: [...reportTypes],
-      partner_report_time: dayjs().format(),
+      partner_report_time: moment.utc(reportDate).format(),
       partner_active: isActivePartner
     };
     setFormData(initialPartnerState);
@@ -122,16 +152,19 @@ export const useForm = () => {
         ...rest,
         active: partner_active
       };
-      const { payload } = await dispatch(editCurrentPartner(partnerToEdit));
+      const { payload } = await dispatch(editCurrentPartner({ partnerToEdit, deletedEmails }));
       if(payload) {
         alertPopup('Partner data successfully saved');
       } else {
         alertPopup('Error saving partner data', 'error');
       }
     } else {
-      const { partner_id, ...rest } = partner;
-      const partnerToAdd = { ...rest };
-      const { payload } = await dispatch(addNewPartner(partnerToAdd));
+      const { 
+        partner_id, 
+        active: partner_active,
+        ...rest
+      } = partner;
+      const { payload } = await dispatch(addNewPartner(rest));
       if (payload) {
         alertPopup('Partner data successfully saved');
       } else {
@@ -156,6 +189,8 @@ export const useForm = () => {
     setErrorForm,
     handleRemoveEmail,
     errorForm,
-    isValidData
+    isValidData,
+    handleChangeDateTime,
+    reportDate
   };
 };
