@@ -1,23 +1,37 @@
 import { Fragment, useState } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
 import { CheckIcon, ChevronDownIcon } from '@heroicons/react/solid';
-import { sortByActive, useAppDispatch } from '../../store';
+import { sortByActive, sortByName, sortByRecent, useAppDispatch } from '../../store';
 
 const options = [
-  { name: 'Active' },
-  { name: 'Inactive' }
+  { key: 1, name: 'Active' },
+  { key: 2, name: 'Inactive' },
+  { key: 3, name: 'Newest' },
+  { key: 4, name: 'Oldest' },
+  { key: 5, name: 'Name (A-Z)' },
+  { key: 6, name: 'Name (Z-A)' }
 ]
 
 export const FilterByStatusButton = () => {
-  const [selected, setSelected] = useState({name: 'Filter By Status'})
+  const [selected, setSelected] = useState(options[0]);
   const dispatch = useAppDispatch();
 
   const handleChange = (option) => {
     setSelected(option);
-    if(option.name === 'Active') {
-      dispatch(sortByActive(true))
-    } else {
-      dispatch(sortByActive(false))
+    if(option.key !== selected.key) {
+      if(option.key === 1) {
+        dispatch(sortByActive(true))
+      } else if(option.key === 2) {
+        dispatch(sortByActive(false))
+      } else if(option.key === 3) {
+        dispatch(sortByRecent(true))
+      } else if(option.key === 4) {
+        dispatch(sortByRecent(false))
+      } else if(option.key === 5) {
+        dispatch(sortByName(false))
+      } else {
+        dispatch(sortByName(true))
+      } 
     }
   }
 
@@ -37,12 +51,12 @@ export const FilterByStatusButton = () => {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Listbox.Options className="absolute w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+            <Listbox.Options className="absolute z-10 w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
               {options.map((option, personIdx) => (
                 <Listbox.Option
                   key={personIdx}
                   className={({ active }) =>
-                    `relative cursor-default select-none py-2 pl-10 pr-4 h-12 leading-8 ${
+                    `relative cursor-default select-none py-2 pl-8 pr-4 h-12 leading-8 ${
                       active ? 'bg-slate-100' : 'text-gray-900'
                     }`
                   }
@@ -58,7 +72,7 @@ export const FilterByStatusButton = () => {
                         {option.name}
                       </span>
                       {selected ? (
-                        <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-black">
+                        <span className="absolute inset-y-0 left-0 flex items-center pl-2 text-black">
                           <CheckIcon className="w-5 h-5" aria-hidden="true" />
                         </span>
                       ) : null}

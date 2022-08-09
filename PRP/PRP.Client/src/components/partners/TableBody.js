@@ -1,10 +1,14 @@
 import PropTypes from 'prop-types';
 import { PencilAltIcon } from '@heroicons/react/solid';
+import { useAppSelector } from '../../store/hooks';
 
 const trColorsDefault = 'text-gray-600 bg-white';
 const trStylesDefault = 'text-sm leading-normal';
 
 export const TableBody = ({ tbodyItems, tbodyTrStyles, tbodyTrColors, tbodyTrGridStyles, handleEditPartner }) => {
+
+  const { currentPage } = useAppSelector(state => state.partners);
+
   return (
     <tbody>
       {
@@ -17,7 +21,7 @@ export const TableBody = ({ tbodyItems, tbodyTrStyles, tbodyTrColors, tbodyTrGri
               onDoubleClick={() => handleEditPartner({ id, clientId, partnerId, partnerName, email, active, reportName })}
               className="px-6 text-base text-left truncate cursor-pointer raleway-m max-h-16 table_text-black"
               title={partnerName}
-            ><span className="mr-5 table_text-black">{index + 1}</span> {partnerName}</td>
+            ><span className="mr-5 table_text-black">{ currentPage > 1 ? ((currentPage - 1) * 10) + (index + 1) : index + 1}</span> {partnerName}</td>
             <td
               onDoubleClick={() => handleEditPartner({ id, clientId, partnerId, partnerName, email, active, reportName })}
               className="hidden max-h-full px-6 text-left cursor-pointer lg:grid"

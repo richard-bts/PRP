@@ -11,6 +11,7 @@ const initialState = {
   namedSort: false,
   openForm: false,
   partners: [],
+  sortedPartners: [],
   partnersPerPage: 10
 };
 
@@ -58,30 +59,35 @@ export const partnersSlice = createSlice({
     setCurrentPage: (state, action) => {
       state.currentPage = action.payload;
     },
-    sortByName: (state) => {
-      state.namedSort = !state.namedSort;
-      state.activedSort = false;
-      state.partners = [...state.partners].sort((a, b) => {
-        if (!state.namedSort) {
-          if (a.partnerName < b.partnerName) {
+    sortByName: (state, action) => {
+      state.sortedPartners = [...state.partners].reverse().sort((a, b) => {
+        if (!action.payload) {
+          if (a.partnerName.toLowerCase() < b.partnerName.toLowerCase()) {
             return -1;
           }
-          if (a.partnerName > b.partnerName) {
+          if (a.partnerName.toLowerCase() > b.partnerName.toLowerCase()) {
             return 1;
           }
         } else {	
-          if (a.partnerName > b.partnerName) {
+          if (a.partnerName.toLowerCase() > b.partnerName.toLowerCase()) {
             return -1;
           }
-          if (a.partnerName < b.partnerName) {
+          if (a.partnerName.toLowerCase() < b.partnerName.toLowerCase()) {
             return 1;
           }
         }
         return 0;
       });
     },
+    sortByRecent: (state, action) => {
+      if(action.payload) {
+        state.sortedPartners = [...state.partners].reverse();
+      } else {
+        state.sortedPartners = [...state.partners];
+      }
+    },
     sortByActive: (state, action) => {
-      state.partners = [...state.partners].sort((a, b) => {
+      state.sortedPartners = [...state.partners].reverse().sort((a, b) => {
         if (!action.payload) {
           if (a.active < b.active) {
             return -1;
@@ -123,6 +129,15 @@ export const partnersSlice = createSlice({
             reportName: partner.partner_report_types
           };
         });
+        state.sortedPartners = [...state.partners].reverse().sort((a, b) => {
+          if (a.active > b.active) {
+            return -1;
+          }
+          if (a.active < b.active) {
+            return 1;
+          }
+          return 0;
+        });
       })
       .addCase(getPartners.rejected, (state) => {
         state.isLoading = false;
@@ -131,6 +146,6 @@ export const partnersSlice = createSlice({
   },
 });
 
-export const { setLoading, addPartner, setPartnersPerPage, setCurrentPage, setActivePartner, filterPartners, setOpenForm, sortByName, sortByActive, setCompanyNamesOptions } = partnersSlice.actions;
+export const { setLoading, addPartne0r, setPartnersPerPage, setCurrentPage, setActivePartner, filterPartners, setOpenForm, sortByName, sortByActive, setCompanyNamesOptions, sortByRecent} = partnersSlice.actions;
 
 export default partnersSlice.reducer;
