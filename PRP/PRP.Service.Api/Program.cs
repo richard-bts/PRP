@@ -6,7 +6,8 @@ using PRP.Service.Api.DbContexts;
 using PRP.Domain.Models.Dto;
 using PRP.Service.Api.Repository;
 using Serilog;
-
+using Microsoft.OpenApi.Models;
+using IdentityServer4.AccessTokenValidation;
 
 try
 {
@@ -37,9 +38,50 @@ try
     // Add services to the container.
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
     builder.Services.AddEndpointsApiExplorer();
-    builder.Services.AddSwaggerGen();
+    // Add authentication to swagger.
+    builder.Services.AddSwaggerGen(c =>
+    {
+        c.SwaggerDoc("v1", new OpenApiInfo
+        {
+            Title = "Authorization",
+            Version = "v1"
+        });
+        c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+        {
+            Name = "Authorization",
+            Type = SecuritySchemeType.ApiKey,
+            Scheme = "Bearer",
+            BearerFormat = "JWT",
+            In = ParameterLocation.Header,
+            Description = "Enter 'Bearer' [space] and then your token in the text input below.\nAdd Bearer prefix to token",
+        });
+        c.AddSecurityRequirement(new OpenApiSecurityRequirement {
+            {
+                new OpenApiSecurityScheme {
+                    Reference = new OpenApiReference {
+                        Type = ReferenceType.SecurityScheme,
+                            Id = "Bearer"
+                    }
+                },
+                new string[] {}
+            }
+        });
+    });
 
-
+    // Add identityserver options
+    builder.Services.AddAuthorization();
+    builder.Services.AddAuthentication(o =>
+    {
+        o.DefaultAuthenticateScheme = IdentityServerAuthenticationDefaults.AuthenticationScheme;
+        o.DefaultChallengeScheme = IdentityServerAuthenticationDefaults.AuthenticationScheme;
+    })
+                    .AddJwtBearer(o =>
+                    {
+                        o.SaveToken = true;
+                        o.Authority = "https://localhost:4443"; // Other Identity provider here
+                        o.RequireHttpsMetadata = false;
+                        o.Audience = "api.full";
+                    });
     //Configure DB
     builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionString_CDLPRP")));
 
@@ -55,9 +97,12 @@ try
 
     //Adding Serilog's request logging streamlines
     //app.UseSerilogRequestLogging();
+
+    app.UseAuthentication();
+    app.UseAuthorization();
     #endregion
 
-    #region APIs
+    #region Report APIs
 
     app.MapGet("api/report/GetPODReport", async ([FromServices] IReportRepository ReportRepository, DateTime inputDate, int clientID) =>
     {
@@ -79,7 +124,7 @@ try
         }
 
         return response;
-    });
+    }).RequireAuthorization();
 
     app.MapGet("api/report/GetScanReport", async ([FromServices] IReportRepository ReportRepository, DateTime inputDate, int clientID) =>
     {
@@ -102,7 +147,7 @@ try
         }
 
         return response;
-    });
+    }).RequireAuthorization();
 
     app.MapGet("api/report/GetExceptionReport", async ([FromServices] IReportRepository ReportRepository, DateTime inputDate, int clientID) =>
     {
@@ -123,7 +168,7 @@ try
         }
 
         return response;
-    });
+    }).RequireAuthorization();
 
     app.MapGet("api/report/GetReportTypes", async ([FromServices] IReportRepository ReportRepository) =>
     {
@@ -143,7 +188,7 @@ try
         }
 
         return response;
-    });
+    }).RequireAuthorization();
 
     app.MapGet("report-types", async ([FromServices] IReportRepository ReportRepository) =>
     {
@@ -163,7 +208,7 @@ try
         }
 
         return response;
-    });
+    }).RequireAuthorization();
 
     app.MapPost("api/report/AddReportType", async ([FromServices] IReportRepository ReportRepository, ReportTypeDto RaportType) =>
     {
@@ -183,7 +228,7 @@ try
         }
 
         return response;
-    });
+    }).RequireAuthorization();
 
     app.MapPut("api/report/EditReportType", async ([FromServices] IReportRepository ReportRepository, ReportTypeDto RaportType) =>
     {
@@ -203,7 +248,7 @@ try
         }
 
         return response;
-    });
+    }).RequireAuthorization();
 
     app.MapDelete("api/report/RemoveReportType", async ([FromServices] IReportRepository ReportRepository, int idReportType) =>
     {
@@ -223,8 +268,10 @@ try
         }
 
         return response;
-    });
+    }).RequireAuthorization();
+    #endregion
 
+    #region Partner APIs
     app.MapGet("partner", async ([FromServices] IPartnerRepository PartnerRepository, int partner_id) =>
     {
         PartnerResponseDto<GetPartnerDto> response = new();
@@ -247,7 +294,7 @@ try
 
         return response;
 
-    });
+    }).RequireAuthorization();
 
     app.MapGet("partners", async ([FromServices] IPartnerRepository PartnerRepository) =>
     {
@@ -271,7 +318,7 @@ try
 
         return response;
 
-    });
+    }).RequireAuthorization();
 
     app.MapGet("active-partners", async ([FromServices] IPartnerRepository PartnerRepository) =>
     {
@@ -295,7 +342,7 @@ try
 
         return response;
 
-    });
+    }).RequireAuthorization();
 
     app.MapGet("inactive-partners", async ([FromServices] IPartnerRepository PartnerRepository) =>
     {
@@ -319,7 +366,7 @@ try
 
         return response;
 
-    });
+    }).RequireAuthorization();
 
     app.MapPost("create-partner", async ([FromServices] IPartnerRepository PartnerRepository, AddPartnerDto partner) =>
     {
@@ -342,7 +389,7 @@ try
         }
 
         return response;
-    });
+    }).RequireAuthorization();
 
     app.MapPut("update-partner", async ([FromServices] IPartnerRepository PartnerRepository, UpdatePartnerDto partner) =>
     {
@@ -365,7 +412,7 @@ try
         }
 
         return response;
-    });
+    }).RequireAuthorization();
 
     app.MapGet("partner-emails", async ([FromServices] IPartnerRepository PartnerRepository, int partnerID) =>
     {
@@ -388,7 +435,7 @@ try
         }
 
         return response;
-    });
+    }).RequireAuthorization();
 
     app.MapPost("add-partner-email", async ([FromServices] IPartnerRepository PartnerRepository, PartnerEmailDto partner) =>
     {
@@ -411,7 +458,7 @@ try
         }
 
         return response;
-    });
+    }).RequireAuthorization();
 
     app.MapPut("update-partner-email", async ([FromServices] IPartnerRepository PartnerRepository, UpdatePartnerEmailDto partner) =>
     {
@@ -434,7 +481,7 @@ try
         }
 
         return response;
-    });
+    }).RequireAuthorization();
 
     app.MapPut("remove-partner-email", async ([FromServices] IPartnerRepository PartnerRepository, int emailId) =>
     {
@@ -457,7 +504,7 @@ try
         }
 
         return response;
-    });
+    }).RequireAuthorization();
 
     app.MapPut("update-partner-report-type", async ([FromServices] IPartnerRepository PartnerRepository, UpdatePartnerReportTypeDto partner) =>
     {
@@ -480,7 +527,7 @@ try
         }
 
         return response;
-    });
+    }).RequireAuthorization();
 
     app.MapGet("api/report/GetCompanyName", async ([FromServices] IPartnerRepository PartnerRepository, string Name) =>
     {
@@ -500,7 +547,7 @@ try
         }
 
         return response;
-    });
+    }).RequireAuthorization();
     #endregion
 
     #region Development env settings and app run
