@@ -1,15 +1,12 @@
 import { Fragment, useState } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
 import { CheckIcon, ChevronDownIcon } from '@heroicons/react/solid';
-import { sortByActive, sortByName, sortByRecent, useAppDispatch } from '../../store';
+import { sortByActive, showAllPartners, sortByInactive, useAppDispatch } from '../../store';
 
 const options = [
   { key: 1, name: 'Active' },
   { key: 2, name: 'Inactive' },
-  { key: 3, name: 'Newest' },
-  { key: 4, name: 'Oldest' },
-  { key: 5, name: 'Name (A-Z)' },
-  { key: 6, name: 'Name (Z-A)' }
+  { key: 3, name: 'All' },
 ]
 
 export const FilterByStatusButton = () => {
@@ -20,17 +17,11 @@ export const FilterByStatusButton = () => {
     setSelected(option);
     if(option.key !== selected.key) {
       if(option.key === 1) {
-        dispatch(sortByActive(true))
+        dispatch(sortByActive())
       } else if(option.key === 2) {
-        dispatch(sortByActive(false))
-      } else if(option.key === 3) {
-        dispatch(sortByRecent(true))
-      } else if(option.key === 4) {
-        dispatch(sortByRecent(false))
-      } else if(option.key === 5) {
-        dispatch(sortByName(false))
+        dispatch(sortByInactive())
       } else {
-        dispatch(sortByName(true))
+        dispatch(showAllPartners())
       } 
     }
   }

@@ -28,7 +28,7 @@ export const FormInput = ({ value, placeholder, errorMessage, error, handleFormC
 
   return (
     <div className="w-full top-16">
-      <label className="pb-2 pl-4 text-sm text-gray-700 first-letter:uppercase">Partners Name</label>
+      <label className="pb-2 pl-4 text-sm text-gray-700 first-letter:uppercase">Clients Name</label>
       <Combobox value={selected} onChange={ e => handleInputChange(e) }>
         <div className="relative z-50 mt-1">
           <div className="relative w-full overflow-hidden text-left cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">

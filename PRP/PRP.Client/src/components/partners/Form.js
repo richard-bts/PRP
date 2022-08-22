@@ -33,7 +33,7 @@ export const Form = ({ handleCloseForm }) => {
 
           <FormInput
             value={name}
-            placeholder="Partner name"
+            placeholder="Clients name"
             handleFormChange={handleFormChange}
             errorMessage={errorForm.partnerName.errorMessage}
             error={errorForm.partnerName.error}
@@ -41,7 +41,7 @@ export const Form = ({ handleCloseForm }) => {
 
           <div className="flex flex-col pt-4">
             <div className="flex items-center justify-between mb-2">
-              <label className="pl-4 text-sm text-gray-700 first-letter:uppercase">Emails</label>
+              <label className="pl-4 text-sm text-gray-700 first-letter:uppercase">Recipient Email</label>
               <ButtonIcon
                 btnLabel="Add New Email"
                 btnStyles="rounded w-full btn__add-email justify-center px-2"
@@ -81,7 +81,7 @@ export const Form = ({ handleCloseForm }) => {
           </div>
 
           <div className="flex items-center justify-between gap-3 pt-4 partner__form-switch">
-            <label className="pl-4 text-sm text-gray-700">Is the partner active?</label>
+            <label className="pl-4 text-sm text-gray-700">Active</label>
             <SwitchForm
               switchEnabled={!!isActivePartner}
               setSwitchEnabled={setIsActivePartner}
@@ -89,7 +89,7 @@ export const Form = ({ handleCloseForm }) => {
           </div>
 
           <div className="flex flex-col pt-4">
-            <label className="pb-2 pl-4 text-sm text-gray-700">Partner Types Report</label>
+            <label className="pb-2 pl-4 text-sm text-gray-700">Partner Report Types</label>
             {
               reportName.map(({ report_name, active }, index) => (
                 <SwitchForm
@@ -104,7 +104,7 @@ export const Form = ({ handleCloseForm }) => {
           </div>
 
           <div className="flex flex-col pt-4">
-            <label className="pb-2 pl-4 text-sm text-gray-700">Report time</label>
+            <label className="pb-2 pl-4 text-sm text-gray-700">Report Execution Time</label>
             <ReportTime
               handleChangeDateTime={ handleChangeDateTime }
               reportDate={ reportDate }

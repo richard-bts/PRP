@@ -18,7 +18,7 @@ export const SearchBar = ({ searchText, handleSearch }) => {
           <input
             type="search"
             className="form-control relative flex-auto min-w-0 block w-full px-3 py-1.5 text-base font-normal bg-clip-padding transition ease-in-out m-0 focus:outline-none bg-transparent"
-            placeholder="Search"
+            placeholder="Search By Name"
             aria-label="Search"
             aria-describedby="button-addon2"
             value={ searchText }

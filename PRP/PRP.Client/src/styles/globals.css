@@ -460,7 +460,7 @@ a {
   background: #EDECFF;
   border-radius: 8px;
   height: 24px;
-  width: 107px;
+  width: 115px;
 }
 
 .btn_icon.btn__add-email:hover,
@@ -493,6 +493,7 @@ a {
 .btn__add-email-label {
   color: #3126AF;
   font-size: 10px;
+  line-height: 24px;
 }
 
 .btn__add-email-icon {

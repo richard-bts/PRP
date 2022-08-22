@@ -115,7 +115,8 @@ export const addNewPartner = createAsyncThunk("partners/addNewPartner", async(pa
       partner_id: body.data[0].partner_id, 
       partner_email: email.partner_email
     }));
-    dispatch(addPartner({ ...partnerToAdd, partner_id: body.data.partner_id, client_id: body.data.client_id, id: body.data.id }));
+    const partner = await getOnePartner(body.data[0].partner_id);
+    dispatch(addPartner(partner.data[0]));
     return true;
   } else {
     return false;

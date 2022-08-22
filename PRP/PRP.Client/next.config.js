@@ -1,9 +1,10 @@
 /** @type {import('next').NextConfig} */
 const isProd = process.env.NODE_ENV === 'production'
-const prodPath = '/Xcelerator/CDLPRPClient'
+const prodPath = '/Xcelerator/CDLPRP'
 
 const nextConfig = {
   reactStrictMode: true,
+  swcMinify: true,
   assetPrefix: isProd ? prodPath : '/',
   eslint: {
     ignoreDuringBuilds: true,

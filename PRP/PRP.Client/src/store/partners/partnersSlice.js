@@ -25,6 +25,7 @@ export const partnersSlice = createSlice({
     addPartner: (state, action) => {
       const { client_id, partner_id, partner_name, partner_emails, active, partner_report_types, partner_report_time } = action.payload;
       const partner = state.partners.find(item => item.partnerId === partner_id);
+      const partnerSorted = state.sortedPartners.find(item => item.partnerId === partner_id);
       if (partner) {
         partner.active = active;
         partner.clientId = client_id;
@@ -33,9 +34,17 @@ export const partnersSlice = createSlice({
         partner.partnerName = partner_name;
         partner.reportName = partner_report_types,
         partner.reportTime = partner_report_time
+
+        partnerSorted.active = active;
+        partnerSorted.clientId = client_id;
+        partnerSorted.email = partner_emails;
+        partnerSorted.partnerId = partner_id;
+        partnerSorted.partnerName = partner_name;
+        partnerSorted.reportName = partner_report_types,
+        partnerSorted.reportTime = partner_report_time
       } else {
         const { partner_emails, partner_name, partner_report_time, partner_report_types, partner_active, partner_id, client_id } = action.payload;
-        state.partners.push({
+        const finalParter = {
           clientId: client_id,
           active: partner_active,
           email: partner_emails,
@@ -43,7 +52,10 @@ export const partnersSlice = createSlice({
           partnerName: partner_name,
           reportTime: partner_report_time,
           reportName: partner_report_types
-        });
+        };
+
+        state.partners.push(finalParter);
+        state.sortedPartners.unshift(finalParter);
       }
     },
     setActivePartner: (state, action) => {
@@ -59,52 +71,14 @@ export const partnersSlice = createSlice({
     setCurrentPage: (state, action) => {
       state.currentPage = action.payload;
     },
-    sortByName: (state, action) => {
-      state.sortedPartners = [...state.partners].reverse().sort((a, b) => {
-        if (!action.payload) {
-          if (a.partnerName.toLowerCase() < b.partnerName.toLowerCase()) {
-            return -1;
-          }
-          if (a.partnerName.toLowerCase() > b.partnerName.toLowerCase()) {
-            return 1;
-          }
-        } else {	
-          if (a.partnerName.toLowerCase() > b.partnerName.toLowerCase()) {
-            return -1;
-          }
-          if (a.partnerName.toLowerCase() < b.partnerName.toLowerCase()) {
-            return 1;
-          }
-        }
-        return 0;
-      });
+    showAllPartners: (state) => {
+      state.sortedPartners = [...state.partners].reverse();
     },
-    sortByRecent: (state, action) => {
-      if(action.payload) {
-        state.sortedPartners = [...state.partners].reverse();
-      } else {
-        state.sortedPartners = [...state.partners];
-      }
+    sortByActive: (state) => {
+      state.sortedPartners = [...state.partners].reverse().filter((partner) => partner.active === 1);
     },
-    sortByActive: (state, action) => {
-      state.sortedPartners = [...state.partners].reverse().sort((a, b) => {
-        if (!action.payload) {
-          if (a.active < b.active) {
-            return -1;
-          }
-          if (a.active > b.active) {
-            return 1;
-          }
-        } else {	
-          if (a.active > b.active) {
-            return -1;
-          }
-          if (a.active < b.active) {
-            return 1;
-          }
-        }
-        return 0;
-      });
+    sortByInactive: (state) => {
+      state.sortedPartners = [...state.partners].reverse().filter((partner) => partner.active === 0);
     },
     setCompanyNamesOptions: (state, action) => {
       state.companyNamesOptions = action.payload;
@@ -129,15 +103,7 @@ export const partnersSlice = createSlice({
             reportName: partner.partner_report_types
           };
         });
-        state.sortedPartners = [...state.partners].reverse().sort((a, b) => {
-          if (a.active > b.active) {
-            return -1;
-          }
-          if (a.active < b.active) {
-            return 1;
-          }
-          return 0;
-        });
+        state.sortedPartners = [...state.partners].reverse().filter((partner) => partner.active === 1);
       })
       .addCase(getPartners.rejected, (state) => {
         state.isLoading = false;
@@ -146,6 +112,6 @@ export const partnersSlice = createSlice({
   },
 });
 
-export const { setLoading, addPartne0r, setPartnersPerPage, setCurrentPage, setActivePartner, filterPartners, setOpenForm, sortByName, sortByActive, setCompanyNamesOptions, sortByRecent} = partnersSlice.actions;
+export const { setLoading, addPartner, setPartnersPerPage, setCurrentPage, setActivePartner, filterPartners, setOpenForm, showAllPartners, sortByActive, sortByInactive,setCompanyNamesOptions} = partnersSlice.actions;
 
 export default partnersSlice.reducer;

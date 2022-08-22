@@ -3,7 +3,7 @@ import { setCurrentPage, useAppDispatch, useAppSelector } from '../../store';
 
 export const useFilter = () => {
 
-  const { sortedPartners, partnersPerPage, currentPage } = useAppSelector( state => state.partners );
+  const { sortedPartners, partnersPerPage, currentPage, partners } = useAppSelector( state => state.partners );
   const finalPartners = sortedPartners.map( partner => {
     const deleteRepetedReports = partner?.reportName.filter((obj, index, self) => self.findIndex(t => t?.report_name === obj?.report_name) === index)
     return {
@@ -41,7 +41,7 @@ export const useFilter = () => {
 
   useEffect(() => {
     handleSearch(searchText);
-  }, [sortedPartners]);
+  }, [sortedPartners, partners]);
 
   return {
     currentPage,
