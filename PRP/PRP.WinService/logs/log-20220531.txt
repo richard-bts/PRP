@@ -1,4 +1,0 @@
-2022-05-31 09:58:08.936 -04:00 [INF] Service is starting...
-2022-05-31 09:58:10.882 -04:00 [INF] Application started. Press Ctrl+C to shut down.
-2022-05-31 09:58:10.884 -04:00 [INF] Hosting environment: Development
-2022-05-31 09:58:10.884 -04:00 [INF] Content root path: C:\Users\MehaboobKizhakepura\source\repos\PRP\PRP.WinService
