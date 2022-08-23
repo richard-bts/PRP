@@ -77,7 +77,8 @@ namespace PRP.WinService
                     }
                     catch (Exception ex)
                     {
-                        Log.Logger.ForContext("Component", "PRP.WinService").Error("{Message}", $"Update data ...{ex.Message}");
+                        Log.Logger.ForContext("Component", "PRP.WinService").Warning("{Message}", $"Update data ...{ex.Message}");
+                        StopPartDay = true;
                     }
 
 
