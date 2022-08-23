@@ -66,6 +66,7 @@ namespace PRP.WinService.ApiServices
             }
             catch (Exception ex)
             {
+
                 var dto = new ResponseDto()
                 {
                     DisplayMessage = "Error",

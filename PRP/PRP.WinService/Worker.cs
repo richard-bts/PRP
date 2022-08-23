@@ -46,33 +46,41 @@ namespace PRP.WinService
                 bool StopPartDay = false;
                 while (!StopPartDay)
                 {
-
-                    DateNow = DateTime.Now;
-                    foreach (var partner in response.data)
+                    try
                     {
-                        foreach (var test in partner.partner_emails)
+                        DateNow = DateTime.Now;
+                        foreach (var partner in response.data)
                         {
-                            
-                                if ((partner.partner_report_time.Year <= DateNow.Year) & (partner.partner_report_time.Month <= DateNow.Month) & (partner.partner_report_time.Date <= DateNow.Date) & (partner.partner_report_time.Hour == DateNow.Hour) & (partner.partner_report_time.Minute == DateNow.Minute))
+                            foreach (var test in partner.partner_emails)
+                            {
+
+                                if ((partner.partner_report_time.Year <= DateNow.Year) & (partner.partner_report_time.Month <= DateNow.Month) & (partner.partner_report_time.Date <= DateNow.Date) & (partner.partner_report_time.Hour == DateNow.Hour) & (partner.partner_report_time.Minute == DateNow.Minute) & partner.partner_active == 1)
                                 {
-                                _produceReport.GenerateAllReportsFor(partner);
-                                Log.Logger.ForContext("Component", "PRP.WinService").Information("{Message}", $"Service is Sending email ...");
+                                    _produceReport.GenerateAllReportsFor(partner);
+                                    Log.Logger.ForContext("Component", "PRP.WinService").Information("{Message}", $"Service is Run and pass check ...");
+                                }
                             }
                         }
-                    }
-                    await Task.Delay(TimeSpan.FromSeconds(30), stoppingToken);
+                        await Task.Delay(TimeSpan.FromSeconds(30), stoppingToken);
 
-                    if ((DateTime.Now.Hour == midnighth) && (DateTime.Now.Minute == min))
-                    {
-                        StopPartDay = true;
-                        Log.Logger.ForContext("Component", "PRP.WinService").Information("{Message}", $"Update data ...");
+                        if ((DateTime.Now.Hour == midnighth) && (DateTime.Now.Minute == min))
+                        {
+                            StopPartDay = true;
+                            Log.Logger.ForContext("Component", "PRP.WinService").Information("{Message}", $"Update data ...");
 
+                        }
+                        if ((DateTime.Now.Hour == nighth) && (DateTime.Now.Minute == min))
+                        {
+                            Log.Logger.ForContext("Component", "PRP.WinService").Information("{Message}", $"Update data ...");
+                            StopPartDay = true;
+                        }
                     }
-                    if ((DateTime.Now.Hour == nighth) && (DateTime.Now.Minute == min))
+                    catch (Exception ex)
                     {
-                        Log.Logger.ForContext("Component", "PRP.WinService").Information("{Message}", $"Update data ...");
-                        StopPartDay = true;
+                        Log.Logger.ForContext("Component", "PRP.WinService").Error("{Message}", $"Update data ...{ex.Message}");
                     }
+
+
                 }
             }
            

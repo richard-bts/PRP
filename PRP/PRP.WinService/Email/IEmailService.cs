@@ -9,6 +9,6 @@ namespace PRP.WinService.Email
 {
     public interface IEmailService
     {
-        public bool SendEmail(string filename, string reportTitle, GetPartnerDto PartnerId);
+        public bool SendEmail(string filename, string reportTitle, GetPartnerDto PartnerId, DateTime dateraport);
     }
 }

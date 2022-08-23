@@ -182,8 +182,8 @@ namespace PRP.WinService.Report
             public bool GeneratePODReport(GetPartnerDto pd)
             {
                 List<PODReportDto>? list = new();
-
-                var response = _PRPService.GetPODReport(DateTime.Now.AddDays(-1), pd.client_id);;
+            DateTime dateraport = DateTime.Now.AddDays(-1);
+                var response = _PRPService.GetPODReport(dateraport, pd.client_id);;
 
                 string? content = String.Empty;
 
@@ -194,7 +194,7 @@ namespace PRP.WinService.Report
                 {
                     list = JsonConvert.DeserializeObject<List<PODReportDto>>(content);
                 if (list.Count == 0) { return false; }
-                if (list != null && CreatePodCSVFileAndNotifyByEmail(list, pd))
+                if (list != null && CreatePodCSVFileAndNotifyByEmail(list, pd, dateraport))
                     {
                         Log.Logger.ForContext("Component", "PRP.WinService").Information("{Message}",
                             $"POD Report: Client {content.Substring(1, 20)}........{content.Substring(content.Length - 20, 20)}");
@@ -213,8 +213,8 @@ namespace PRP.WinService.Report
             try
             {
                 List<ScanReportDto>? list = new();
-
-                var response = _PRPService.GetScanReport(DateTime.Now.AddDays(-1), pd.client_id);
+                DateTime dateraport = DateTime.Now.AddDays(-1);
+                var response = _PRPService.GetScanReport(dateraport, pd.client_id);
                 string? content = String.Empty;
                 if (response != null && response.Result != null && response.Result.Result != null)
                     content = Convert.ToString(response.Result.Result);
@@ -226,7 +226,7 @@ namespace PRP.WinService.Report
 
                     list = JsonConvert.DeserializeObject<List<ScanReportDto>>(content);
                     if(list.Count == 0) { return false; }
-                   if (list != null && CreateScanCSVFileAndNotifyByEmail(list, pd) )
+                   if (list != null && CreateScanCSVFileAndNotifyByEmail(list, pd, dateraport) )
                     {
                         Log.Logger.ForContext("Component", "PRP.WinService").Information("{Message}",
                             $"SCAN Report: Client {content.Substring(1, 20)}........{content.Substring(content.Length - 20, 20)}");
@@ -251,8 +251,8 @@ namespace PRP.WinService.Report
             try
             {
                 List<ExceptionReportDto>? list = new();
-
-                var response = _PRPService.GetExceptionReport(DateTime.Now.AddDays(-1), pd.client_id);
+                DateTime dateraport = DateTime.Now.AddDays(-1);
+                var response = _PRPService.GetExceptionReport(dateraport, pd.client_id);
                 if (response != null && response.Result != null)
                 {
                     string? content = Convert.ToString(response.Result.Result);
@@ -261,7 +261,7 @@ namespace PRP.WinService.Report
                     {
                         list = JsonConvert.DeserializeObject<List<ExceptionReportDto>>(content);
                         if (list.Count == 0) { return false; }
-                        if (list != null && CreateExceptionCSVFileAndNotifyByEmail(list, pd))
+                        if (list != null && CreateExceptionCSVFileAndNotifyByEmail(list, pd, dateraport))
                         {
                             Log.Logger.ForContext("Component", "PRP.WinService").Information("{Message}",
                                 $"EXCEPTION Report: Client {content.Substring(1, 20)}........{content.Substring(content.Length - 20, 20)}");
@@ -284,13 +284,13 @@ namespace PRP.WinService.Report
         #endregion
 
         #region PrivateMethods
-        private bool CreatePodCSVFileAndNotifyByEmail(List<PODReportDto> list, GetPartnerDto Partner)
+        private bool CreatePodCSVFileAndNotifyByEmail(List<PODReportDto> list, GetPartnerDto Partner, DateTime dateraport)
             {
                 try
                 {
                 if (list.Count == 0)
                 { return false; }
-                DateTime timeNow = DateTime.Now;
+                DateTime timeNow = dateraport;
 
                     string hour = timeNow.Hour.ToString();
                     string minute = timeNow.Minute.ToString();
@@ -316,7 +316,7 @@ namespace PRP.WinService.Report
                         }
                     }
 
-                    if (!_EmailService.SendEmail(fullpath, "POD Report", Partner))
+                    if (!_EmailService.SendEmail(fullpath, "POD Report", Partner, dateraport))
                     {
                         Log.Logger.ForContext("Component", "PRP.WinService").Information("{Message}", $"Email is not sent");
                     }
@@ -334,13 +334,13 @@ namespace PRP.WinService.Report
                 }
 
             }
-        private bool CreateScanCSVFileAndNotifyByEmail(List<ScanReportDto> list, GetPartnerDto Partner)
+        private bool CreateScanCSVFileAndNotifyByEmail(List<ScanReportDto> list, GetPartnerDto Partner, DateTime dateraport)
         {
             try
             {
                 if (list.Count == 0)
                 { return false; }
-                DateTime timeNow = DateTime.Now;
+                DateTime timeNow = dateraport;
 
                 string hour = timeNow.Hour.ToString();
                 string minute = timeNow.Minute.ToString();
@@ -365,7 +365,7 @@ namespace PRP.WinService.Report
                     }
                 }
 
-                if (!_EmailService.SendEmail(fullpath, "SCAN Report", Partner))
+                if (!_EmailService.SendEmail(fullpath, "SCAN Report", Partner, dateraport))
                 {
                     Log.Logger.ForContext("Component", "PRP.WinService").Information("{Message}", $"Email is not sent");
                 }
@@ -384,13 +384,13 @@ namespace PRP.WinService.Report
                 throw;
             }
         }
-        private bool CreateExceptionCSVFileAndNotifyByEmail(List<ExceptionReportDto> list, GetPartnerDto Partner)
+        private bool CreateExceptionCSVFileAndNotifyByEmail(List<ExceptionReportDto> list, GetPartnerDto Partner, DateTime dateraport)
         {
             try
             {
                 if (list.Count == 0)
                 { return false; }
-                DateTime timeNow = DateTime.Now;
+                DateTime timeNow = dateraport;
 
                 string hour = timeNow.Hour.ToString();
                 string minute = timeNow.Minute.ToString();
@@ -416,7 +416,7 @@ namespace PRP.WinService.Report
                     }
                 }
 
-                if (!_EmailService.SendEmail(fullpath, "EXCEPTION Report", Partner))
+                if (!_EmailService.SendEmail(fullpath, "EXCEPTION Report", Partner, dateraport))
                 {
                     Log.Logger.ForContext("Component", "PRP.WinService").Information("{Message}", $"Email is not sent");
                 }

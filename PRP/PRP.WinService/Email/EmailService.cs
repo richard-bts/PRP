@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using PRP.Domain.Models.Dto;
 using PRP.WinService.ApiServices;
 using PRP.WinService.Model;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,7 +33,7 @@ namespace PRP.WinService.Email
         #endregion
 
         #region Public Methods
-        bool IEmailService.SendEmail(string filename, string reportTitle, GetPartnerDto Partner)
+        bool IEmailService.SendEmail(string filename, string reportTitle, GetPartnerDto Partner, DateTime dateraport)
         {
             IConfiguration configuration = (IConfiguration)new ConfigurationBuilder()
             .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
@@ -77,7 +78,8 @@ namespace PRP.WinService.Email
 
                 BodyBuilder builder = new BodyBuilder();
 
-                builder.HtmlBody = $"<h3>Please find the attached for the report.</h3><p><h5>Report type:{reportTitle}({Partner.client_id})</h5></p>";
+                // builder.HtmlBody = $"<h3>Please find the attached for the report.</h3><p><h5>Report type:{reportTitle}({Partner.client_id})</h5></p>";
+                builder.HtmlBody = $"<p>Please review the attachment which details {Partner.partner_name}'s {reportTitle} for {dateraport.Month}/{dateraport.Day}/{dateraport.Year} .</p><br><p>Thank you.</p>CDL Operations<br>Support@CDLdelivers.com<br>212-243-5600<br>";
 
                 builder.Attachments.Add(filename);
 
@@ -91,6 +93,7 @@ namespace PRP.WinService.Email
                 {
 
                     Console.WriteLine(ex.Message);
+                    Log.Logger.ForContext("Component", "PRP.WinService").Warning($"Email Service ... {ex.Message}");
                     return false;
                 }
                 
