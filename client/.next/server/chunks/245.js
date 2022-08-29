@@ -157,7 +157,7 @@ __webpack_require__.d(__webpack_exports__, {
 // EXTERNAL MODULE: external "@reduxjs/toolkit"
 var toolkit_ = __webpack_require__(5184);
 ;// CONCATENATED MODULE: ./src/shared/helpers/fetch.js
-const baseURL = "https://testx.cdldelivers.com/Xcelerator/CDLPRP";
+const baseURL = "http://172.24.32.132/Xcelerator/prpserver";
 const fetch_fetchPartnerQuery = (endpoint, method = "GET")=>{
     const url = `${baseURL}/${endpoint}`;
     return fetch(url, {
@@ -234,7 +234,7 @@ var partnersSlice = __webpack_require__(8274);
 };
 /* GET COMPANY NAME LIST */ const getCompanysName = (0,toolkit_.createAsyncThunk)("partners/getCompanysName", async (name, { dispatch  })=>{
     dispatch((0,partnersSlice/* setLoading */.K4)(true));
-    const url = `https://testx.cdldelivers.com/Xcelerator/CDLPRP/api/report/GetCompanyName?Name=${name}`;
+    const url = `https://http://172.24.32.132/Xcelerator/prpserver/api/report/GetCompanyName?Name=${name}`;
     const response = await fetch(url);
     const { result  } = await response.json();
     dispatch((0,partnersSlice/* setLoading */.K4)(false));

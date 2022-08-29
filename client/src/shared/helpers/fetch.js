@@ -1,4 +1,4 @@
-const baseURL = 'https://testx.cdldelivers.com/Xcelerator/CDLPRP';
+const baseURL = 'http://172.24.32.132/Xcelerator/prpserver';
 
 export const fetchPartnerQuery = (endpoint, method = 'GET') => {
 
