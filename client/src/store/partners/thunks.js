@@ -87,7 +87,7 @@ export const getReportTypes = async() => {
 
 export const getCompanysName = createAsyncThunk("partners/getCompanysName", async(name, { dispatch }) => {
   dispatch(setLoading(true));
-  const url = `https://http://172.24.32.132/Xcelerator/prpserver/api/report/GetCompanyName?Name=${name}`
+  const url = `http://172.24.32.132/Xcelerator/prpserver/api/report/GetCompanyName?Name=${name}`
   const response = await fetch(url);
   const { result } = await response.json();
   dispatch(setLoading(false));
