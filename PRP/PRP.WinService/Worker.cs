@@ -31,19 +31,24 @@ namespace PRP.WinService
         #endregion
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
+            string temp = null;
 
             while (!stoppingToken.IsCancellationRequested)
             {
                 Log.Logger.ForContext("Component", "PRP.WinService").Information("{Message}", $"Service is starting...");
-
+            bool StopPartDay = false;
 
 
                 List<PartnerDetail>? PartnersList = new();
 
                 var response = await _PRPService.GetPartners();
+                if(response is null)
+                {
+                    Log.Logger.ForContext("Component", "PRP.WinService").Warning("{Message}", $"API Return is Null !!!!!");
+                    StopPartDay = true;
+                }
 
-
-                bool StopPartDay = false;
+                
                 while (!StopPartDay)
                 {
                     try
@@ -56,8 +61,12 @@ namespace PRP.WinService
 
                                 if ((partner.partner_report_time.Year <= DateNow.Year) & (partner.partner_report_time.Month <= DateNow.Month) & (partner.partner_report_time.Date <= DateNow.Date) & (partner.partner_report_time.Hour == DateNow.Hour) & (partner.partner_report_time.Minute == DateNow.Minute) & partner.partner_active == 1)
                                 {
-                                    _produceReport.GenerateAllReportsFor(partner);
-                                    Log.Logger.ForContext("Component", "PRP.WinService").Information("{Message}", $"Service is Run and pass check ...");
+                                    if ((temp == null) | temp != test.partner_email)
+                                    {
+                                        temp = test.partner_email;
+                                        @_produceReport.GenerateAllReportsFor(partner);
+                                        Log.Logger.ForContext("Component", "PRP.WinService").Information("{Message}", $"Service is Run and pass check ...");
+                                    }
                                 }
                             }
                         }
