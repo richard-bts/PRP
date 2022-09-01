@@ -1,9 +1,0 @@
-info  - SWC minify release candidate enabled. https://nextjs.link/swcmin
-event - compiled client and server successfully in 4.6s (264 modules)
-wait  - compiling...
-event - compiled client and server successfully in 127 ms (264 modules)
-> Ready on http://localhost:\\.\pipe\76c232e5-2229-4ea3-a81e-8dc66be72663
-wait  - compiling / (client and server)...
-event - compiled client and server successfully in 2.4s (767 modules)
-wait  - compiling...
-event - compiled successfully in 516 ms (130 modules)
