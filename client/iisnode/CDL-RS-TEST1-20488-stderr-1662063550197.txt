@@ -1,0 +1,80 @@
+(node:20488) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: Can't resolve 'react-dom' in 'C:\CDL_TEST\CLIENT\PartnerReportingPackage\client'
+<w> while resolving 'react-dom' in C:\CDL_TEST\CLIENT\PartnerReportingPackage\client to a directory
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: Can't resolve 'react-dom' in 'C:\CDL_TEST\CLIENT\PartnerReportingPackage\client'
+<w> while resolving 'react-dom' in C:\CDL_TEST\CLIENT\PartnerReportingPackage\client to a directory
+error - ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[2].oneOf[8].use[1]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[2].oneOf[8].use[2]!./src/styles/globals.css
+Error: Cannot find module 'tailwindcss/defaultTheme'
+Require stack:
+- C:\CDL_TEST\CLIENT\PartnerReportingPackage\client\tailwind.config.js
+- C:\CDL_TEST\CLIENT\PartnerReportingPackage\client\node_modules\tailwindcss\lib\lib\setupTrackingContext.js
+- C:\CDL_TEST\CLIENT\PartnerReportingPackage\client\node_modules\tailwindcss\lib\index.js
+- C:\CDL_TEST\CLIENT\PartnerReportingPackage\client\node_modules\next\dist\build\webpack\config\blocks\css\plugins.js
+- C:\CDL_TEST\CLIENT\PartnerReportingPackage\client\node_modules\next\dist\build\webpack\config\blocks\css\index.js
+- C:\CDL_TEST\CLIENT\PartnerReportingPackage\client\node_modules\next\dist\build\webpack\config\index.js
+- C:\CDL_TEST\CLIENT\PartnerReportingPackage\client\node_modules\next\dist\build\webpack-config.js
+- C:\CDL_TEST\CLIENT\PartnerReportingPackage\client\node_modules\next\dist\server\dev\hot-reloader.js
+- C:\CDL_TEST\CLIENT\PartnerReportingPackage\client\node_modules\next\dist\server\dev\next-dev-server.js
+- C:\CDL_TEST\CLIENT\PartnerReportingPackage\client\node_modules\next\dist\server\next.js
+- C:\CDL_TEST\CLIENT\PartnerReportingPackage\client\server.js
+- C:\Program Files\iisnode\interceptor.js
+error - ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[2].oneOf[8].use[1]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[2].oneOf[8].use[2]!./src/styles/globals.css
+Error: Cannot find module 'tailwindcss/defaultTheme'
+Require stack:
+- C:\CDL_TEST\CLIENT\PartnerReportingPackage\client\tailwind.config.js
+- C:\CDL_TEST\CLIENT\PartnerReportingPackage\client\node_modules\tailwindcss\lib\lib\setupTrackingContext.js
+- C:\CDL_TEST\CLIENT\PartnerReportingPackage\client\node_modules\tailwindcss\lib\index.js
+- C:\CDL_TEST\CLIENT\PartnerReportingPackage\client\node_modules\next\dist\build\webpack\config\blocks\css\plugins.js
+- C:\CDL_TEST\CLIENT\PartnerReportingPackage\client\node_modules\next\dist\build\webpack\config\blocks\css\index.js
+- C:\CDL_TEST\CLIENT\PartnerReportingPackage\client\node_modules\next\dist\build\webpack\config\index.js
+- C:\CDL_TEST\CLIENT\PartnerReportingPackage\client\node_modules\next\dist\build\webpack-config.js
+- C:\CDL_TEST\CLIENT\PartnerReportingPackage\client\node_modules\next\dist\server\dev\hot-reloader.js
+- C:\CDL_TEST\CLIENT\PartnerReportingPackage\client\node_modules\next\dist\server\dev\next-dev-server.js
+- C:\CDL_TEST\CLIENT\PartnerReportingPackage\client\node_modules\next\dist\server\next.js
+- C:\CDL_TEST\CLIENT\PartnerReportingPackage\client\server.js
+- C:\Program Files\iisnode\interceptor.js
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: Can't resolve 'react-dom' in 'C:\CDL_TEST\CLIENT\PartnerReportingPackage\client'
+<w> while resolving 'react-dom' in C:\CDL_TEST\CLIENT\PartnerReportingPackage\client to a directory
+error - ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[2].oneOf[8].use[1]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[2].oneOf[8].use[2]!./src/styles/globals.css
+Error: Cannot find module 'tailwindcss/defaultTheme'
+Require stack:
+- C:\CDL_TEST\CLIENT\PartnerReportingPackage\client\tailwind.config.js
+- C:\CDL_TEST\CLIENT\PartnerReportingPackage\client\node_modules\tailwindcss\lib\lib\setupTrackingContext.js
+- C:\CDL_TEST\CLIENT\PartnerReportingPackage\client\node_modules\tailwindcss\lib\index.js
+- C:\CDL_TEST\CLIENT\PartnerReportingPackage\client\node_modules\next\dist\build\webpack\config\blocks\css\plugins.js
+- C:\CDL_TEST\CLIENT\PartnerReportingPackage\client\node_modules\next\dist\build\webpack\config\blocks\css\index.js
+- C:\CDL_TEST\CLIENT\PartnerReportingPackage\client\node_modules\next\dist\build\webpack\config\index.js
+- C:\CDL_TEST\CLIENT\PartnerReportingPackage\client\node_modules\next\dist\build\webpack-config.js
+- C:\CDL_TEST\CLIENT\PartnerReportingPackage\client\node_modules\next\dist\server\dev\hot-reloader.js
+- C:\CDL_TEST\CLIENT\PartnerReportingPackage\client\node_modules\next\dist\server\dev\next-dev-server.js
+- C:\CDL_TEST\CLIENT\PartnerReportingPackage\client\node_modules\next\dist\server\next.js
+- C:\CDL_TEST\CLIENT\PartnerReportingPackage\client\server.js
+- C:\Program Files\iisnode\interceptor.js
+error - ./:5:0
+Module not found: Can't resolve 'next-swc-loader'
+
+https://nextjs.org/docs/messages/module-not-found
+error - Module not found: Error: Can't resolve 'next-swc-loader' in 'C:\CDL_TEST\CLIENT\PartnerReportingPackage\client'
+error - ./:5:0
+Module not found: Can't resolve 'next-swc-loader'
+
+https://nextjs.org/docs/messages/module-not-found
+error - ./:5:0
+Module not found: Can't resolve 'next-swc-loader'
+
+https://nextjs.org/docs/messages/module-not-found
+error - ./:5:0
+Module not found: Can't resolve 'next-swc-loader'
+
+https://nextjs.org/docs/messages/module-not-found
+error - Module not found: Error: Can't resolve 'next-swc-loader' in 'C:\CDL_TEST\CLIENT\PartnerReportingPackage\client'
+error - Module not found: Error: Can't resolve 'next-swc-loader' in 'C:\CDL_TEST\CLIENT\PartnerReportingPackage\client'
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: Can't resolve 'C:\CDL_TEST\CLIENT\PartnerReportingPackage\client\node_modules\next\dist\compiled' in 'C:\CDL_TEST\CLIENT\PartnerReportingPackage\client'
+<w> while resolving 'C:\CDL_TEST\CLIENT\PartnerReportingPackage\client\node_modules\next\dist\compiled' in C:\CDL_TEST\CLIENT\PartnerReportingPackage\client to a directory
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: Can't resolve 'C:\CDL_TEST\CLIENT\PartnerReportingPackage\client\node_modules\next\dist\compiled' in 'C:\CDL_TEST\CLIENT\PartnerReportingPackage\client'
+<w> while resolving 'C:\CDL_TEST\CLIENT\PartnerReportingPackage\client\node_modules\next\dist\compiled' in C:\CDL_TEST\CLIENT\PartnerReportingPackage\client to a directory
+error - Module not found: Error: Can't resolve 'next-swc-loader' in 'C:\CDL_TEST\CLIENT\PartnerReportingPackage\client'
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: Can't resolve 'C:\CDL_TEST\CLIENT\PartnerReportingPackage\client\node_modules\next\dist\compiled' in 'C:\CDL_TEST\CLIENT\PartnerReportingPackage\client'
+<w> while resolving 'C:\CDL_TEST\CLIENT\PartnerReportingPackage\client\node_modules\next\dist\compiled' in C:\CDL_TEST\CLIENT\PartnerReportingPackage\client to a directory
+error - Module not found: Error: Can't resolve 'next-swc-loader' in 'C:\CDL_TEST\CLIENT\PartnerReportingPackage\client'

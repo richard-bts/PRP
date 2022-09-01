@@ -11,7 +11,7 @@ export default function Home() {
       <main className="my-10 landing">
         <section className="flex flex-col items-center w-full gap-20 px-5">
           <div className="flex flex-col items-center w-full gap-32 text-center justify-evenly xl:flex-row">
-            <h1 className="home_text raleway-eb">Manage all reports and partners in one place</h1>
+            <h1 className="home_text raleway-eb">Manage all reportsss and partners in one place</h1>
             <div className="relative h-56 w-72 home__hero-image xl:w-auto xl:h-auto">
               <Image
                 className="img-home"
