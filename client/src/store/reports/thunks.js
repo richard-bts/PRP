@@ -1,6 +1,6 @@
 import { fetchPartner, fetchPartnerQuery } from '../../shared/helpers/fetch';
 
-const baseURL = 'http://172.24.32.132/Xcelerator/prpserver/api/report';
+const baseURL = 'https://testx.cdldelivers.com/Xcelerator/prpserver/api/report';
 
 const addReportTypeObj = {
   "report_type_id": 1234567,
