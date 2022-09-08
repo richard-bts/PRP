@@ -77,7 +77,7 @@ try
                     .AddJwtBearer(o =>
                     {
                         o.SaveToken = true;
-                        o.Authority = builder.Configuration.GetSection("AuthServerAddress").GetValue<string>("Address").ToString(); ; // Other Identity provider here
+                        o.Authority = "https://testx.cdldelivers.com/Xcelerator/authentication"; ; // Other Identity provider here
                         o.RequireHttpsMetadata = false;
                         o.Audience = "api.full";
                     });
