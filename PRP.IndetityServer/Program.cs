@@ -9,6 +9,15 @@ builder.Services.AddIdentityServer()
                 .AddInMemoryApiScopes(InMemoryConfig.GetScopes)
                 .AddDeveloperSigningCredential();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("corsapp",
+        policy =>
+        {
+            policy.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
+        });
+});
+
 var app = builder.Build();
 app.UseIdentityServer();
 app.Run();
