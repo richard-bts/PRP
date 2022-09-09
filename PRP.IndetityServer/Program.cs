@@ -2,12 +2,6 @@ using Microsoft.Extensions.DependencyInjection;
 using PRP.IndetityServer.config;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddIdentityServer()
-                .AddInMemoryClients(InMemoryConfig.GetClients())
-                .AddInMemoryIdentityResources(InMemoryConfig.GetIdentityResources())
-                .AddInMemoryApiResources(InMemoryConfig.GetResources)
-                .AddInMemoryApiScopes(InMemoryConfig.GetScopes)
-                .AddDeveloperSigningCredential();
 
 builder.Services.AddCors(options =>
 {
@@ -18,6 +12,14 @@ builder.Services.AddCors(options =>
         });
 });
 
+builder.Services.AddIdentityServer()
+                .AddInMemoryClients(InMemoryConfig.GetClients())
+                .AddInMemoryIdentityResources(InMemoryConfig.GetIdentityResources())
+                .AddInMemoryApiResources(InMemoryConfig.GetResources)
+                .AddInMemoryApiScopes(InMemoryConfig.GetScopes)
+                .AddDeveloperSigningCredential();
+
 var app = builder.Build();
 app.UseIdentityServer();
+app.UseCors();
 app.Run();
