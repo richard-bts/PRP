@@ -15,18 +15,21 @@ namespace PRP.WinService
         private readonly ILogger<Worker> _logger;
         private readonly IProduceReport _produceReport;
         private readonly IPRPService _PRPService;
+        private readonly IAuthorization _authorization;
 
         public System.Threading.Thread emailSender = null;
-        public Worker(ILogger<Worker> logger, IProduceReport produceReport, IPRPService PRPService)
+        public Worker(ILogger<Worker> logger, IProduceReport produceReport, IPRPService PRPService, IAuthorization authorization)
         {
             _logger = logger;
             _produceReport = produceReport;
-            _PRPService= PRPService;
+            _PRPService = PRPService;
+            _authorization = authorization;
         }
         private readonly int midnighth = 12;
         private readonly int min = 00;
         private readonly int nighth = 23;
         private DateTime DateNow = DateTime.Now;
+        private List<(string, DateTime)> Token;
 
         #endregion
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -37,17 +40,19 @@ namespace PRP.WinService
             {
                 Log.Logger.ForContext("Component", "PRP.WinService").Information("{Message}", $"Service is starting...");
             bool StopPartDay = false;
+                _authorization.CheckAutorizatio();
 
-
+               
                 List<PartnerDetail>? PartnersList = new();
-
-                var response = await _PRPService.GetPartners();
-                if(response is null)
+                try
                 {
-                    Log.Logger.ForContext("Component", "PRP.WinService").Warning("{Message}", $"API Return is Null !!!!!");
-                    StopPartDay = true;
-                }
-
+                    var response = await _PRPService.GetPartners();
+                    if (response is null | response.count == 0)
+                    {
+                        Log.Logger.ForContext("Component", "PRP.WinService").Warning("{Message}", $"API Return is Null !!!!!");
+                        StopPartDay = true;
+                        await Task.Delay(TimeSpan.FromSeconds(30), stoppingToken);
+                    }
                 
                 while (!StopPartDay)
                 {
@@ -76,12 +81,13 @@ namespace PRP.WinService
                         {
                             StopPartDay = true;
                             Log.Logger.ForContext("Component", "PRP.WinService").Information("{Message}", $"Update data ...");
-
+                            temp = null;
                         }
                         if ((DateTime.Now.Hour == nighth) && (DateTime.Now.Minute == min))
                         {
                             Log.Logger.ForContext("Component", "PRP.WinService").Information("{Message}", $"Update data ...");
                             StopPartDay = true;
+                            temp = null;
                         }
                     }
                     catch (Exception ex)
@@ -91,6 +97,13 @@ namespace PRP.WinService
                     }
 
 
+                }
+                    
+                }
+                catch (Exception ex)
+                {
+                    Log.Logger.ForContext("Component", "PRP.WinService").Warning("{Message}", $"Update data for API ...{ex.Message}");
+                    StopPartDay = true;
                 }
             }
            

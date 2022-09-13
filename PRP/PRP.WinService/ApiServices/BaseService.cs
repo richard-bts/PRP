@@ -16,11 +16,13 @@ namespace PRP.WinService.ApiServices
         #region Constructor And Member Variables
         public ResponseDto? responseModel { get; set; }
         public HttpClient _httpClient { get; set; }
+        public Authorization _authorization { get; set; }
 
         public BaseService() 
         {
             this.responseModel = new ResponseDto();
             this._httpClient = new HttpClient();
+            
         }
         #endregion
 
@@ -35,12 +37,15 @@ namespace PRP.WinService.ApiServices
         {
             try
             {
+                
                 HttpRequestMessage message = new HttpRequestMessage();
+                
                 message.Headers.Add("Accept", "application/jason");
-
+                string ap = Authorization.TokenKey;
+                message.Headers.Authorization = new AuthenticationHeaderValue("Bearer", ap);
                 if (apiRequest.Url != null)
                     message.RequestUri = new Uri(apiRequest.Url);
-
+                
                 _httpClient.DefaultRequestHeaders.Clear();
 
                 if (apiRequest.Data != null)
@@ -54,7 +59,7 @@ namespace PRP.WinService.ApiServices
                 }
                 HttpResponseMessage? apiResponse = null;
                 PartnerResponseDto<GetPartnerDto>? apiReponseDto = null;
-
+                
                 apiResponse = await _httpClient.SendAsync(message);
 
                 if (apiResponse != null)
@@ -85,8 +90,13 @@ namespace PRP.WinService.ApiServices
             {
                 HttpRequestMessage message = new HttpRequestMessage();
                 message.Headers.Add("Accept", "application/jason");
+                Authorization authorization = new Authorization();
+                authorization.CheckAutorizatio();
                 
-                if(apiRequest.Url != null)  
+                string ap = Authorization.TokenKey;
+                
+                message.Headers.Authorization = new AuthenticationHeaderValue("Bearer", ap);
+                if (apiRequest.Url != null)  
                     message.RequestUri = new Uri(apiRequest.Url);
 
                 _httpClient.DefaultRequestHeaders.Clear();

@@ -19,6 +19,7 @@ IHost host = Host.CreateDefaultBuilder(args)
         services.AddSingleton<IProduceReport, ProduceReport>();
         services.AddSingleton<IPRPService, PRPService>();
         services.AddSingleton<IEmailService, EmailService>();
+        services.AddSingleton<IAuthorization, Authorization>();
     })
     .UseWindowsService()
     .Build();
